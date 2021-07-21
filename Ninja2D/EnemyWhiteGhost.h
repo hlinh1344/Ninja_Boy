@@ -145,4 +145,14 @@ public:
 		}
 	}
 
+	int GetWidth() override
+	{
+		return WHITE_GHOST_WIDTH;
+	}
+
+	int GetHeight() override
+	{
+		return WHITE_GHOST_HEIGHT;
+	}
+
 };

@@ -1,13 +1,12 @@
 #pragma once
 #include "Map.h"
 #include "Enemy.h"
-//42x42
+
 #define SPINY_HEIGHT 42
 #define SPINY_WIDTH 42
 #define SPINY_AREA 100
 #define SPINY_SPEED 3
-//posx= 300
-//posY = 422
+
 class EnemySpinyBeetle : public Enemy
 {
 private:
@@ -140,5 +139,16 @@ public:
 				}
 			}
 		}
+	}
+
+
+	int GetWidth() override
+	{
+		return SPINY_WIDTH;
+	}
+
+	int GetHeight() override
+	{
+		return SPINY_HEIGHT;
 	}
 };

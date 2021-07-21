@@ -118,7 +118,6 @@ public:
 	void SetDeath(bool a_isDead) override
 	{
 		this->isDead = a_isDead;
-		//formX = 2;
 	}
 
 	void CheckDistance() override
@@ -128,6 +127,16 @@ public:
 		{
 			this->isDead = true;
 		}
+	}
+
+	int GetWidth() override
+	{
+		return KUNAI_WIDTH;
+	}
+
+	int GetHeight() override
+	{
+		return KUNAI_HEIGHT;
 	}
 
 };

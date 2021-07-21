@@ -4,19 +4,21 @@
 GamePlay::GamePlay()
 {
 	enemyID = 0;
+	ninja = new Character();
 }
 
 GamePlay::~GamePlay()
 {
+	RemoveObject(ninja);
+
 	for (auto enemy : enemies) {
-		delete(enemy);
-		enemy = nullptr;
+		RemoveObject(enemy);
 	}
 
 	for (auto weapon : weapons) {
-		delete(weapon);
-		weapon = nullptr;
+		RemoveObject(weapon);
 	}
+	
 }
 
 void GamePlay::Run()
@@ -50,30 +52,28 @@ void GamePlay::Run()
 		break;
 	}
 
-	for (auto enemy : enemies) {
-		Collision(ninja, enemy);
-	}
-
-	for (auto enemy : enemies) {
-		for (auto weapon : weapons) {
-			/// <summary>
-			// toto
-			/// </summary>
-			Collision(ninja, enemy);
+	for (auto enemy : enemies)
+	{
+		bool checkCollision = CheckCollision(ninja, enemy);
+		if (checkCollision)
+		{
+			ninja->SetDeath(true);
 		}
-		
 	}
 
 
-
-
-
-	// check to add monster
-	// based map settings
-	// Draw
-	// check to move ninja
-	// moveMonster()
-	// handle collision
+	for (auto weapon : weapons) {
+		for (auto enemy : enemies)
+		{
+			bool checkCollision = CheckCollision(weapon, enemy);
+			if (checkCollision)
+			{
+				enemy->SetDeath(true);
+				weapon->SetDeath(true);
+			}
+		}
+	}
+		
 
 }
 
@@ -81,25 +81,25 @@ void GamePlay::Draw(HWND hwnd, HDC hdc)
 {
 	timer++;
 	map.Draw(hwnd, hdc);
-	ninja.Draw(hwnd, hdc);
+ 	ninja->Draw(hwnd, hdc);
 	//for () 
 	if (timer >= 2)
 	{
-		if (ninja.CheckDeath())
+		if (ninja->CheckDeath())
 		{
-			ninja.IncreseJumpingHeight(10);
+			ninja->IncreseJumpingHeight(10);
 		}
-		else if (ninja.GetJumpingHeight() > 0 && (ninja.CheckFalling()))
+		else if (ninja->GetJumpingHeight() > 0 && (ninja->CheckFalling()))
 		{
-			ninja.IncreseJumpingHeight(-5);
+			ninja->IncreseJumpingHeight(-5);
 		}
-		else if (ninja.CheckJumping() && (ninja.GetJumpingHeight() < 250) && (!ninja.CheckFalling()))
+		else if (ninja->CheckJumping() && (ninja->GetJumpingHeight() < 250) && (!ninja->CheckFalling()))
 		{
-			ninja.MoveUp();
+			ninja->MoveUp();
 		}
 
 		for (auto enemy : enemies) {
-			if (enemy->GetDeath() == true)
+			if (enemy->CheckDeath() == true)
 			{
 				enemies.erase(enemies.begin());
 			}
@@ -111,8 +111,9 @@ void GamePlay::Draw(HWND hwnd, HDC hdc)
 		}
 
 		for (auto weapon : weapons) {
-			if (weapon->GetDeath() == true)
+			if (weapon->CheckDeath() == true)
 			{
+				//RemoveObject(weapon);
 				weapons.erase(weapons.begin());
 			}
 			else
@@ -126,22 +127,22 @@ void GamePlay::Draw(HWND hwnd, HDC hdc)
 	}
 	else
 	{
-		if (ninja.CheckDeath())
+		if (ninja->CheckDeath())
 		{
-			ninja.IncreseJumpingHeight(10);
+			ninja->IncreseJumpingHeight(10);
 		}
-		else if (ninja.GetJumpingHeight() > 0 && (ninja.CheckFalling()))
+		else if (ninja->GetJumpingHeight() > 0 && (ninja->CheckFalling()))
 		{
-			ninja.IncreseJumpingHeight(-5);
+			ninja->IncreseJumpingHeight(-5);
 		}
-		else if (ninja.CheckJumping() && (ninja.GetJumpingHeight() < 250) && (!ninja.CheckFalling()))
+		else if (ninja->CheckJumping() && (ninja->GetJumpingHeight() < 250) && (!ninja->CheckFalling()))
 		{
-			ninja.MoveUp();
+			ninja->MoveUp();
 		}
 
 		
 		for (auto enemy : enemies) {
-			if (enemy->GetDeath() == true)
+			if (enemy->CheckDeath() == true)
 			{
 				enemies.erase(enemies.begin());
 			}
@@ -153,9 +154,9 @@ void GamePlay::Draw(HWND hwnd, HDC hdc)
 		}
 
 		for (auto weapon : weapons) {
-			if (weapon->GetDeath() == true)
+			if (weapon->CheckDeath() == true)
 			{
-				//enemy->SetDeath(false);
+				//RemoveObject(weapon);
 				weapons.erase(weapons.begin());
 			}
 			else
@@ -167,56 +168,51 @@ void GamePlay::Draw(HWND hwnd, HDC hdc)
 
 	}
 
-
-
-	// for monster in enemy
-
-	// monster.Draw()
 }
 void GamePlay::Attack()
 {
-	if (!ninja.CheckDeath())
+	if (!ninja->CheckDeath())
 	{
-		if (ninja.IsGoLeft() == true)
+		if (ninja->IsGoLeft() == true)
 		{
-			ninja.SetFormX(0);
+			ninja->SetFormX(0);
 
-			if (ninja.CheckSitting() == true)
+			if (ninja->CheckSitting() == true)
 			{
-				weapons.push_back(new WeaponShuriken(ninja.GetPosX() - SHURIKEN_WIDTH - 10, 0
-					, ninja.GetPosY() - ninja.GetJumpingHeight() + 75));
+				weapons.push_back(new WeaponShuriken(ninja->GetPosX() - SHURIKEN_WIDTH - 10, 0
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 75));
 			}
-			else if (ninja.CheckJumping() == true)
+			else if (ninja->CheckJumping() == true)
 			{
-				weapons.push_back(new WeaponShuriken(ninja.GetPosX() - SHURIKEN_WIDTH - 10, 0
-					, ninja.GetPosY() - ninja.GetJumpingHeight() + 60));
+				weapons.push_back(new WeaponShuriken(ninja->GetPosX() - SHURIKEN_WIDTH - 10, 0
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 60));
 			}
-			else if (ninja.CheckJumping() == false)
+			else if (ninja->CheckJumping() == false)
 			{
-				weapons.push_back(new WeaponShuriken(ninja.GetPosX() - SHURIKEN_WIDTH - 10, 0
-					, ninja.GetPosY() - ninja.GetJumpingHeight() + 40));
+				weapons.push_back(new WeaponShuriken(ninja->GetPosX() - SHURIKEN_WIDTH - 10, 0
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 40));
 			}
 			
 			
 		}
-		else if (ninja.IsGoRight() == true)
+		else if (ninja->IsGoRight() == true)
 		{
-			ninja.SetFormX(19);
+			ninja->SetFormX(19);
 
-			if (ninja.CheckSitting() == true)
+			if (ninja->CheckSitting() == true)
 			{
-				weapons.push_back(new WeaponShuriken(ninja.GetPosX() + SHURIKEN_WIDTH + 40, 1
-					, ninja.GetPosY() - ninja.GetJumpingHeight() + 75));
+				weapons.push_back(new WeaponShuriken(ninja->GetPosX() + SHURIKEN_WIDTH + 40, 1
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 75));
 			}
-			else if (ninja.CheckJumping() == true)
+			else if (ninja->CheckJumping() == true)
 			{
-				weapons.push_back(new WeaponShuriken(ninja.GetPosX() + SHURIKEN_WIDTH + 40, 1
-					, ninja.GetPosY() - ninja.GetJumpingHeight() + 60));
+				weapons.push_back(new WeaponShuriken(ninja->GetPosX() + SHURIKEN_WIDTH + 40, 1
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 60));
 			}
-			else if (ninja.CheckJumping() == false)
+			else if (ninja->CheckJumping() == false)
 			{
-				weapons.push_back(new WeaponShuriken(ninja.GetPosX() + SHURIKEN_WIDTH + 40, 1
-					, ninja.GetPosY() - ninja.GetJumpingHeight() + 40));
+				weapons.push_back(new WeaponShuriken(ninja->GetPosX() + SHURIKEN_WIDTH + 40, 1
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 40));
 			}
 
 		}
@@ -229,15 +225,15 @@ void GamePlay::Attack()
 
 void GamePlay::KeyUpSpace()
 {
-	if (!ninja.CheckDeath())
+	if (!ninja->CheckDeath())
 	{
-		if (ninja.IsGoRight() == true)
+		if (ninja->IsGoRight() == true)
 		{
-			ninja.SetFormX(10);
+			ninja->SetFormX(10);
 		}
-		else if (ninja.IsGoLeft() == true)
+		else if (ninja->IsGoLeft() == true)
 		{
-			ninja.SetFormX(9);
+			ninja->SetFormX(9);
 		}
 	}
 
@@ -245,39 +241,39 @@ void GamePlay::KeyUpSpace()
 
 void GamePlay::MoveNinjaLeft()
 {
-	if (!ninja.CheckDeath())
+	if (!ninja->CheckDeath())
 	{
-		ninja.MoveLeft();
-		if (ninja.GetPosX() + 20 - map.getMapSlider() <= 0)
+		ninja->MoveLeft();
+		if (ninja->GetPosX() + 20 - map.getMapSlider() <= 0)
 		{
-			ninja.IncresePosX(PLAYER_SPEED);
+			ninja->IncresePosX(PLAYER_SPEED);
 		}
 
 		//change sprite
-		if (ninja.CheckJumping() == true)
+		if (ninja->CheckJumping() == true)
 		{
-			if (ninja.IsGoRight())
+			if (ninja->IsGoRight())
 			{
-				ninja.SetFormX(9);
+				ninja->SetFormX(9);
 			}
 			else
 			{
-				if (ninja.GetFormX() <= 6)
-					ninja.SetFormX(9);
+				if (ninja->GetFormX() <= 6)
+					ninja->SetFormX(9);
 				else
-					ninja.IncreseFormX(-1);
+					ninja->IncreseFormX(-1);
 			}
 		}
 		else
 		{
-			if (ninja.IsGoRight())
-				ninja.SetFormX(9);
+			if (ninja->IsGoRight())
+				ninja->SetFormX(9);
 			else
 			{
-				if (ninja.GetFormX() <= 1)
-					ninja.SetFormX(8);
+				if (ninja->GetFormX() <= 1)
+					ninja->SetFormX(8);
 				else
-					ninja.IncreseFormX(-1);
+					ninja->IncreseFormX(-1);
 			}
 		}
 	}
@@ -290,46 +286,46 @@ void GamePlay::MoveNinjaLeft()
 
 void GamePlay::MoveNinjaRight()
 {
-	if (!ninja.CheckDeath())
+	if (!ninja->CheckDeath())
 	{
-		ninja.MoveRight();
+		ninja->MoveRight();
 
-		if (ninja.GetPosX() - map.getMapSlider() >= 500)
+		if (ninja->GetPosX() - map.getMapSlider() >= 500)
 		{
 			map.increseMapSlider(PLAYER_SPEED);
 		}
 
-		if (ninja.GetPosX() >= END_OF_MAP)
+		if (ninja->GetPosX() >= END_OF_MAP)
 		{
 			map.increseMapSlider(-PLAYER_SPEED);
-			ninja.MoveLeft();
+			ninja->MoveLeft();
 		}
 
 		//change sprite
-		if (ninja.CheckJumping() == true)
+		if (ninja->CheckJumping() == true)
 		{
-			if (ninja.IsGoLeft())
+			if (ninja->IsGoLeft())
 			{
-				ninja.SetFormX(10);
+				ninja->SetFormX(10);
 			}
 			else
 			{
-				if (ninja.GetFormX() >= 13)
-					ninja.SetFormX(10);
+				if (ninja->GetFormX() >= 13)
+					ninja->SetFormX(10);
 				else
-					ninja.IncreseFormX(1);
+					ninja->IncreseFormX(1);
 			}
 		}
 		else
 		{
-			if (ninja.IsGoLeft())
-				ninja.SetFormX(10);
+			if (ninja->IsGoLeft())
+				ninja->SetFormX(10);
 			else
 			{
-				if (ninja.GetFormX() >= 18)
-					ninja.SetFormX(11);
+				if (ninja->GetFormX() >= 18)
+					ninja->SetFormX(11);
 				else
-					ninja.IncreseFormX(1);
+					ninja->IncreseFormX(1);
 			}
 		}
 	}
@@ -342,18 +338,18 @@ void GamePlay::MoveNinjaRight()
 
 void GamePlay::MoveNinjaUp()
 {
-	if (!ninja.CheckDeath())
+	if (!ninja->CheckDeath())
 	{
-		ninja.MoveUp();
-		if (ninja.IsGoRight())
+		ninja->MoveUp();
+		if (ninja->IsGoRight())
 		{
-			ninja.SetFormX(13);
-			ninja.SetFormY(1);
+			ninja->SetFormX(13);
+			ninja->SetFormY(1);
 		}
-		else if (ninja.IsGoLeft())
+		else if (ninja->IsGoLeft())
 		{
-			ninja.SetFormX(6);
-			ninja.SetFormY(1);
+			ninja->SetFormX(6);
+			ninja->SetFormY(1);
 		}
 	}
 
@@ -361,34 +357,34 @@ void GamePlay::MoveNinjaUp()
 
 void GamePlay::MoveNinjaDown()
 {
-	if (!ninja.CheckDeath())
+	if (!ninja->CheckDeath())
 	{
-		ninja.MoveDown();
-		if (ninja.CheckJumping() == true)
+		ninja->MoveDown();
+		if (ninja->CheckJumping() == true)
 		{
-			if (ninja.IsGoRight())
+			if (ninja->IsGoRight())
 			{
-				ninja.SetFormX(13);
-				ninja.SetFormY(1);
+				ninja->SetFormX(13);
+				ninja->SetFormY(1);
 			}
-			else if (ninja.IsGoLeft())
+			else if (ninja->IsGoLeft())
 			{
-				ninja.SetFormX(6);
-				ninja.SetFormY(1);
+				ninja->SetFormX(6);
+				ninja->SetFormY(1);
 			}
 		}
 		else
 		{
-			ninja.SetSit(true);
-			if (ninja.IsGoRight())
+			ninja->SetSit(true);
+			if (ninja->IsGoRight())
 			{
-				ninja.SetFormX(10);
-				ninja.SetFormY(2);
+				ninja->SetFormX(10);
+				ninja->SetFormY(2);
 			}
-			else if (ninja.IsGoLeft())
+			else if (ninja->IsGoLeft())
 			{
-				ninja.SetFormX(9);
-				ninja.SetFormY(2);
+				ninja->SetFormX(9);
+				ninja->SetFormY(2);
 			}
 		}
 		
@@ -397,33 +393,33 @@ void GamePlay::MoveNinjaDown()
 
 void GamePlay::KeyUpDown()
 {
-	if (!ninja.CheckDeath())
+	if (!ninja->CheckDeath())
 	{
-		ninja.SetSit(false);
-		if (ninja.CheckJumping() == true)
+		ninja->SetSit(false);
+		if (ninja->CheckJumping() == true)
 		{
-			if (ninja.IsGoRight())
+			if (ninja->IsGoRight())
 			{
-				ninja.SetFormX(12);
-				ninja.SetFormY(1);
+				ninja->SetFormX(12);
+				ninja->SetFormY(1);
 			}
-			else if (ninja.IsGoLeft())
+			else if (ninja->IsGoLeft())
 			{
-				ninja.SetFormX(7);
-				ninja.SetFormY(1);
+				ninja->SetFormX(7);
+				ninja->SetFormY(1);
 			}
 		}
 		else
 		{
-			if (ninja.IsGoRight())
+			if (ninja->IsGoRight())
 			{
-				ninja.SetFormX(10);
-				ninja.SetFormY(0);
+				ninja->SetFormX(10);
+				ninja->SetFormY(0);
 			}
-			else if (ninja.IsGoLeft())
+			else if (ninja->IsGoLeft())
 			{
-				ninja.SetFormX(9);
-				ninja.SetFormY(0);
+				ninja->SetFormX(9);
+				ninja->SetFormY(0);
 			}
 		}
 	}
@@ -431,32 +427,32 @@ void GamePlay::KeyUpDown()
 
 void GamePlay::KeyUpUp()
 {
-	if (!ninja.CheckDeath())
+	if (!ninja->CheckDeath())
 	{
-		if (ninja.CheckJumping() == true)
+		if (ninja->CheckJumping() == true)
 		{
-			if (ninja.IsGoRight())
+			if (ninja->IsGoRight())
 			{
-				ninja.SetFormX(10);
-				ninja.SetFormY(1);
+				ninja->SetFormX(10);
+				ninja->SetFormY(1);
 			}
-			else if (ninja.IsGoLeft())
+			else if (ninja->IsGoLeft())
 			{
-				ninja.SetFormX(9);
-				ninja.SetFormY(1);
+				ninja->SetFormX(9);
+				ninja->SetFormY(1);
 			}
 		}
 		else
 		{
-			if (ninja.IsGoRight())
+			if (ninja->IsGoRight())
 			{
-				ninja.SetFormX(10);
-				ninja.SetFormY(0);
+				ninja->SetFormX(10);
+				ninja->SetFormY(0);
 			}
-			else if (ninja.IsGoLeft())
+			else if (ninja->IsGoLeft())
 			{
-				ninja.SetFormX(9);
-				ninja.SetFormY(0);
+				ninja->SetFormX(9);
+				ninja->SetFormY(0);
 			}
 		}
 	}
@@ -464,48 +460,63 @@ void GamePlay::KeyUpUp()
 
 void GamePlay::KeyUpRight()
 {
-	if (!ninja.CheckDeath())
+	if (!ninja->CheckDeath())
 	{
-		ninja.SetFormX(10);
+		ninja->SetFormX(10);
 	}
 
 }
 
 void GamePlay::KeyUpLeft()
 {
-	if (!ninja.CheckDeath())
+	if (!ninja->CheckDeath())
 	{
-		ninja.SetFormX(9);
+		ninja->SetFormX(9);
 	}
 
 }
 
-void GamePlay::Collision(Character& ninja, BaseObject* monster)
+bool GamePlay::CheckCollision(BaseObject* object, BaseObject* monster)
 {
-	int ninjaLeftEdge = ninja.GetPosX();
-	int ninjaRightEdge = ninja.GetPosX() + (CHARACTER_WIDTH -20);
-	int ninjaTopEdge = ninja.GetPosY();
-	int ninjaBottomEdge = ninja.GetPosY() + (CHARACTER_HEIGHT - 10 );
-	int monsterLeftEdge = monster->GetPosX();
-	int monsterRightEdge = monster->GetPosX() + 45 ;
-	int monsterTopEdge = monster->GetPosY();
-	int monsterBottomEdge = monster->GetPosY() + 90 ;
+	Point2D monsterPos = Point2D(monster->GetPosX(), monster->GetPosY());
+	int monsterWidth = monster->GetWidth();
+	int monsterHeight = monster->GetHeight();
 
-	if ((ninjaRightEdge >= monsterLeftEdge)
-		&& (ninjaRightEdge <= monsterRightEdge)
-		&& (ninjaBottomEdge <= monsterBottomEdge)
-		&& (ninjaBottomEdge >= monsterTopEdge)
-		&& (!ninja.CheckJumping()))
+	Point2D aPoint = Point2D(object->GetPosX(), object->GetPosY());
+	Point2D bPoint = Point2D(object->GetPosX() + object->GetWidth(), object->GetPosY());
+	Point2D cPoint = Point2D(object->GetPosX(), object->GetPosY() + object->GetHeight());
+	Point2D dPoint = Point2D(object->GetPosX() + object->GetWidth(), object->GetPosY() + object->GetHeight());
+
+	bool aCheck = aPoint.CheckPointInsideRect(monsterPos, monsterHeight, monsterWidth);
+	bool bCheck = bPoint.CheckPointInsideRect(monsterPos, monsterHeight, monsterWidth);
+	bool cCheck = cPoint.CheckPointInsideRect(monsterPos, monsterHeight, monsterWidth);
+	bool dCheck = dPoint.CheckPointInsideRect(monsterPos, monsterHeight, monsterWidth);
+
+	bool isColliding = false;
+
+	if (bCheck)
 	{
-		ninja.SetDeath(true);
+		isColliding = true;
 	}
-	else 	if ((ninjaRightEdge >= monsterLeftEdge)
-		&& (ninjaRightEdge <= monsterRightEdge)
-		&& (ninjaBottomEdge <= monsterBottomEdge)
-		&& (ninjaBottomEdge >= monsterTopEdge)
-		&& (ninja.CheckJumping()))
+	else if (dCheck)
 	{
-		//monster->SetDeath(true);
+		isColliding = true;
+	}
+	else if (aCheck)
+	{
+		isColliding = true;
+	}
+	else if (cCheck)
+	{
+		isColliding = true;
 	}
 
+	return isColliding;
+}
+
+
+void GamePlay::RemoveObject(BaseObject* object)
+{
+	delete object;
+	object = nullptr;
 }

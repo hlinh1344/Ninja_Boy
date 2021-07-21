@@ -70,7 +70,52 @@ HBITMAP BaseObject::CreateBitmapMask(HBITMAP hbmColour, COLORREF crTransparent)
 	return hbmMask;
 }
 
-bool BaseObject::GetDeath()
+bool BaseObject::CheckDeath()
 {
 	return this->isDead;
+}
+
+
+int  BaseObject::GetWidth()
+{
+	return 0;
+}
+
+int  BaseObject::GetHeight()
+{
+	return 0;
+}
+
+void BaseObject::MoveLeft()
+{
+
+}
+
+void BaseObject::MoveRight()
+{
+
+}
+
+void BaseObject::MoveUp()
+{
+
+}
+
+void BaseObject::MoveDown()
+{
+
+}
+bool BaseObject::IsGoLeft()
+{
+	return false;
+}
+
+bool BaseObject::IsGoRight()
+{
+	return false;
+}
+
+void BaseObject::SetDeath(bool a_isDead)
+{
+	this->isDead = a_isDead;
 }

@@ -23,7 +23,7 @@ private:
 	std::vector <Enemy*> enemies; // enemy objects
 	std::vector <Weapon*> weapons;
 	Map map;
-	Character ninja;
+	Character * ninja;
 	int enemyID;
 	int timer;
 public:
@@ -42,6 +42,7 @@ public:
 	void KeyUpLeft();
 	void KeyUpRight();
 	void KeyUpSpace();
-	void Collision(Character& ninja, BaseObject* monster);
+	bool CheckCollision(BaseObject* object, BaseObject* monster);
+	void RemoveObject(BaseObject* object);
 };
 

@@ -27,8 +27,12 @@ public:
 	void SetFormY(int a_formY);
 	void IncreseFormX(int a);
 	void Draw(HWND hwnd, HDC hdc) override;
-	void MoveUp();
-	void MoveDown();
+	void MoveLeft() override;
+	void MoveRight() override;
+	void MoveUp() override;
+	void MoveDown() override;
+	bool IsGoLeft() override;
+	bool IsGoRight() override;
 	void SetJump(bool trueOrFalse);
 	void SetSit(bool trueOrFalse);
 	bool CheckJumping();
@@ -36,8 +40,11 @@ public:
 	bool CheckSitting();
 	void SetJumpHeight(int a_jumpHeight);
 	void IncreseJumpingHeight(int a);
+	void SetDeath(bool a_isDead) override;
 	int GetJumpingHeight();
-	bool CheckDeath();
+	bool CheckDeath() override;
+	int GetWidth() override;
+	int GetHeight() override;
 };
 
 

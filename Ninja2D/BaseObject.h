@@ -32,10 +32,15 @@ public:
 	HBITMAP CreateBitmapMask(HBITMAP hbmColour, COLORREF crTransparent);
 	virtual void MoveLeft();
 	virtual void MoveRight();
+	virtual void MoveUp();
+	virtual void MoveDown();
 	virtual bool IsGoLeft();
 	virtual bool IsGoRight();
 	virtual void SetDeath(bool a_isDead);
-	bool GetDeath();
+	virtual bool CheckDeath();
+	virtual int GetWidth();
+	virtual int GetHeight();
+
 	static int mapSlider;
 	static int clousDrifting;
 };

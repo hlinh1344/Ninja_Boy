@@ -11,7 +11,6 @@ protected:
 public:
 	Weapon();
 	~Weapon();
-
 	void SetIsMoving(bool a_isMoving);
 	bool GetIsMoving();
 	void virtual CheckDistance();

@@ -147,4 +147,13 @@ public:
 		return false;
 	}
 
+	int GetWidth() override
+	{
+		return FIRE_WIDTH;
+	}
+
+	int GetHeight() override
+	{
+		return FIRE_HEIGHT;
+	}
 };

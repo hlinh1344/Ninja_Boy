@@ -106,9 +106,6 @@ public:
 		formX = 2;
 	}
 
-
-
-
 	void MakeAnimation() override
 	{
 		if (!isDead)
@@ -143,6 +140,16 @@ public:
 				}
 			}
 		}
+	}
+
+	int GetWidth() override
+	{
+		return BUZZY_WIDTH;
+	}
+
+	int GetHeight() override
+	{
+		return BUZZY_HEIGHT;
 	}
 
 };

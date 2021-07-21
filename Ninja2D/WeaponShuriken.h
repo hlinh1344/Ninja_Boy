@@ -149,4 +149,14 @@ public:
 		return false;
 	}
 
+	int GetWidth() override
+	{
+		return SHURIKEN_WIDTH;
+	}
+
+	int GetHeight() override
+	{
+		return SHURIKEN_HEIGHT;
+	}
+
 };

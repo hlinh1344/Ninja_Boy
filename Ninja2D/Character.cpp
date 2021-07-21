@@ -46,12 +46,12 @@ void Character::IncreseFormX(int a)
 	this->formX = this->formX + a;
 }
 
-void BaseObject::MoveLeft()
+void Character::MoveLeft()
 {
 	posX = posX - PLAYER_SPEED;
 }
 
-void BaseObject::MoveRight()
+void Character::MoveRight()
 {
 	posX = posX + PLAYER_SPEED;
 }
@@ -130,14 +130,14 @@ void Character::Draw(HWND hwnd, HDC hdc)
 }
 
 
-bool BaseObject::IsGoLeft()
+bool Character::IsGoLeft()
 {
 	if ((formY != 3) && (formX <= 9))
 		return true;
 	return false;
 }
 
-bool  BaseObject::IsGoRight()
+bool  Character::IsGoRight()
 {
 	if ((formY != 3) && (formX >= 10))
 		return true;
@@ -188,7 +188,7 @@ int Character::GetJumpingHeight()
 	return this->jumpHeight;
 }
 
-void BaseObject::SetDeath(bool a_isDead)
+void Character::SetDeath(bool a_isDead)
 {
 
 	this->isDead = a_isDead;
@@ -212,3 +212,14 @@ bool Character::CheckDeath()
 	}
 	return this->isDead;
 }
+
+int Character::GetWidth()
+{
+	return CHARACTER_WIDTH;
+}
+
+int Character::GetHeight()
+{
+	return CHARACTER_HEIGHT;
+}
+

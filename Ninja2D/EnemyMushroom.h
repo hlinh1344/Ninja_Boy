@@ -7,7 +7,7 @@
 #include "Enemy.h"
 #include "Map.h"
 
-//44x43
+
 #define MUSHROOM_HEIGHT 43
 #define MUSHROOM_WIDTH 44
 #define MUSHROOM_AREA 120
@@ -152,4 +152,13 @@ public:
 	}
 
 
+	int GetWidth() override
+	{
+		return MUSHROOM_WIDTH;
+	}
+
+	int GetHeight() override
+	{
+		return MUSHROOM_HEIGHT;
+	}
 };
