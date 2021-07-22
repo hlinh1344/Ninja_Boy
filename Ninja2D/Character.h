@@ -7,8 +7,7 @@
 #define CHARACTER_WIDTH 125
 #define CHARACTER_HEIGHT 115
 #define PLAYER_SPEED 4
-//Height 115
-//Width 125
+
 
 class Character : public LiveObject
 {
@@ -18,6 +17,7 @@ private:
 	bool isFalling;
 	bool isSitting;
 	bool isAttack;
+	int typeOfWeapon;
 public:
 	Character();
 	~Character();
@@ -45,6 +45,8 @@ public:
 	bool CheckDeath() override;
 	int GetWidth() override;
 	int GetHeight() override;
+	void UpgradeWeapon();
+	int GetTypeOfWeapon();
 };
 
 

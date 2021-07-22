@@ -17,6 +17,8 @@
 #include "Enemy.h"
 #include "Point2D.h"
 #include "LiveObject.h"
+#include "BlueSword.h"
+
 
 class GamePlay
 {
@@ -27,6 +29,8 @@ private:
 	Character * ninja;
 	int enemyID;
 	int timer;
+
+
 public:
 	GamePlay();
 	~GamePlay();
@@ -45,5 +49,8 @@ public:
 	void KeyUpSpace();
 	bool CheckCollision(LiveObject* object, LiveObject* monster);
 	void RemoveObject(BaseObject* object);
+	void AddWeapon(int type, int dir_Moving, int stage);
+
+
 };
 

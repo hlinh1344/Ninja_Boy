@@ -75,6 +75,8 @@ void GamePlay::Run()
 	}
 		
 
+
+
 }
 
 void GamePlay::Draw(HWND hwnd, HDC hdc)
@@ -173,24 +175,23 @@ void GamePlay::Attack()
 {
 	if (!ninja->CheckDeath())
 	{
+		int typeOfWeapon = ninja->GetTypeOfWeapon();
+
 		if (ninja->IsGoLeft() == true)
 		{
 			ninja->SetFormX(0);
 
 			if (ninja->CheckSitting() == true)
 			{
-				weapons.push_back(new WeaponShuriken(ninja->GetPosX() - SHURIKEN_WIDTH - 10, 0
-					, ninja->GetPosY() - ninja->GetJumpingHeight() + 75));
+				AddWeapon(typeOfWeapon, 0, 0);
 			}
 			else if (ninja->CheckJumping() == true)
 			{
-				weapons.push_back(new WeaponShuriken(ninja->GetPosX() - SHURIKEN_WIDTH - 10, 0
-					, ninja->GetPosY() - ninja->GetJumpingHeight() + 60));
+				AddWeapon(typeOfWeapon, 0, 1);
 			}
 			else if (ninja->CheckJumping() == false)
 			{
-				weapons.push_back(new WeaponShuriken(ninja->GetPosX() - SHURIKEN_WIDTH - 10, 0
-					, ninja->GetPosY() - ninja->GetJumpingHeight() + 40));
+				AddWeapon(typeOfWeapon, 0, 2);
 			}
 			
 			
@@ -201,26 +202,22 @@ void GamePlay::Attack()
 
 			if (ninja->CheckSitting() == true)
 			{
-				weapons.push_back(new WeaponShuriken(ninja->GetPosX() + SHURIKEN_WIDTH + 40, 1
-					, ninja->GetPosY() - ninja->GetJumpingHeight() + 75));
+				AddWeapon(typeOfWeapon, 1, 0);
 			}
 			else if (ninja->CheckJumping() == true)
 			{
-				weapons.push_back(new WeaponShuriken(ninja->GetPosX() + SHURIKEN_WIDTH + 40, 1
-					, ninja->GetPosY() - ninja->GetJumpingHeight() + 60));
+				AddWeapon(typeOfWeapon, 1, 1);
 			}
 			else if (ninja->CheckJumping() == false)
 			{
-				weapons.push_back(new WeaponShuriken(ninja->GetPosX() + SHURIKEN_WIDTH + 40, 1
-					, ninja->GetPosY() - ninja->GetJumpingHeight() + 40));
+				AddWeapon(typeOfWeapon, 1, 2);
 			}
 
 		}
 		
 
 	}
-	// for weap in enemy
-	// weapon.move()
+ 
 }
 
 void GamePlay::KeyUpSpace()
@@ -519,4 +516,168 @@ void GamePlay::RemoveObject(BaseObject* object)
 {
 	delete object;
 	object = nullptr;
+}
+
+void  GamePlay::AddWeapon(int type, int dir_Moving, int stage)
+{
+	//type: 0 = sword, 1 is shuriken, 2 = kunai, 3 = fire
+	//dir_Moving: 0 = Left, 1 = Right, 
+	//stage: 0 = sitting, 1 = jumping, 2 = on the ground
+
+	if (type == 0)
+	{
+		if (dir_Moving == 0)
+		{
+			if (stage == 0)
+			{
+				weapons.push_back(new BlueSword(ninja->GetPosX() - BLUE_SWORD_WIDTH + 40 , dir_Moving
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 65));
+			}
+			else if (stage == 1)
+			{
+				weapons.push_back(new BlueSword(ninja->GetPosX() - BLUE_SWORD_WIDTH + 45, dir_Moving
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 60));
+			}
+			else if (stage == 2)
+			{
+				weapons.push_back(new BlueSword(ninja->GetPosX() - BLUE_SWORD_WIDTH + 45, dir_Moving
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 35));
+			}
+		}
+		else if (dir_Moving == 1)
+		{
+			if (stage == 0)
+			{
+				weapons.push_back(new BlueSword(ninja->GetPosX()  + 80, dir_Moving
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 65));
+			}
+			else if (stage == 1)
+			{
+				weapons.push_back(new BlueSword(ninja->GetPosX()  + 85, dir_Moving
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 60));
+			}
+			else if (stage == 2)
+			{
+				weapons.push_back(new BlueSword(ninja->GetPosX() + 85, dir_Moving
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 35));
+			}
+		}
+	}
+	else if (type == 1)
+	{
+		if (dir_Moving == 0)
+		{
+			if (stage == 0)
+			{
+				weapons.push_back(new WeaponShuriken(ninja->GetPosX() - SHURIKEN_WIDTH , dir_Moving
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 65));
+			}
+			else if (stage == 1)
+			{
+				weapons.push_back(new WeaponShuriken(ninja->GetPosX() - SHURIKEN_WIDTH + 5, dir_Moving
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 60));
+			}
+			else if (stage == 2)
+			{
+				weapons.push_back(new WeaponShuriken(ninja->GetPosX() - SHURIKEN_WIDTH + 5, dir_Moving
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 35));
+			}
+		}
+		else if (dir_Moving == 1)
+		{
+			if (stage == 0)
+			{
+				weapons.push_back(new WeaponShuriken(ninja->GetPosX() + 120, dir_Moving
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 65));
+			}
+			else if (stage == 1)
+			{
+				weapons.push_back(new WeaponShuriken(ninja->GetPosX() + 125, dir_Moving
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 60));
+			}
+			else if (stage == 2)
+			{
+				weapons.push_back(new WeaponShuriken(ninja->GetPosX() + 125, dir_Moving
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 35));
+			}
+		}
+	}
+	else if (type == 2)
+	{
+		if (dir_Moving == 0)
+		{
+			if (stage == 0)
+			{
+				weapons.push_back(new WeaponKunai(ninja->GetPosX() - KUNAI_WIDTH + 10, dir_Moving
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 75));
+			}
+			else if (stage == 1)
+			{
+				weapons.push_back(new WeaponKunai(ninja->GetPosX() - KUNAI_WIDTH + 15, dir_Moving
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 70));
+			}
+			else if (stage == 2)
+			{
+				weapons.push_back(new WeaponKunai(ninja->GetPosX() - KUNAI_WIDTH + 15, dir_Moving
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 40));
+			}
+		}
+		else if (dir_Moving == 1)
+		{
+			if (stage == 0)
+			{
+				weapons.push_back(new WeaponKunai(ninja->GetPosX() + 110, dir_Moving
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 75));
+			}
+			else if (stage == 1)
+			{
+				weapons.push_back(new WeaponKunai(ninja->GetPosX() + 115, dir_Moving
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 70));
+			}
+			else if (stage == 2)
+			{
+				weapons.push_back(new WeaponKunai(ninja->GetPosX() + 115, dir_Moving
+					, ninja->GetPosY() - ninja->GetJumpingHeight() + 40));
+			}
+		}
+	}
+	else if (type == 3)
+	{
+	if (dir_Moving == 0)
+	{
+		if (stage == 0)
+		{
+			weapons.push_back(new WeaponFire(ninja->GetPosX() - FIRE_WIDTH + 10, dir_Moving
+				, ninja->GetPosY() - ninja->GetJumpingHeight() + 70));
+		}
+		else if (stage == 1)
+		{
+			weapons.push_back(new WeaponFire(ninja->GetPosX() - FIRE_WIDTH + 15, dir_Moving
+				, ninja->GetPosY() - ninja->GetJumpingHeight() + 65));
+		}
+		else if (stage == 2)
+		{
+			weapons.push_back(new WeaponFire(ninja->GetPosX() - FIRE_WIDTH + 15, dir_Moving
+				, ninja->GetPosY() - ninja->GetJumpingHeight() + 35));
+		}
+	}
+	else if (dir_Moving == 1)
+	{
+		if (stage == 0)
+		{
+			weapons.push_back(new WeaponFire(ninja->GetPosX() + 110, dir_Moving
+				, ninja->GetPosY() - ninja->GetJumpingHeight() + 70));
+		}
+		else if (stage == 1)
+		{
+			weapons.push_back(new WeaponFire(ninja->GetPosX() + 115, dir_Moving
+				, ninja->GetPosY() - ninja->GetJumpingHeight() + 65));
+		}
+		else if (stage == 2)
+		{
+			weapons.push_back(new WeaponFire(ninja->GetPosX() + 115, dir_Moving
+				, ninja->GetPosY() - ninja->GetJumpingHeight() + 35));
+		}
+	}
+	}
 }

@@ -8,6 +8,7 @@ Character::Character()
 	formY = 0;
 	life = 3;
 	jumpHeight = 0;
+	typeOfWeapon = 0;
 	isJumping = false;
 	isFalling = false;
 	isSitting = false;
@@ -193,6 +194,8 @@ void Character::SetDeath(bool a_isDead)
 
 	this->isDead = a_isDead;
 	this->life--;
+	this->typeOfWeapon = 0;
+
 }
 
 bool Character::CheckDeath()
@@ -223,3 +226,12 @@ int Character::GetHeight()
 	return CHARACTER_HEIGHT;
 }
 
+void Character::UpgradeWeapon()
+{
+	this->typeOfWeapon++;
+}
+
+int Character::GetTypeOfWeapon()
+{
+	return this->typeOfWeapon;
+}

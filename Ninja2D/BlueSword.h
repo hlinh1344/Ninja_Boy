@@ -2,39 +2,34 @@
 #include "Weapon.h"
 #include "Map.h"
 
-#define FIRE_HEIGHT 28
-#define FIRE_WIDTH 70
-#define FIRE_AREA 300
-#define FIRE_SPEED 15
+//45x44
+#define BLUE_SWORD_HEIGHT 29
+#define BLUE_SWORD_WIDTH 151
+#define BLUE_SWORD_AREA 0
+#define BLUE_SWORD_SPEED 15
 
-//L = 0, R = 1;
+//posx = 100;
+//posY = 421;
 
-class WeaponFire : public Weapon
+class BlueSword : public Weapon
 {
 private:
 	int originalLocation;
 public:
-	WeaponFire(int a_x, int a_dir, int	a_posY)
+	BlueSword(int a_x, int a_dir, int	a_posY)
 	{
 		posX = a_x;
 		posY = a_posY;
-		if (a_dir == 0)
-		{
-			formX = 6;
-		}
-		else if (a_dir == 1)
-		{
-			formX = 7;
-		}
+		formX = a_dir;
 		dir = a_dir;
 		formY = 0;
 		originalLocation = a_x;
 		life = 1;
-		hBitmap = (HBITMAP)LoadImage(hInst, L"Fire.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-		hbmMask = CreateBitmapMask(hBitmap, RGB(0, 128, 0));
+		hBitmap = (HBITMAP)LoadImage(hInst, L"BlueSword.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+		hbmMask = CreateBitmapMask(hBitmap, RGB(255, 0, 255));
 	}
 
-	WeaponFire()
+	BlueSword()
 	{
 		posX = 0;
 		posY = 421;
@@ -42,10 +37,10 @@ public:
 		formY = 0;
 		originalLocation = 0;
 		life = 1;
-		hBitmap = (HBITMAP)LoadImage(hInst, L"Fire.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+		hBitmap = (HBITMAP)LoadImage(hInst, L"BlueSword.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 		hbmMask = CreateBitmapMask(hBitmap, RGB(255, 255, 255));
 	}
-	~WeaponFire()
+	~BlueSword()
 	{
 
 	}
@@ -61,11 +56,11 @@ public:
 				hdc,
 				posX - BaseObject::mapSlider,
 				posY,
-				FIRE_WIDTH,
-				FIRE_HEIGHT,
+				BLUE_SWORD_WIDTH,
+				BLUE_SWORD_HEIGHT,
 				hdcMem,
-				FIRE_WIDTH * formX,
-				FIRE_HEIGHT * formY,
+				BLUE_SWORD_WIDTH * formX,
+				BLUE_SWORD_HEIGHT * formY,
 				SRCAND
 			);
 			oldBitmap = SelectObject(hdcMem, hBitmap);
@@ -75,11 +70,11 @@ public:
 				hdc,
 				posX - BaseObject::mapSlider,
 				posY,
-				FIRE_WIDTH,
-				FIRE_HEIGHT,
+				BLUE_SWORD_WIDTH,
+				BLUE_SWORD_HEIGHT,
 				hdcMem,
-				FIRE_WIDTH * formX,
-				FIRE_HEIGHT * formY,
+				BLUE_SWORD_WIDTH * formX,
+				BLUE_SWORD_HEIGHT * formY,
 				SRCPAINT
 			);
 			SelectObject(hdcMem, oldBitmap);
@@ -87,73 +82,61 @@ public:
 			if (dir == 0)
 			{
 				MoveLeft();
-				if (formX <= 0)
-				{
-					formX = 6;
-				}
-				else
-					formX--;
 			}
 			else if (dir == 1)
 			{
 				MoveRight();
-				if (formX >= 13)
-				{
-					formX = 7;
-				}
-				else
-					formX++;
 			}
-		CheckDistance();
+			CheckDistance();
 		}
 	}
 
 	void MoveLeft() override
 	{
-		posX = posX - FIRE_SPEED;
+		posX = posX - BLUE_SWORD_SPEED;
 	}
 
 	void MoveRight() override
 	{
-		posX = posX + FIRE_SPEED;
-	}
-
-	void SetDeath(bool a_isDead) override
-	{
-		this->isDead = a_isDead;
-
-	}
-
-	void CheckDistance() override
-	{
-		int distance = abs(originalLocation - posX);
-		if (distance >= FIRE_AREA)
-		{
-			this->isDead = true;
-		}
+		posX = posX + BLUE_SWORD_SPEED;
 	}
 
 	bool IsGoLeft() override
 	{
-		if ((formX >= 0) && (formX <= 6))
+		if (formX == 0)
 			return true;
 		return false;
 	}
 
 	bool IsGoRight()override
 	{
-		if ((formX >= 7) && (formX <= 13))
+		if (formX == 1)
 			return true;
 		return false;
 	}
 
+	void SetDeath(bool a_isDead) override
+	{
+		this->isDead = a_isDead;
+	}
+
+	void CheckDistance() override
+	{
+		int distance = abs(originalLocation - posX);
+		if (distance >= BLUE_SWORD_AREA)
+		{
+			this->isDead = true;
+		}
+	}
+
 	int GetWidth() override
 	{
-		return FIRE_WIDTH;
+		return BLUE_SWORD_WIDTH;
 	}
 
 	int GetHeight() override
 	{
-		return FIRE_HEIGHT;
+		return BLUE_SWORD_HEIGHT;
 	}
+
 };

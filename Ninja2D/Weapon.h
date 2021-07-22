@@ -7,7 +7,6 @@ class Weapon : public LiveObject
 protected:
 	bool isMoving;
 	int dir; // left = 0, right = 1
-	int type; // type of weapon
 public:
 	Weapon();
 	~Weapon();
