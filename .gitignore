@@ -39,7 +39,7 @@
 
 */.vs/
 */Debug/
-AlgorithmChart/x64/Debug/
+
 *.suo
 *.Build.CppClean.log
 *.exe.recipe
