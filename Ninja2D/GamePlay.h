@@ -16,6 +16,7 @@
 #include "WeaponFire.h"
 #include "Enemy.h"
 #include "Point2D.h"
+#include "LiveObject.h"
 
 class GamePlay
 {
@@ -42,7 +43,7 @@ public:
 	void KeyUpLeft();
 	void KeyUpRight();
 	void KeyUpSpace();
-	bool CheckCollision(BaseObject* object, BaseObject* monster);
+	bool CheckCollision(LiveObject* object, LiveObject* monster);
 	void RemoveObject(BaseObject* object);
 };
 

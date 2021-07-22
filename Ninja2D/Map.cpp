@@ -6,7 +6,6 @@ Map::Map()
 	posY = 0;
 	hbmGround = (HBITMAP)LoadImage(hInst, L"map.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hbmCloud = (HBITMAP)LoadImage(hInst, L"cloud.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-
 }
 Map::~Map()
 {

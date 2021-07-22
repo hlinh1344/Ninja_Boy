@@ -1,8 +1,8 @@
 #pragma once
 #include "Map.h"
-#include "BaseObject.h"
+#include "LiveObject.h"
 
-class Weapon : public BaseObject
+class Weapon : public LiveObject
 {
 protected:
 	bool isMoving;

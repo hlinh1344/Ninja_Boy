@@ -1,8 +1,8 @@
 #pragma once
-#include "BaseObject.h"
+#include "LiveObject.h"
 #include "Map.h"
 
-class Enemy : public BaseObject
+class Enemy : public LiveObject
 {
 protected:
 	int originalLocation;

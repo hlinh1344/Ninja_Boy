@@ -476,7 +476,7 @@ void GamePlay::KeyUpLeft()
 
 }
 
-bool GamePlay::CheckCollision(BaseObject* object, BaseObject* monster)
+bool GamePlay::CheckCollision(LiveObject* object, LiveObject* monster)
 {
 	Point2D monsterPos = Point2D(monster->GetPosX(), monster->GetPosY());
 	int monsterWidth = monster->GetWidth();

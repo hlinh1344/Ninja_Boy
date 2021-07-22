@@ -1,6 +1,6 @@
 #pragma once
 #include <cmath>
-#include "BaseObject.h"
+#include "LiveObject.h"
 #include "Map.h"
 
 
@@ -10,7 +10,7 @@
 //Height 115
 //Width 125
 
-class Character : public BaseObject
+class Character : public LiveObject
 {
 private:
 	int jumpHeight;

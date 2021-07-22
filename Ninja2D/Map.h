@@ -8,6 +8,7 @@
 #define CLOUD_SPEED 1
 #define NUMBER_OF_MONSTERS 6
 #define END_OF_MAP 3650
+
 class Map :public BaseObject
 {
 private:

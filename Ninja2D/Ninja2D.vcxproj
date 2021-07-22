@@ -147,6 +147,7 @@
     <ClInclude Include="EnemySpinyBeetle.h" />
     <ClInclude Include="EnemyWhiteGhost.h" />
     <ClInclude Include="GamePlay.h" />
+    <ClInclude Include="LiveObject.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Point2D.h" />
     <ClInclude Include="Weapon.h" />
@@ -159,6 +160,7 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GamePlay.cpp" />
+    <ClCompile Include="LiveObject.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Point2D.cpp" />
     <ClCompile Include="Weapon.cpp" />
