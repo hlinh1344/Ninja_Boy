@@ -78,3 +78,17 @@ int Map::checkToAddEnemy(int a_posX)
 	}
 	return checkPosition;
 }
+
+int Map::checkToAddItem(int a_posX)
+{
+	int checkPosition = 0;
+	for (int i = 0; i < NUMBER_OF_ITEMS; i++)
+	{
+		if (a_posX == itemsPosition[i])
+		{
+			checkPosition = i + 1;
+		}
+	}
+	return checkPosition;
+}
+

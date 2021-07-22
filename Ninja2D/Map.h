@@ -8,12 +8,14 @@
 #define CLOUD_SPEED 1
 #define NUMBER_OF_MONSTERS 6
 #define END_OF_MAP 3650
+#define NUMBER_OF_ITEMS 5
 
 class Map :public BaseObject
 {
 private:
 	HBITMAP hbmGround, hbmCloud;
-	int enemiesPosition[NUMBER_OF_MONSTERS] = { 1000, 1600, 2100, 2700, 3200 };
+	int enemiesPosition[NUMBER_OF_MONSTERS] = { 1080, 1600, 2100, 2700, 3200 };
+	int itemsPosition[NUMBER_OF_ITEMS] = { 1000, 1700, 2300, 2900, 3500 };
 public:
 
 	Map();
@@ -23,6 +25,7 @@ public:
 	void increseClousDrifting(int a);
 	int getMapSlider();
 	int checkToAddEnemy(int a_posX);
+	int checkToAddItem(int a_posX);
 };
 
 

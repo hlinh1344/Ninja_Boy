@@ -8,7 +8,7 @@ Character::Character()
 	formY = 0;
 	life = 3;
 	jumpHeight = 0;
-	typeOfWeapon = 0;
+	typeOfWeapon = -1;
 	isJumping = false;
 	isFalling = false;
 	isSitting = false;
@@ -234,4 +234,14 @@ void Character::UpgradeWeapon()
 int Character::GetTypeOfWeapon()
 {
 	return this->typeOfWeapon;
+}
+
+void Character::SetTypeOfWeapon(int a_typeOfWeapon)
+{
+	this->typeOfWeapon = a_typeOfWeapon;
+}
+
+int Character::GetPosY()
+{
+	return (this->posY - this->jumpHeight);
 }

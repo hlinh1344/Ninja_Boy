@@ -18,18 +18,26 @@
 #include "Point2D.h"
 #include "LiveObject.h"
 #include "BlueSword.h"
+#include "BlueSwordItem.h"
+#include "ShurikenItem.h"
+#include "Item.h"
+#include "KunaiItem.h"
+#include "EnemyBird.h"
+
 
 
 class GamePlay
 {
 private:
-	std::vector <Enemy*> enemies; // enemy objects
+	std::vector <Enemy*> enemies;
 	std::vector <Weapon*> weapons;
+	std::vector <Item*> items;
+
 	Map map;
 	Character * ninja;
 	int enemyID;
+	int itemID;
 	int timer;
-
 
 public:
 	GamePlay();
@@ -47,7 +55,7 @@ public:
 	void KeyUpLeft();
 	void KeyUpRight();
 	void KeyUpSpace();
-	bool CheckCollision(LiveObject* object, LiveObject* monster);
+	bool CheckCollision(BaseObject* object1, BaseObject* object2);
 	void RemoveObject(BaseObject* object);
 	void AddWeapon(int type, int dir_Moving, int stage);
 

@@ -44,6 +44,8 @@
 *.Build.CppClean.log
 *.exe.recipe
 *ilk
+*.vcxproj
+*.vcxproj.filters
 *.vcxproj.FileListAbsolute.txt
 *.tlog
 *.log

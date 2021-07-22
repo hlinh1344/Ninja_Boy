@@ -47,6 +47,8 @@ public:
 	int GetHeight() override;
 	void UpgradeWeapon();
 	int GetTypeOfWeapon();
+	void SetTypeOfWeapon(int a_typeOfWeapon);
+	int GetPosY() override;
 };
 
 

@@ -5,7 +5,7 @@ class LiveObject :
 {
 protected:
 
-    bool isDead;
+
     int life;
 
 public:
@@ -19,9 +19,6 @@ public:
     virtual void MoveDown();
     virtual bool IsGoLeft();
     virtual bool IsGoRight();
-    virtual int GetWidth();
-    virtual int GetHeight();
-    virtual void SetDeath(bool a_isDead);
     virtual bool CheckDeath();
 
 };

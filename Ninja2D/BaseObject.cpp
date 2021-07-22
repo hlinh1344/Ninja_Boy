@@ -8,6 +8,7 @@ BaseObject::BaseObject()
 	hdcMem = NULL;
 	oldBitmap = NULL;
 	hInst = NULL;
+	isDead = false;
 }
 
 BaseObject::~BaseObject()
@@ -70,3 +71,17 @@ HBITMAP BaseObject::CreateBitmapMask(HBITMAP hbmColour, COLORREF crTransparent)
 }
 
 
+int BaseObject::GetWidth()
+{
+	return 0;
+}
+
+int  BaseObject::GetHeight()
+{
+	return 0;
+}
+
+void BaseObject::SetDeath(bool a_isDead)
+{
+	this->isDead = a_isDead;
+}

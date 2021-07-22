@@ -13,7 +13,9 @@ public:
 	void SetPosX(int a_posX);
 	int GetPosY();
 	void SetPosY(int a_posY);
-	bool CheckPointInsideRect(Point2D origin, int height, int width);
+	bool CheckCollision(int height1, int width1, Point2D A2, int height2, int width2);
+
+	bool CheckPointInsideRect(int left, int right, int top, int bot);
 
 };
 

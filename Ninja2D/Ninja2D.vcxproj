@@ -141,16 +141,21 @@
   <ItemGroup>
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="BlueSword.h" />
+    <ClInclude Include="BlueSwordItem.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyBird.h" />
     <ClInclude Include="EnemyBuzzyBeetle.h" />
     <ClInclude Include="EnemyMushroom.h" />
     <ClInclude Include="EnemySpinyBeetle.h" />
     <ClInclude Include="EnemyWhiteGhost.h" />
     <ClInclude Include="GamePlay.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="KunaiItem.h" />
     <ClInclude Include="LiveObject.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Point2D.h" />
+    <ClInclude Include="ShurikenItem.h" />
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="WeaponFire.h" />
     <ClInclude Include="WeaponKunai.h" />
@@ -161,6 +166,7 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GamePlay.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="LiveObject.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Point2D.cpp" />
