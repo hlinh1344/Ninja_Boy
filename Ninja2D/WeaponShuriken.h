@@ -5,7 +5,7 @@
 #define SHURIKEN_HEIGHT 40
 #define SHURIKEN_WIDTH 45
 #define SHURIKEN_AREA 180
-#define SHURIKEN_SPEED 4
+#define SHURIKEN_SPEED 7
 
 //L = 0, R = 1;
 

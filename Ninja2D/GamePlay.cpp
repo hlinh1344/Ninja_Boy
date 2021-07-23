@@ -178,11 +178,12 @@ void GamePlay::Run()
 			}
 		}
 
-		if (weapon->CheckDeath() == true)
-		{
-			weapons.erase(weapons.begin());
-			RemoveObject(weapon);
-		}
+		//if (weapon->CheckDeath() == true)
+		//{
+		//	RemoveObject(weapon);
+		//	weapons.erase(weapons.begin());
+		//	
+		//}
 	}
 		
 	//enemy
@@ -191,8 +192,9 @@ void GamePlay::Run()
 		enemy->MakeAnimation();
 		if (enemy->CheckDeath() == true)
 		{
+			//RemoveObject(enemy);
 			enemies.erase(enemies.begin() + countID);
-			RemoveObject(enemy);
+			
 		}
 		countID++;
 	}
