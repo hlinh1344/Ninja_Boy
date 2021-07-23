@@ -146,6 +146,8 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyBird.h" />
     <ClInclude Include="EnemyBuzzyBeetle.h" />
+    <ClInclude Include="EnemyDarkDragon.h" />
+    <ClInclude Include="EnemyDarkGirl.h" />
     <ClInclude Include="EnemyMushroom.h" />
     <ClInclude Include="EnemySpinyBeetle.h" />
     <ClInclude Include="EnemyWhiteGhost.h" />
@@ -154,6 +156,7 @@
     <ClInclude Include="KunaiItem.h" />
     <ClInclude Include="LiveObject.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="EnemyMonsterGirl.h" />
     <ClInclude Include="Point2D.h" />
     <ClInclude Include="ShurikenItem.h" />
     <ClInclude Include="Weapon.h" />

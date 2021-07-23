@@ -78,6 +78,15 @@
     <ClInclude Include="EnemyBird.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyDarkDragon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyMonsterGirl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyDarkGirl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseObject.cpp">

@@ -20,6 +20,6 @@ public:
     virtual bool IsGoLeft();
     virtual bool IsGoRight();
     virtual bool CheckDeath();
-
+    virtual void MakeAnimation();
 };
 

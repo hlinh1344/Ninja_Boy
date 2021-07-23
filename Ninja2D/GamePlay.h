@@ -23,7 +23,9 @@
 #include "Item.h"
 #include "KunaiItem.h"
 #include "EnemyBird.h"
-
+#include "EnemyDarkDragon.h"
+#include "EnemyMonsterGirl.h"
+#include "EnemyDarkGirl.h"
 
 
 class GamePlay
@@ -38,6 +40,8 @@ private:
 	int enemyID;
 	int itemID;
 	int timer;
+	int countID;
+	bool checkToAdd;
 
 public:
 	GamePlay();

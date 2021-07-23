@@ -9,6 +9,5 @@ protected:
 public:
 	Enemy();
 	~Enemy();
-	virtual void MakeAnimation();
 };
 

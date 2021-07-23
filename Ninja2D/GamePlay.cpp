@@ -5,6 +5,8 @@ GamePlay::GamePlay()
 {
 	enemyID = 0;
 	itemID = 0;
+	countID = 0;
+	checkToAdd = false;
 	ninja = new Character();
 }
 
@@ -30,69 +32,87 @@ void GamePlay::Run()
 {
 	map.increseClousDrifting(CLOUD_SPEED);
 
-	enemyID = (map.checkToAddEnemy(BaseObject::mapSlider + MAP_WIDTH));
+	map.checkToAddEnemy(BaseObject::mapSlider + MAP_WIDTH, enemyID, checkToAdd);
 
-	switch (enemyID)
+	if (checkToAdd == true)
 	{
-	case 1:
-		enemies.push_back(new EnemyWhiteGhost(BaseObject::mapSlider + MAP_WIDTH));
-		enemyID = 0;
-		break;
-	case 2:
-		enemies.push_back(new EnemyBird(BaseObject::mapSlider + MAP_WIDTH));
-		enemyID = 0;
-		break;
-	case 3:
-		enemies.push_back(new EnemySpinyBeetle(BaseObject::mapSlider + MAP_WIDTH));
-		enemyID = 0;
-		break;
-	case 4:
-		enemies.push_back(new EnemyMushroom(BaseObject::mapSlider + MAP_WIDTH));
-		enemyID = 0;
-		break;
-	case 5:
-		enemies.push_back(new EnemyBuzzyBeetle(BaseObject::mapSlider + MAP_WIDTH));
-		enemyID = 0;
-		break;
-	case 6:
-		//enemies.push_back(new EnemyBuzzyBeetle(BaseObject::mapSlider + MAP_WIDTH));
-		enemyID = 0;
-		break;
+		switch (enemyID)
+		{
+		case 1:
+			enemies.push_back(new EnemySpinyBeetle(BaseObject::mapSlider + MAP_WIDTH));
+			enemyID = 0;
+			break;
+		case 2:
+			enemies.push_back(new EnemyMushroom(BaseObject::mapSlider + MAP_WIDTH));
+			enemyID = 0;
+			break;
+		case 3:
+			enemies.push_back(new EnemyWhiteGhost(BaseObject::mapSlider + MAP_WIDTH));
+			enemyID = 0;
+			break;
+		case 4:
 
-		//
-	default:
-		break;
+			enemies.push_back(new EnemyBuzzyBeetle(BaseObject::mapSlider + MAP_WIDTH));
+			enemyID = 0;
+			break;
+		case 5:
+			enemies.push_back(new EnemyMonsterGirl(BaseObject::mapSlider + MAP_WIDTH));
+
+			enemyID = 0;
+			break;
+		case 6:
+			enemies.push_back(new EnemyDarkDragon(BaseObject::mapSlider + MAP_WIDTH));
+			enemyID = 0;
+			break;
+		case 7:
+			enemies.push_back(new EnemyDarkGirl(BaseObject::mapSlider + MAP_WIDTH));
+			enemies.push_back(new EnemyBird(BaseObject::mapSlider + MAP_WIDTH));
+			enemyID = 0;
+			break;
+			//
+		default:
+			break;
+		}
+	}
+	
+
+	map.checkToAddItem(BaseObject::mapSlider + MAP_WIDTH, itemID, checkToAdd);
+	if (checkToAdd == true)
+	{
+		switch (itemID)
+		{
+		case 1:
+			items.push_back(new BlueSwordItem(BaseObject::mapSlider + MAP_WIDTH));
+			itemID = 0;
+			break;
+		case 2:
+			items.push_back(new ShurikenItem(BaseObject::mapSlider + MAP_WIDTH));
+			itemID = 0;
+			break;
+		case 3:
+			items.push_back(new KunaiItem(BaseObject::mapSlider + MAP_WIDTH));
+			itemID = 0;
+			break;
+		case 4:
+			//items.push_back(new EnemyMushroom(BaseObject::mapSlider + MAP_WIDTH));
+			itemID = 0;
+			break;
+		case 5:
+			//items.push_back(new EnemyBuzzyBeetle(BaseObject::mapSlider + MAP_WIDTH));
+			itemID = 0;
+			break;
+		default:
+			break;
+		}
 	}
 
+	
 
-	itemID = (map.checkToAddItem(BaseObject::mapSlider + MAP_WIDTH));
+	//main character
+	ninja->MakeAnimation();
 
-	switch (itemID)
-	{
-	case 1:
-		items.push_back(new BlueSwordItem(BaseObject::mapSlider + MAP_WIDTH));
-		itemID = 0;
-		break;
-	case 2:
-		items.push_back(new ShurikenItem(BaseObject::mapSlider + MAP_WIDTH));
-		itemID = 0;
-		break;
-	case 3:
-		items.push_back(new KunaiItem(BaseObject::mapSlider + MAP_WIDTH));
-		itemID = 0;
-		break;
-	case 4:
-		//items.push_back(new EnemyMushroom(BaseObject::mapSlider + MAP_WIDTH));
-		itemID = 0;
-		break;
-	case 5:
-		//items.push_back(new EnemyBuzzyBeetle(BaseObject::mapSlider + MAP_WIDTH));
-		itemID = 0;
-		break;
-	default:
-		break;
-	}
 
+	//check collision main vs monster
 	for (auto enemy : enemies)
 	{
 		if (CheckCollision(ninja, enemy))
@@ -102,14 +122,18 @@ void GamePlay::Run()
 	}
 
 	//////item
+	
 	for (auto item : items)
 	{
 		if (CheckCollision(ninja,item))
 		{
 			ninja->SetTypeOfWeapon(item->GetTypeOfWeapn());
 			item->SetDeath(true);
+			items.erase(items.begin() + countID);
 		}
+		countID++;
 	}
+	countID = 0;
 
 	//weapon
 	for (auto weapon : weapons) {
@@ -122,11 +146,24 @@ void GamePlay::Run()
 				weapon->SetDeath(true);
 			}
 		}
+
+		if (weapon->CheckDeath() == true)
+		{
+			weapons.erase(weapons.begin());
+		}
 	}
 		
+	//enemy
 
-
-
+	for (auto enemy : enemies) {
+		enemy->MakeAnimation();
+		if (enemy->CheckDeath() == true)
+		{
+			enemies.erase(enemies.begin() + countID);
+		}
+		countID++;
+	}
+	countID = 0;
 }
 
 void GamePlay::Draw(HWND hwnd, HDC hdc)
@@ -138,101 +175,28 @@ void GamePlay::Draw(HWND hwnd, HDC hdc)
 		item->Draw(hwnd, hdc);
 	}
 
-	for (auto weapon : weapons) {
-		if (weapon->CheckDeath() == true)
-		{
-			weapons.erase(weapons.begin());
-		}
-		else
-		{
+	for (auto weapon : weapons)
+	{
 			weapon->Draw(hwnd, hdc);
-		}
-
 	}
 
 
-	//aalo
-	
-	if (ninja->CheckDeath())
-	{
-		ninja->IncreseJumpingHeight(10);
-	}
-	else if (ninja->GetJumpingHeight() > 0 && (ninja->CheckFalling()))
-	{
-		ninja->IncreseJumpingHeight(-5);
-	}
-	else if (ninja->CheckJumping() && (ninja->GetJumpingHeight() < 250) && (!ninja->CheckFalling()))
-	{
-		ninja->MoveUp();
-	}
-	//item1->Draw(hwnd, hdc);
-	//for () 
 	if (timer >= 2)
 	{
 
-
-		for (auto enemy : enemies) {
-			if (enemy->CheckDeath() == true)
-			{
-				enemies.erase(enemies.begin());
-			}
-			else
-			{
+		for (auto enemy : enemies)
+		{
 				enemy->Draw(hwnd, hdc);
-				enemy->MakeAnimation();
-			}
 		}
-
-
-		for (auto weapon : weapons) {
-			if (weapon->CheckDeath() == true)
-			{
-				//RemoveObject(weapon);
-				weapons.erase(weapons.begin());
-			}
-			else
-			{
-				weapon->Draw(hwnd, hdc);
-			}
-
-		}
-
 		timer = 0;
 	}
 	else
 	{
-		//if (ninja->CheckDeath())
-		//{
-		//	ninja->IncreseJumpingHeight(10);
-		//}
-		//else if (ninja->GetJumpingHeight() > 0 && (ninja->CheckFalling()))
-		//{
-		//	ninja->IncreseJumpingHeight(-5);
-		//}
-		//else if (ninja->CheckJumping() && (ninja->GetJumpingHeight() < 250) && (!ninja->CheckFalling()))
-		//{
-		//	ninja->MoveUp();
-		//}
-
-		
-		for (auto enemy : enemies) {
-			if (enemy->CheckDeath() == true)
-			{
-				enemies.erase(enemies.begin());
-			}
-			else
-			{
-				enemy->Draw(hwnd, hdc);
-
-			}
+		for (auto enemy : enemies) 
+		{
+			enemy->Draw(hwnd, hdc);
 		}
-
-		//item
-		//item1->Draw(hwnd, hdc);
-
-
-
-
+		
 	}
 
 }

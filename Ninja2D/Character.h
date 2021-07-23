@@ -49,6 +49,7 @@ public:
 	int GetTypeOfWeapon();
 	void SetTypeOfWeapon(int a_typeOfWeapon);
 	int GetPosY() override;
+	void MakeAnimation() override;
 };
 
 

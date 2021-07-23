@@ -8,7 +8,7 @@ Character::Character()
 	formY = 0;
 	life = 3;
 	jumpHeight = 0;
-	typeOfWeapon = -1;
+	typeOfWeapon = 1;
 	isJumping = false;
 	isFalling = false;
 	isSitting = false;
@@ -244,4 +244,20 @@ void Character::SetTypeOfWeapon(int a_typeOfWeapon)
 int Character::GetPosY()
 {
 	return (this->posY - this->jumpHeight);
+}
+
+void Character::MakeAnimation()
+{
+	if (this->isDead == true)
+	{
+		this->jumpHeight += 10;
+	}
+	else if ((this->jumpHeight) > 0)
+	{
+		this->jumpHeight -= 4;
+	}
+	//else if (ninja->CheckJumping() && (ninja->GetJumpingHeight() < 250) && (!ninja->CheckFalling()))
+	//{
+	//	ninja->MoveUp();
+	//}
 }

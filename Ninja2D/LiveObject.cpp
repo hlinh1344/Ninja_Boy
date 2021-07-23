@@ -47,3 +47,7 @@ bool LiveObject::CheckDeath()
 }
 
 
+void LiveObject::MakeAnimation()
+{
+
+}

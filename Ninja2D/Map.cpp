@@ -66,7 +66,7 @@ void Map::Draw(HWND hwnd, HDC hdc)
 	DeleteDC(hdcMem);
 }
 
-int Map::checkToAddEnemy(int a_posX)
+void Map::checkToAddEnemy(int a_posX, int& enemyID, bool& checkToAdd)
 {
 	int checkPosition = 0;
 	for (int i = 0; i < NUMBER_OF_MONSTERS; i++)
@@ -76,10 +76,19 @@ int Map::checkToAddEnemy(int a_posX)
 			checkPosition = i + 1;
 		}
 	}
-	return checkPosition;
+
+	if (enemyID == checkPosition)
+	{
+		checkToAdd = false;
+	}
+	else if (enemyID != checkPosition)
+	{
+		checkToAdd = true;
+		enemyID = checkPosition;
+	}
 }
 
-int Map::checkToAddItem(int a_posX)
+void Map::checkToAddItem(int a_posX, int& itemID, bool& checkToAdd)
 {
 	int checkPosition = 0;
 	for (int i = 0; i < NUMBER_OF_ITEMS; i++)
@@ -89,6 +98,15 @@ int Map::checkToAddItem(int a_posX)
 			checkPosition = i + 1;
 		}
 	}
-	return checkPosition;
+
+	if (itemID == checkPosition)
+	{
+		checkToAdd = false;
+	}
+	else if (itemID != checkPosition)
+	{
+		checkToAdd = true;
+		itemID = checkPosition;
+	}
 }
 

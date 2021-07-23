@@ -10,8 +10,3 @@ Enemy::~Enemy()
 {
 
 }
-
-void Enemy::MakeAnimation()
-{
-
-}

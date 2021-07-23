@@ -2,45 +2,47 @@
 #include "Enemy.h"
 #include "Map.h"
 
-#define BIRD_HEIGHT 65
-#define BIRD_WIDTH 64
-#define BIRD_AREA 600
-#define BIRD_SPEED 10
+#define DARK_GIRL_HEIGHT 65
+#define DARK_GIRL_WIDTH 70
+#define DARK_GIRL_AREA 500
+#define DARK_GIRL_SPEED 10
 
-
-class EnemyBird : public Enemy
+//chang name
+class EnemyDarkGirl : public Enemy
 {
 private:
 	bool isFalling;
 public:
-	EnemyBird(int a_x)
+	EnemyDarkGirl(int a_x)
 	{
 		posX = a_x;
-		posY = 150;
-		formX = 6;
+		posY = 50;
+		//CHANGE FORM
+		formX = 3;
 		formY = 0;
 		originalLocation = a_x;
 		life = 1;
 		isFalling = true;
-		hBitmap = (HBITMAP)LoadImage(hInst, L"Bird.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+		hBitmap = (HBITMAP)LoadImage(hInst, L"DarkGirl.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 		hbmMask = CreateBitmapMask(hBitmap, RGB(255, 0, 255));
 
 	}
 
-	EnemyBird()
+	EnemyDarkGirl()
 	{
 		posX = 0;
-		posY = 150;
-		formX = 6;
+		posY = 50;
+		//CHANGE FORM
+		formX = 4;
 		formY = 0;
 		originalLocation = 0;
 		life = 1;
 		isFalling = true;
-		hBitmap = (HBITMAP)LoadImage(hInst, L"Bird.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+		hBitmap = (HBITMAP)LoadImage(hInst, L"DarkGirl.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 		hbmMask = CreateBitmapMask(hBitmap, RGB(255, 0, 255));
 	}
 
-	~EnemyBird()
+	~EnemyDarkGirl()
 	{
 
 	}
@@ -55,11 +57,11 @@ public:
 			hdc,
 			posX - BaseObject::mapSlider,
 			posY,
-			BIRD_WIDTH,
-			BIRD_HEIGHT,
+			DARK_GIRL_WIDTH,
+			DARK_GIRL_HEIGHT,
 			hdcMem,
-			BIRD_WIDTH * formX,
-			BIRD_HEIGHT * formY,
+			DARK_GIRL_WIDTH * formX,
+			DARK_GIRL_HEIGHT * formY,
 			SRCAND
 		);
 		oldBitmap = SelectObject(hdcMem, hBitmap);
@@ -69,17 +71,23 @@ public:
 			hdc,
 			posX - BaseObject::mapSlider,
 			posY,
-			BIRD_WIDTH,
-			BIRD_HEIGHT,
+			DARK_GIRL_WIDTH,
+			DARK_GIRL_HEIGHT,
 			hdcMem,
-			BIRD_WIDTH * formX,
-			BIRD_HEIGHT * formY,
+			DARK_GIRL_WIDTH * formX,
+			DARK_GIRL_HEIGHT * formY,
 			SRCPAINT
 		);
 
 		if (isFalling)
 		{
-			posY = posY + 6;
+			posY = posY + 4;
+			formX--;
+			if (formX <= 0)
+				formX = 2;
+			else
+				formX--;
+
 			if (posY >= 300)
 			{
 				isFalling = false;
@@ -87,37 +95,43 @@ public:
 		}
 		else if (!isFalling)
 		{
-			posY = posY - 6;
-			if (posY <= 150)
+			posY = posY - 4;
+
+			formX++;
+			if (formX >= 5)
+				formX = 3;
+			else
+				formX++;
+
+			if (posY <= 100)
 			{
 				isFalling = true;
 			}
 		}
-
 		SelectObject(hdcMem, oldBitmap);
 		DeleteDC(hdcMem);
 	}
 
 	void MoveLeft() override
 	{
-		posX = posX - BIRD_SPEED;
+		posX = posX - DARK_GIRL_SPEED;
 	}
 
 	void MoveRight() override
 	{
-		posX = posX + BIRD_SPEED;
+		posX = posX + DARK_GIRL_SPEED;
 	}
 
 	bool IsGoLeft() override
 	{
-		if ((formX >= 0) && (formX <= 3))
+		if ((formX >= 0) && (formX <= 2))
 			return true;
 		return false;
 	}
 
 	bool IsGoRight() override
 	{
-		if ((formX >= 4) && (formX <= 7))
+		if ((formX >= 3) && (formX <= 5))
 			return true;
 		return false;
 	}
@@ -126,50 +140,22 @@ public:
 		this->isDead = a_isDead;
 	}
 
+
+
+
 	void MakeAnimation() override
 	{
-		if (!isDead)
-		{
-			if (EnemyBird::IsGoRight())
-			{
-				if (formX >= 7)
-					formX = 4;
-				else
-					formX = formX + 1;
-
-				EnemyBird::MoveRight();
-
-				if (posX >= originalLocation + BIRD_AREA)
-				{
-					formX = 3;
-				}
-			}
-
-			else if (EnemyBird::IsGoLeft())
-			{
-				if (formX <= 0)
-					formX = 3;
-				else
-					formX = formX - 1;
-
-				EnemyBird::MoveLeft();
-
-				if (posX <= originalLocation)
-				{
-					formX = 4;
-				}
-			}
-		}
+		//
 	}
 
 	int GetWidth() override
 	{
-		return BIRD_WIDTH;
+		return DARK_GIRL_WIDTH;
 	}
 
 	int GetHeight() override
 	{
-		return BIRD_HEIGHT;
+		return DARK_GIRL_HEIGHT;
 	}
 
 };

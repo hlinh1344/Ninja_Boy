@@ -4,23 +4,24 @@
 
 #define WHITE_GHOST_HEIGHT 100
 #define WHITE_GHOST_WIDTH 100
-#define WHITE_GHOST_AREA 200
+#define WHITE_GHOST_AREA 250
 #define WHITE_GHOST_SPEED 7
 
 
 class EnemyWhiteGhost : public Enemy
 {
 private:
-
+	bool isFalling;
 public:
 	EnemyWhiteGhost(int a_x)
 	{
 		posX = a_x;
-		posY = 370;
+		posY = 200;
 		formX = 6;
 		formY = 0;
 		originalLocation = a_x;
 		life = 1;
+		isFalling = true;
 		hBitmap = (HBITMAP)LoadImage(hInst, L"WhiteGhost.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 		hbmMask = CreateBitmapMask(hBitmap, RGB(255, 0, 255));
 
@@ -34,6 +35,7 @@ public:
 		formY = 0;
 		originalLocation = 0;
 		life = 1;
+		isFalling = true;
 		hBitmap = (HBITMAP)LoadImage(hInst, L"WhiteGhost.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 		hbmMask = CreateBitmapMask(hBitmap, RGB(255, 0, 255));
 	}
@@ -74,6 +76,23 @@ public:
 			WHITE_GHOST_HEIGHT * formY,
 			SRCPAINT
 		);
+
+		if (isFalling)
+		{
+			posY = posY + 2;
+			if (posY >= 400)
+			{
+				isFalling = false;
+			}
+		}
+		else if (!isFalling)
+		{
+			posY = posY - 2;
+			if (posY <= 200)
+			{
+				isFalling = true;
+			}
+		}
 		SelectObject(hdcMem, oldBitmap);
 		DeleteDC(hdcMem);
 	}
