@@ -14,6 +14,8 @@
 #include "WeaponKunai.h"
 #include "WeaponShuriken.h"
 #include "WeaponFire.h"
+#include "WeaponThunder.h"
+
 #include "Enemy.h"
 #include "Point2D.h"
 #include "LiveObject.h"
@@ -22,10 +24,12 @@
 #include "ShurikenItem.h"
 #include "Item.h"
 #include "KunaiItem.h"
+#include "ThunderDragonItem.h"
 #include "EnemyBird.h"
 #include "EnemyDarkDragon.h"
 #include "EnemyMonsterGirl.h"
 #include "EnemyDarkGirl.h"
+#include "EnemyDarkRaven.h"
 
 
 class GamePlay

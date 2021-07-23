@@ -36,7 +36,6 @@
 *.idb
 *.pdb
 *.ipdb
-
 */.vs/
 */Debug/
 

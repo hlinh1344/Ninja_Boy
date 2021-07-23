@@ -148,6 +148,7 @@
     <ClInclude Include="EnemyBuzzyBeetle.h" />
     <ClInclude Include="EnemyDarkDragon.h" />
     <ClInclude Include="EnemyDarkGirl.h" />
+    <ClInclude Include="EnemyDarkRaven.h" />
     <ClInclude Include="EnemyMushroom.h" />
     <ClInclude Include="EnemySpinyBeetle.h" />
     <ClInclude Include="EnemyWhiteGhost.h" />
@@ -159,10 +160,12 @@
     <ClInclude Include="EnemyMonsterGirl.h" />
     <ClInclude Include="Point2D.h" />
     <ClInclude Include="ShurikenItem.h" />
+    <ClInclude Include="ThunderDragonItem.h" />
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="WeaponFire.h" />
     <ClInclude Include="WeaponKunai.h" />
     <ClInclude Include="WeaponShuriken.h" />
+    <ClInclude Include="WeaponThunder.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseObject.cpp" />

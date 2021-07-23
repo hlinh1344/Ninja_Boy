@@ -87,6 +87,15 @@
     <ClInclude Include="EnemyDarkGirl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyDarkRaven.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponThunder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThunderDragonItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseObject.cpp">
