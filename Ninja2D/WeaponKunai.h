@@ -5,8 +5,8 @@
 //45x44
 #define KUNAI_HEIGHT 17
 #define KUNAI_WIDTH 80
-#define KUNAI_AREA 150
-#define KUNAI_SPEED 30
+#define KUNAI_AREA 200
+#define KUNAI_SPEED 20
 
 //posx = 100;
 //posY = 421;

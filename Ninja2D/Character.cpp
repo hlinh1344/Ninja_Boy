@@ -8,13 +8,16 @@ Character::Character()
 	formY = 0;
 	life = 3;
 	jumpHeight = 0;
-	typeOfWeapon = 4;
+	typeOfWeapon = -1;
 	isJumping = false;
-	isFalling = false;
 	isSitting = false;
 	isAttack = false;
+	hBitmap_GameOver = (HBITMAP)LoadImage(hInst, L"GameOver.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBitmap = (HBITMAP)LoadImage(hInst, L"NinjaBoy.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hbmMask = CreateBitmapMask(hBitmap, RGB(255, 0, 255));
+	hbmMask_GameOver = CreateBitmapMask(hBitmap_GameOver, RGB(255, 0, 255));
+	countGameOver = MAP_HEIGHT;
+	formXOver = 0;
 }
 
 Character::~Character()
@@ -61,14 +64,9 @@ void Character::MoveUp()
 {
 
 	this->isJumping = true;
-	if (jumpHeight >= 250)
-	{
-		this->isFalling = true;
-	}
-	else
+	if (jumpHeight <= 250)
 	{
 		jumpHeight += 60;
-		this->isFalling = false;
 	}
 
 
@@ -80,54 +78,105 @@ void Character::MoveDown()
 	if (jumpHeight > 0)
 	{
 		jumpHeight -= 10;
-		this->isFalling = true;
 	}
-	else
-		this->isFalling = true;
 }
 
 void Character::Draw(HWND hwnd, HDC hdc)
 {
-	if (CheckSitting() == true)
+	if (this->life >= 0)
 	{
-		formY = 2;
+		if (CheckSitting() == true)
+		{
+			formY = 2;
+		}
+		else if (CheckJumping() == false)
+		{
+			formY = 0;
+		}
+
+		hdcMem = CreateCompatibleDC(hdc);
+		oldBitmap = SelectObject(hdcMem, hbmMask);
+		GetObject(hbmMask, sizeof(bitmap), &bitmap);
+		BitBlt
+		(
+			hdc,
+			posX - mapSlider,
+			posY - jumpHeight,
+			CHARACTER_WIDTH,
+			CHARACTER_HEIGHT,
+			hdcMem,
+			CHARACTER_WIDTH * formX,
+			CHARACTER_HEIGHT * formY,
+			SRCAND
+		);
+		oldBitmap = SelectObject(hdcMem, hBitmap);
+		GetObject(hBitmap, sizeof(bitmap), &bitmap);
+		BitBlt
+		(
+			hdc,
+			posX - mapSlider,
+			posY - jumpHeight,
+			CHARACTER_WIDTH,
+			CHARACTER_HEIGHT,
+			hdcMem,
+			CHARACTER_WIDTH * formX,
+			CHARACTER_HEIGHT * formY,
+			SRCPAINT
+		);
+		SelectObject(hdcMem, oldBitmap);
+		DeleteDC(hdcMem);
 	}
-	else if (CheckJumping() == false)
+	else
+
 	{
-		formY = 0;
+		if (countGameOver > 0)
+		{
+			countGameOver--;
+		}
+
+		if (formXOver >= 8)
+		{
+			formXOver = 0;
+		}
+		else
+		{
+			formXOver++;
+		}
+			
+
+		hdcMem = CreateCompatibleDC(hdc);
+		oldBitmap = SelectObject(hdcMem, hbmMask_GameOver);
+		GetObject(hbmMask_GameOver, sizeof(bitmap), &bitmap);
+		BitBlt
+		(
+			hdc,
+			mapSlider -400,
+			countGameOver,
+			GAMEOVER_WIDTH,
+			GAMEOVER_HEIGHT,
+			hdcMem,
+			GAMEOVER_WIDTH * formXOver,
+			0,
+			SRCAND
+		);
+		oldBitmap = SelectObject(hdcMem, hBitmap_GameOver);
+		GetObject(hBitmap_GameOver, sizeof(bitmap), &bitmap);
+		BitBlt
+		(
+			hdc,
+			mapSlider -405,
+			countGameOver,
+			GAMEOVER_WIDTH,
+			GAMEOVER_HEIGHT,
+			hdcMem,
+			GAMEOVER_WIDTH * formXOver,
+			0,
+			SRCPAINT
+		);
+		SelectObject(hdcMem, oldBitmap);
+		DeleteDC(hdcMem);
 	}
 
-	hdcMem = CreateCompatibleDC(hdc);
-	oldBitmap = SelectObject(hdcMem, hbmMask);
-	GetObject(hbmMask, sizeof(bitmap), &bitmap);
-	BitBlt
-	(
-		hdc,
-		posX - mapSlider,
-		posY - jumpHeight,
-		CHARACTER_WIDTH,
-		CHARACTER_HEIGHT,
-		hdcMem,
-		CHARACTER_WIDTH * formX,
-		CHARACTER_HEIGHT * formY,
-		SRCAND
-	);
-	oldBitmap = SelectObject(hdcMem, hBitmap);
-	GetObject(hBitmap, sizeof(bitmap), &bitmap);
-	BitBlt
-	(
-		hdc,
-		posX - mapSlider,
-		posY - jumpHeight,
-		CHARACTER_WIDTH,
-		CHARACTER_HEIGHT,
-		hdcMem,
-		CHARACTER_WIDTH * formX,
-		CHARACTER_HEIGHT * formY,
-		SRCPAINT
-	);
-	SelectObject(hdcMem, oldBitmap);
-	DeleteDC(hdcMem);
 }
 
 
@@ -169,11 +218,6 @@ bool Character::CheckSitting()
 	return this->isSitting;
 }
 
-bool Character::CheckFalling()
-{
-	return this->isJumping;
-}
-
 void Character::SetJumpHeight(int a_jumpHeight)
 {
 	this->jumpHeight = a_jumpHeight;
@@ -191,11 +235,8 @@ int Character::GetJumpingHeight()
 
 void Character::SetDeath(bool a_isDead)
 {
-
 	this->isDead = a_isDead;
-	this->life--;
-	this->typeOfWeapon = 0;
-
+	this->typeOfWeapon = -1;
 }
 
 bool Character::CheckDeath()
@@ -251,13 +292,35 @@ void Character::MakeAnimation()
 	if (this->isDead == true)
 	{
 		this->jumpHeight += 10;
+		if ((this->life > 1) && (this->jumpHeight >= 400))
+		{
+			Character::Regeneration();
+		}
 	}
-	else if ((this->jumpHeight) > 0)
+
+	if ((this->isDead == true) && (this->jumpHeight) > 0)
 	{
-		this->jumpHeight -= 4;
+		this->jumpHeight -= 7;
 	}
-	//else if (ninja->CheckJumping() && (ninja->GetJumpingHeight() < 250) && (!ninja->CheckFalling()))
-	//{
-	//	ninja->MoveUp();
-	//}
+}
+
+void Character::Regeneration()
+{
+	this->posX = this->posX - 250;
+	this->posY = 353;
+	this->formX = 10;
+	this->formY = 0;
+	this->jumpHeight = 0;
+	this->isJumping = false;
+	this->isSitting = false;
+	this->isAttack = false;
+	this->isDead = false;
+	//this->life--;
+	//this->typeOfWeapon = -1;
+}
+
+
+void Character::IncreseLife(int a_life)
+{
+	this->life = this->life + a_life;
 }

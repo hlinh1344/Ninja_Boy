@@ -4,7 +4,7 @@
 
 #define BUZZY_HEIGHT 45
 #define BUZZY_WIDTH 44
-#define BUZZY_AREA 100
+#define BUZZY_AREA 150
 #define BUZZY_SPEED 5
 
 class EnemyBuzzyBeetle : public Enemy

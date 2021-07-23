@@ -7,17 +7,20 @@
 #define CHARACTER_WIDTH 125
 #define CHARACTER_HEIGHT 115
 #define PLAYER_SPEED 5
-
+#define GAMEOVER_WIDTH 500
+#define GAMEOVER_HEIGHT 270
 
 class Character : public LiveObject
 {
 private:
 	int jumpHeight;
 	bool isJumping;
-	bool isFalling;
 	bool isSitting;
 	bool isAttack;
 	int typeOfWeapon;
+	HBITMAP hBitmap_GameOver, hbmMask_GameOver;
+	int countGameOver;
+	int formXOver;
 public:
 	Character();
 	~Character();
@@ -36,7 +39,6 @@ public:
 	void SetJump(bool trueOrFalse);
 	void SetSit(bool trueOrFalse);
 	bool CheckJumping();
-	bool CheckFalling();
 	bool CheckSitting();
 	void SetJumpHeight(int a_jumpHeight);
 	void IncreseJumpingHeight(int a);
@@ -50,6 +52,8 @@ public:
 	void SetTypeOfWeapon(int a_typeOfWeapon);
 	int GetPosY() override;
 	void MakeAnimation() override;
+	void Regeneration();
+	void IncreseLife(int a_life);
 };
 
 

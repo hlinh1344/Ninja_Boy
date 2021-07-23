@@ -4,7 +4,7 @@
 
 #define DARK_DRAGON_HEIGHT 108
 #define DARK_DRAGON_WIDTH 120
-#define DARK_DRAGON_AREA 200
+#define DARK_DRAGON_AREA 400
 #define DARK_DRAGON_SPEED 15
 
 class EnemyDarkDragon : public Enemy

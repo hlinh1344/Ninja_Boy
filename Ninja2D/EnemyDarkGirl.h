@@ -5,7 +5,7 @@
 #define DARK_GIRL_HEIGHT 65
 #define DARK_GIRL_WIDTH 70
 #define DARK_GIRL_AREA 500
-#define DARK_GIRL_SPEED 10
+#define DARK_GIRL_SPEED 5
 
 //chang name
 class EnemyDarkGirl : public Enemy
@@ -81,7 +81,7 @@ public:
 
 		if (isFalling)
 		{
-			posY = posY + 4;
+			posY = posY + DARK_GIRL_SPEED;
 			formX--;
 			if (formX <= 0)
 				formX = 2;
@@ -95,7 +95,7 @@ public:
 		}
 		else if (!isFalling)
 		{
-			posY = posY - 4;
+			posY = posY - DARK_GIRL_SPEED;
 
 			formX++;
 			if (formX >= 5)
