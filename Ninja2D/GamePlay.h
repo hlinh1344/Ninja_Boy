@@ -2,35 +2,36 @@
 #include <windows.h>
 #include <WindowsX.h>
 #include <vector>
-
-#include "Character.h"
 #include "BaseObject.h"
+#include "Map.h"
+#include "LiveObject.h"
+#include "Point2D.h"
+#include "Character.h"
+
+#include "Enemy.h"
 #include "EnemyMushroom.h"
 #include "EnemyBuzzyBeetle.h"
 #include "EnemySpinyBeetle.h"
 #include "EnemyWhiteGhost.h"
-#include "Map.h"
-#include "Weapon.h"
-#include "WeaponKunai.h"
-#include "WeaponShuriken.h"
-#include "WeaponFire.h"
-#include "WeaponThunder.h"
-
-#include "Enemy.h"
-#include "Point2D.h"
-#include "LiveObject.h"
-#include "BlueSword.h"
-#include "BlueSwordItem.h"
-#include "ShurikenItem.h"
-#include "Item.h"
-#include "KunaiItem.h"
-#include "ThunderDragonItem.h"
 #include "EnemyBird.h"
 #include "EnemyDarkDragon.h"
 #include "EnemyMonsterGirl.h"
 #include "EnemyDarkGirl.h"
 #include "EnemyDarkRaven.h"
 
+#include "Weapon.h"
+#include "BlueSword.h"
+#include "WeaponKunai.h"
+#include "WeaponShuriken.h"
+#include "WeaponFire.h"
+#include "WeaponThunder.h"
+
+#include "Item.h"
+#include "BlueSwordItem.h"
+#include "ShurikenItem.h"
+#include "KunaiItem.h"
+#include "FlameItem.h"
+#include "ThunderDragonItem.h"
 
 class GamePlay
 {

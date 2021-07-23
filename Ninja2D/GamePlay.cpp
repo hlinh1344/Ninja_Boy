@@ -41,41 +41,30 @@ void GamePlay::Run()
 		case 1:
 			enemies.push_back(new EnemyDarkRaven(BaseObject::mapSlider + MAP_WIDTH));
 			//enemies.push_back(new EnemySpinyBeetle(BaseObject::mapSlider + MAP_WIDTH));
-			enemyID = 0;
 			break;
 		case 2:
 			enemies.push_back(new EnemyMushroom(BaseObject::mapSlider + MAP_WIDTH));
-			enemyID = 0;
 			break;
 		case 3:
 			enemies.push_back(new EnemyWhiteGhost(BaseObject::mapSlider + MAP_WIDTH));
-			enemyID = 0;
 			break;
 		case 4:
-
 			enemies.push_back(new EnemyBuzzyBeetle(BaseObject::mapSlider + MAP_WIDTH));
-			enemyID = 0;
 			break;
 		case 5:
 			enemies.push_back(new EnemyMonsterGirl(BaseObject::mapSlider + MAP_WIDTH));
-
-			enemyID = 0;
 			break;
 		case 6:
 			enemies.push_back(new EnemyDarkDragon(BaseObject::mapSlider + MAP_WIDTH));
-			enemyID = 0;
 			break;
 		case 7:
 			enemies.push_back(new EnemyBird(BaseObject::mapSlider + MAP_WIDTH));
-			enemyID = 0;
 			break;
 		case 8:
 			enemies.push_back(new EnemyDarkGirl(BaseObject::mapSlider + MAP_WIDTH));
-			enemyID = 0;
 			break;
 		case 9:
 			enemies.push_back(new EnemyDarkRaven(BaseObject::mapSlider + MAP_WIDTH));
-			enemyID = 0;
 			break;
 			//
 		default:
@@ -90,25 +79,19 @@ void GamePlay::Run()
 		switch (itemID)
 		{
 		case 1:
-			items.push_back(new ThunderDragonItem(BaseObject::mapSlider + MAP_WIDTH));
-			//items.push_back(new BlueSwordItem(BaseObject::mapSlider + MAP_WIDTH));
-			itemID = 0;
+			items.push_back(new BlueSwordItem(BaseObject::mapSlider + MAP_WIDTH));
 			break;
 		case 2:
 			items.push_back(new ShurikenItem(BaseObject::mapSlider + MAP_WIDTH));
-			itemID = 0;
 			break;
 		case 3:
 			items.push_back(new KunaiItem(BaseObject::mapSlider + MAP_WIDTH));
-			itemID = 0;
 			break;
 		case 4:
-			//items.push_back(new EnemyMushroom(BaseObject::mapSlider + MAP_WIDTH));
-			itemID = 0;
+			items.push_back(new FlameItem(BaseObject::mapSlider + MAP_WIDTH));
 			break;
 		case 5:
-			//items.push_back(new EnemyBuzzyBeetle(BaseObject::mapSlider + MAP_WIDTH));
-			itemID = 0;
+			items.push_back(new ThunderDragonItem(BaseObject::mapSlider + MAP_WIDTH));
 			break;
 		default:
 			break;
@@ -159,6 +142,7 @@ void GamePlay::Run()
 		if (weapon->CheckDeath() == true)
 		{
 			weapons.erase(weapons.begin());
+			RemoveObject(weapon);
 		}
 	}
 		
@@ -169,6 +153,7 @@ void GamePlay::Run()
 		if (enemy->CheckDeath() == true)
 		{
 			enemies.erase(enemies.begin() + countID);
+			RemoveObject(enemy);
 		}
 		countID++;
 	}
@@ -190,7 +175,7 @@ void GamePlay::Draw(HWND hwnd, HDC hdc)
 	}
 
 
-	if (timer >= 2)
+	if (timer >= 3)
 	{
 
 		for (auto enemy : enemies)
@@ -265,11 +250,6 @@ void GamePlay::MoveNinjaLeft()
 			}
 		}
 	}
-
-
-	//for (auto enemy : enemies) {
-	//	enemy->MakeAnimation();
-	//}
 }
 
 void GamePlay::MoveNinjaRight()
@@ -317,11 +297,6 @@ void GamePlay::MoveNinjaRight()
 			}
 		}
 	}
-
-
-	//for (auto enemy : enemies) {
-	//	enemy->MakeAnimation();
-	//}
 }
 
 void GamePlay::MoveNinjaUp()
@@ -468,7 +443,7 @@ bool GamePlay::CheckCollision(BaseObject* object1, BaseObject* object2)
 {
 	Point2D A1 = Point2D(object1->GetPosX(), object1->GetPosY());
 	Point2D A2 = Point2D(object2->GetPosX(), object2->GetPosY());
-	//Point2D monsterPos = Point2D(object2->GetPosX(), object2->GetPosY());
+
 	int width1 = object1->GetWidth();
 	int height1 = object1->GetHeight();
 	int width2 = object2->GetWidth();

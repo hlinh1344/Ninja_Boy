@@ -152,6 +152,7 @@
     <ClInclude Include="EnemyMushroom.h" />
     <ClInclude Include="EnemySpinyBeetle.h" />
     <ClInclude Include="EnemyWhiteGhost.h" />
+    <ClInclude Include="FlameItem.h" />
     <ClInclude Include="GamePlay.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="KunaiItem.h" />
