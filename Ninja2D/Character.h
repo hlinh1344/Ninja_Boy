@@ -6,7 +6,7 @@
 
 #define CHARACTER_WIDTH 125
 #define CHARACTER_HEIGHT 115
-#define PLAYER_SPEED 4
+#define PLAYER_SPEED 5
 
 
 class Character : public LiveObject

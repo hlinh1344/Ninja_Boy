@@ -22,7 +22,7 @@ public:
 		posY = 0;
 		formX = 0;
 		formY = 0;
-		typeOfWeapn = 4;
+		typeOfWeapn = 3;
 		falling = true;
 		hBitmap = (HBITMAP)LoadImage(hInst, L"FlameItem.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 		hbmMask = CreateBitmapMask(hBitmap, RGB(255, 0, 255));
@@ -34,7 +34,7 @@ public:
 		posY = 0;
 		formX = 0;
 		formY = 0;
-		typeOfWeapn = 4;
+		typeOfWeapn = 3;
 		falling = true;
 		hBitmap = (HBITMAP)LoadImage(hInst, L"FlameItem.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 		hbmMask = CreateBitmapMask(hBitmap, RGB(255, 0, 255));
