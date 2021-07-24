@@ -52,6 +52,18 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 		NULL
 	);
 
+	HWND Name = CreateWindow
+	(
+		L"STATIC", 
+		L" LeHoangLinh_1720136",
+		//WS_VISIBLE | WS_CHILD | WS_BORDER| SS_LEFT,
+		WS_VISIBLE | WS_CHILD | SS_LEFT,
+		0, 0, 157, 17, 
+		hwnd, 
+		NULL,
+		hInstance,
+		NULL
+	);
 
 	if (hwnd == NULL)
 	{
@@ -65,7 +77,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	ShowWindow(hwnd, nCmdShow);
 	UpdateWindow(hwnd);
 	MSG msg = { };
-	float framePerSecond = 18.0;
+	float framePerSecond = 15.0;
 	float frameInterval = 1000.0 / framePerSecond;
 	while (globalRunning)
 	{

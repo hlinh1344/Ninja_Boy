@@ -56,6 +56,7 @@ public:
 	void Regeneration();
 	void IncreseLife(int a_life);
 	void Win();
+
 };
 
 

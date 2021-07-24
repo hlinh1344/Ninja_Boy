@@ -5,7 +5,7 @@
 #define KUNAI_ITEM_HEIGHT 72
 #define KUNAI_ITEM_WIDTH 74
 #define KUNAI_ITEM_AREA 30
-#define KUNAI_ITEM_SPEED 1
+#define KUNAI_ITEM_SPEED 3
 
 //L = 0, R = 1;
 

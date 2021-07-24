@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <WindowsX.h>
 #include <vector>
+
 #include "BaseObject.h"
 #include "Map.h"
 #include "LiveObject.h"
@@ -67,7 +68,6 @@ public:
 	bool CheckCollision(BaseObject* object1, BaseObject* object2);
 	void RemoveObject(BaseObject* object);
 	void AddWeapon(int type, int dir_Moving, int stage);
-
 
 };
 

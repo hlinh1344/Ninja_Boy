@@ -5,7 +5,7 @@
 #define FLAME_ITEM_HEIGHT 144
 #define FLAME_ITEM_WIDTH 60
 #define FLAME_ITEM_AREA 30
-#define FLAME_ITEM_SPEED 1
+#define FLAME_ITEM_SPEED 4
 
 //L = 0, R = 1;
 

@@ -121,9 +121,24 @@ void GamePlay::Run()
 			items.push_back(new KunaiItem(BaseObject::mapSlider + MAP_WIDTH));
 			break;
 		case 4:
-			items.push_back(new FlameItem(BaseObject::mapSlider + MAP_WIDTH));
+			items.push_back(new ShurikenItem(BaseObject::mapSlider + MAP_WIDTH));
 			break;
 		case 5:
+			items.push_back(new FlameItem(BaseObject::mapSlider + MAP_WIDTH));
+			break;
+		case 6:
+			items.push_back(new BlueSwordItem(BaseObject::mapSlider + MAP_WIDTH));
+			break;
+		case 7:
+			items.push_back(new ThunderDragonItem(BaseObject::mapSlider + MAP_WIDTH));
+			break;
+		case 8:
+			items.push_back(new KunaiItem(BaseObject::mapSlider + MAP_WIDTH));
+			break;
+		case 9:
+			items.push_back(new FlameItem(BaseObject::mapSlider + MAP_WIDTH));
+			break;
+		case 10:
 			items.push_back(new ThunderDragonItem(BaseObject::mapSlider + MAP_WIDTH));
 			break;
 		default:
@@ -260,33 +275,7 @@ void GamePlay::MoveNinjaLeft()
 			ninja->IncresePosX(PLAYER_SPEED);
 		}
 
-		//change sprite
-		if (ninja->CheckJumping() == true)
-		{
-			if (ninja->IsGoRight())
-			{
-				ninja->SetFormX(9);
-			}
-			else
-			{
-				if (ninja->GetFormX() <= 6)
-					ninja->SetFormX(9);
-				else
-					ninja->IncreseFormX(-1);
-			}
-		}
-		else
-		{
-			if (ninja->IsGoRight())
-				ninja->SetFormX(9);
-			else
-			{
-				if (ninja->GetFormX() <= 1)
-					ninja->SetFormX(8);
-				else
-					ninja->IncreseFormX(-1);
-			}
-		}
+		
 	}
 }
 

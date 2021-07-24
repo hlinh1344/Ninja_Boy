@@ -8,7 +8,7 @@
 #define CLOUD_SPEED 1
 #define NUMBER_OF_MONSTERS 20
 #define END_OF_MAP 3655
-#define NUMBER_OF_ITEMS 5
+#define NUMBER_OF_ITEMS 10
 
 class Map :public BaseObject
 {
@@ -19,7 +19,8 @@ private:
 		1575 ,1690 ,1805, 1920,
 		2035, 2150, 2265, 2380, 2495,
 		2610, 2725,  2840,  2955, 3070, 3185, 3300 };
-	int itemsPosition[NUMBER_OF_ITEMS] = { 1050, 1400, 1750, 2100, 2500 };
+	int itemsPosition[NUMBER_OF_ITEMS] = { 1050, 1210, 1370, 1530, 1690, 1850,
+		2010, 2170, 2390, 2600};
 public:
 
 	Map();

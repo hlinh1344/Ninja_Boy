@@ -8,7 +8,7 @@ Character::Character()
 	formY = 0;
 	life = 5;
 	jumpHeight = 0;
-	typeOfWeapon = 4;
+	typeOfWeapon = -1;
 	isJumping = false;
 	isSitting = false;
 	isAttack = false;
@@ -56,6 +56,33 @@ void Character::IncreseFormX(int a)
 void Character::MoveLeft()
 {
 	posX = posX - PLAYER_SPEED;
+	//change sprite
+	if (jumpHeight > 0)
+	{
+		if (Character::IsGoRight())
+		{
+			formX = 9;
+		}
+		else
+		{
+			if (formX <= 6)
+				formX = 9;
+			else
+				this->formX = this->formX - 1;
+		}
+	}
+	else
+	{
+		if (Character::IsGoRight())
+			formX = 9;
+		else
+		{
+			if (formX <= 1)
+				formX = 8;
+			else
+				this->formX = this->formX - 1;
+		}
+	}
 }
 
 void Character::MoveRight()
@@ -95,7 +122,7 @@ void Character::MoveUp()
 {
 
 	this->isJumping = true;
-	if (jumpHeight <= 250)
+	if (jumpHeight <= 270)
 	{
 		jumpHeight += 60;
 	}
@@ -384,7 +411,7 @@ void Character::MakeAnimation()
 
 	if ((this->isDead == false) && (this->jumpHeight) > 0)
 	{
-		this->jumpHeight -= 7;
+		this->jumpHeight -= 10;
 	}
 }
 
