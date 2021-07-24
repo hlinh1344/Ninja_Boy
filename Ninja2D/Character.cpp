@@ -6,19 +6,21 @@ Character::Character()
 	posY = 353;
 	formX = 10;
 	formY = 0;
-	life = 2;
+	life = 3;
 	jumpHeight = 0;
 	typeOfWeapon = -1;
 	isJumping = false;
 	isSitting = false;
 	isAttack = false;
 	isWin = false;
+	hBitmap_Hear = (HBITMAP)LoadImage(hInst, L"Hear.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBitmap_GameOver = (HBITMAP)LoadImage(hInst, L"GameOver.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBitmap_YouWin = (HBITMAP)LoadImage(hInst, L"YouWin.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBitmap = (HBITMAP)LoadImage(hInst, L"NinjaBoy.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hbmMask = CreateBitmapMask(hBitmap, RGB(255, 0, 255));
 	hbmMask_GameOver = CreateBitmapMask(hBitmap_GameOver, RGB(255, 0, 255));
 	hbmMask_YouWin = CreateBitmapMask(hBitmap_YouWin, RGB(255, 0, 255));
+	hbmMask_Hear = CreateBitmapMask(hBitmap_Hear, RGB(255, 0, 255));
 	countGameOver = MAP_HEIGHT;
 	formXOver = 0;
 }
@@ -141,6 +143,40 @@ void Character::MoveDown()
 
 void Character::Draw(HWND hwnd, HDC hdc)
 {
+	hdcMem = CreateCompatibleDC(hdc);
+	oldBitmap = SelectObject(hdcMem, hbmMask_Hear);
+	GetObject(hbmMask_Hear, sizeof(bitmap), &bitmap);
+	BitBlt
+	(
+		hdc,
+		0,
+		20,
+		HEAR_WIDTH * this->life,
+		HEAR_HEIGHT,
+		hdcMem,
+		HEAR_WIDTH * 0,
+		0,
+		SRCAND
+	);
+	oldBitmap = SelectObject(hdcMem, hBitmap_Hear);
+	GetObject(hBitmap_Hear, sizeof(bitmap), &bitmap);
+	BitBlt
+	(
+		hdc,
+		0,
+		20,
+		HEAR_WIDTH * this->life,
+		HEAR_HEIGHT,
+		hdcMem,
+		HEAR_WIDTH * 0,
+		0,
+		SRCPAINT
+	);
+	SelectObject(hdcMem, oldBitmap);
+	DeleteDC(hdcMem);
+
+
+
 	if (this->life >= 0)
 	{
 		if (this->isWin == true)
@@ -167,7 +203,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 			BitBlt
 			(
 				hdc,
-				posX - mapSlider + 20,
+				(1000 - NOTIFICATION_WIDTH)/2,
 				countGameOver,
 				NOTIFICATION_WIDTH,
 				NOTIFICATION_HEIGHT,
@@ -181,7 +217,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 			BitBlt
 			(
 				hdc,
-				posX - mapSlider + 15,
+				(1000 - NOTIFICATION_WIDTH) / 2,
 				countGameOver,
 				NOTIFICATION_WIDTH,
 				NOTIFICATION_HEIGHT,
@@ -261,7 +297,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 		BitBlt
 		(
 			hdc,
-			posX - mapSlider + 20,
+			(1000 - NOTIFICATION_WIDTH) / 2,
 			countGameOver,
 			NOTIFICATION_WIDTH,
 			NOTIFICATION_HEIGHT,
@@ -275,7 +311,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 		BitBlt
 		(
 			hdc,
-			posX - mapSlider + 15,
+			(1000 - NOTIFICATION_WIDTH) / 2,
 			countGameOver,
 			NOTIFICATION_WIDTH,
 			NOTIFICATION_HEIGHT,
@@ -438,4 +474,19 @@ void Character::IncreseLife(int a_life)
 void Character::Win()
 {
 	this->isWin = true;
+}
+
+void Character::IncreseClock()
+{
+	this->clock = this->clock + 1;
+}
+
+int Character::GetClock()
+{
+	return this->clock;
+}
+
+void Character::ResetClock()
+{
+	this->clock = 0;
 }

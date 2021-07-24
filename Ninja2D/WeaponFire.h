@@ -4,7 +4,7 @@
 
 #define FIRE_HEIGHT 28
 #define FIRE_WIDTH 70
-#define FIRE_AREA 450
+#define FIRE_AREA 600
 #define FIRE_SPEED 15
 
 //L = 0, R = 1;
@@ -60,7 +60,7 @@ public:
 			(
 				hdc,
 				posX - BaseObject::mapSlider,
-				posY,
+				posY--,
 				FIRE_WIDTH,
 				FIRE_HEIGHT,
 				hdcMem,
@@ -74,7 +74,7 @@ public:
 			(
 				hdc,
 				posX - BaseObject::mapSlider,
-				posY,
+				posY--,
 				FIRE_WIDTH,
 				FIRE_HEIGHT,
 				hdcMem,
@@ -111,11 +111,15 @@ public:
 	void MoveLeft() override
 	{
 		posX = posX - FIRE_SPEED;
+		posY--;
+		posY--;
 	}
 
 	void MoveRight() override
 	{
 		posX = posX + FIRE_SPEED;
+		posY--;
+		posY--;
 	}
 
 	void SetDeath(bool a_isDead) override

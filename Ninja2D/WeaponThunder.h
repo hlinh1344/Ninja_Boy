@@ -4,8 +4,8 @@
 
 #define THUNDER_HEIGHT 58
 #define THUNDER_WIDTH 78
-#define THUNDER_AREA 550
-#define THUNDER_SPEED 15
+#define THUNDER_AREA 800
+#define THUNDER_SPEED 10
 
 //L = 0, R = 1;
 
@@ -13,6 +13,8 @@ class WeaponThunder : public Weapon
 {
 private:
 	int originalLocation;
+	bool isFalling;
+	int originalposY;
 public:
 	WeaponThunder(int a_x, int a_dir, int	a_posY)
 	{
@@ -29,6 +31,8 @@ public:
 		dir = a_dir;
 		formY = 0;
 		originalLocation = a_x;
+		isFalling = true;
+		originalposY = a_posY;
 		life = 1;
 		hBitmap = (HBITMAP)LoadImage(hInst, L"Thunder.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 		hbmMask = CreateBitmapMask(hBitmap, RGB(0, 128, 0));
@@ -42,6 +46,7 @@ public:
 		formY = 0;
 		originalLocation = 0;
 		life = 1;
+		isFalling = true;
 		hBitmap = (HBITMAP)LoadImage(hInst, L"Thunder.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 		hbmMask = CreateBitmapMask(hBitmap, RGB(0, 128, 0));
 	}
@@ -105,6 +110,23 @@ public:
 					formX++;
 			}
 			CheckDistance();
+
+			if (isFalling)
+			{
+				posY = posY + 5;
+				if (posY >= originalposY + 70)
+				{
+					isFalling = false;
+				}
+			}
+			else if (!isFalling)
+			{
+				posY = posY - 5;
+				if (posY <= originalposY - 70)
+				{
+					isFalling = true;
+				}
+			}
 		}
 	}
 

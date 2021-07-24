@@ -55,13 +55,13 @@ void GamePlay::Run()
 			enemies.push_back(new EnemySpinyBeetle(BaseObject::mapSlider + MAP_WIDTH));
 			break;
 		case 6:
-			enemies.push_back(new EnemyDarkRaven(BaseObject::mapSlider + MAP_WIDTH));
+			enemies.push_back(new EnemyBuzzyBeetle(BaseObject::mapSlider + MAP_WIDTH));
 			break;
 		case 7:
-			enemies.push_back(new EnemyMushroom(BaseObject::mapSlider + MAP_WIDTH));
+			enemies.push_back(new EnemyDarkRaven(BaseObject::mapSlider + MAP_WIDTH));
 			break;
 		case 8:
-			enemies.push_back(new EnemyBuzzyBeetle(BaseObject::mapSlider + MAP_WIDTH));
+			enemies.push_back(new EnemyMushroom(BaseObject::mapSlider + MAP_WIDTH));
 			break;
 		case 9:
 			enemies.push_back(new EnemyBird(BaseObject::mapSlider + MAP_WIDTH));
@@ -658,30 +658,30 @@ void  GamePlay::AddWeapon(int type, int dir_Moving, int stage)
 		{
 			if (stage == 0)
 			{
-				weapons.push_back(new WeaponFire(ninja->GetPosX() - FIRE_WIDTH + 10, dir_Moving, ninja->GetPosY() + 70));
+				weapons.push_back(new WeaponFire(ninja->GetPosX() - FIRE_WIDTH + 10, dir_Moving, ninja->GetPosY() + 100));
 			}
 			else if (stage == 1)
 			{
-				weapons.push_back(new WeaponFire(ninja->GetPosX() - FIRE_WIDTH + 15, dir_Moving, ninja->GetPosY() + 65));
+				weapons.push_back(new WeaponFire(ninja->GetPosX() - FIRE_WIDTH + 15, dir_Moving, ninja->GetPosY() + 95));
 			}
 			else if (stage == 2)
 			{
-				weapons.push_back(new WeaponFire(ninja->GetPosX() - FIRE_WIDTH + 15, dir_Moving, ninja->GetPosY() + 35));
+				weapons.push_back(new WeaponFire(ninja->GetPosX() - FIRE_WIDTH + 15, dir_Moving, ninja->GetPosY() + 65));
 			}
 		}
 		else if (dir_Moving == 1)
 		{
 			if (stage == 0)
 			{
-				weapons.push_back(new WeaponFire(ninja->GetPosX() + 110, dir_Moving, ninja->GetPosY() + 70));
+				weapons.push_back(new WeaponFire(ninja->GetPosX() + 110, dir_Moving, ninja->GetPosY() + 100));
 			}
 			else if (stage == 1)
 			{
-				weapons.push_back(new WeaponFire(ninja->GetPosX() + 115, dir_Moving, ninja->GetPosY() + 65));
+				weapons.push_back(new WeaponFire(ninja->GetPosX() + 115, dir_Moving, ninja->GetPosY() + 95));
 			}
 			else if (stage == 2)
 			{
-				weapons.push_back(new WeaponFire(ninja->GetPosX() + 115, dir_Moving, ninja->GetPosY() + 35));
+				weapons.push_back(new WeaponFire(ninja->GetPosX() + 115, dir_Moving, ninja->GetPosY() + 65));
 			}
 		}
 	}
@@ -723,49 +723,51 @@ void  GamePlay::AddWeapon(int type, int dir_Moving, int stage)
 
 void GamePlay::Attack()
 {
+	ninja->IncreseClock();
 	if (!ninja->CheckDeath())
 	{
 		int typeOfWeapon = ninja->GetTypeOfWeapon();
-
-		if (ninja->IsGoLeft() == true)
+		if (ninja->GetClock() >= typeOfWeapon)
 		{
-			ninja->SetFormX(0);
-
-			if (ninja->CheckSitting() == true)
+			ninja->ResetClock();
+			if (ninja->IsGoLeft() == true)
 			{
-				AddWeapon(typeOfWeapon, 0, 0);
-			}
-			else if (ninja->CheckJumping() == true)
-			{
-				AddWeapon(typeOfWeapon, 0, 1);
-			}
-			else if (ninja->CheckJumping() == false)
-			{
-				AddWeapon(typeOfWeapon, 0, 2);
-			}
+				ninja->SetFormX(0);
+
+				if (ninja->CheckSitting() == true)
+				{
+					AddWeapon(typeOfWeapon, 0, 0);
+				}
+				else if (ninja->CheckJumping() == true)
+				{
+					AddWeapon(typeOfWeapon, 0, 1);
+				}
+				else if (ninja->CheckJumping() == false)
+				{
+					AddWeapon(typeOfWeapon, 0, 2);
+				}
 
 
+			}
+			else if (ninja->IsGoRight() == true)
+			{
+				ninja->SetFormX(19);
+
+				if (ninja->CheckSitting() == true)
+				{
+					AddWeapon(typeOfWeapon, 1, 0);
+				}
+				else if (ninja->CheckJumping() == true)
+				{
+					AddWeapon(typeOfWeapon, 1, 1);
+				}
+				else if (ninja->CheckJumping() == false)
+				{
+					AddWeapon(typeOfWeapon, 1, 2);
+				}
+
+			}
 		}
-		else if (ninja->IsGoRight() == true)
-		{
-			ninja->SetFormX(19);
-
-			if (ninja->CheckSitting() == true)
-			{
-				AddWeapon(typeOfWeapon, 1, 0);
-			}
-			else if (ninja->CheckJumping() == true)
-			{
-				AddWeapon(typeOfWeapon, 1, 1);
-			}
-			else if (ninja->CheckJumping() == false)
-			{
-				AddWeapon(typeOfWeapon, 1, 2);
-			}
-
-		}
-
-
 	}
 
 }

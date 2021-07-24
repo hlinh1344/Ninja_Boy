@@ -4,8 +4,8 @@
 
 #define SPINY_HEIGHT 42
 #define SPINY_WIDTH 42
-#define SPINY_AREA 300
-#define SPINY_SPEED 4
+#define SPINY_AREA 90
+#define SPINY_SPEED 12
 
 class EnemySpinyBeetle : public Enemy
 {

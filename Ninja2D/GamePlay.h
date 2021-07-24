@@ -49,6 +49,7 @@ private:
 	int countID;
 	bool checkToAdd;
 
+
 public:
 	GamePlay();
 	~GamePlay();

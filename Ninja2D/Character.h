@@ -9,6 +9,8 @@
 #define PLAYER_SPEED 5
 #define NOTIFICATION_WIDTH 500
 #define NOTIFICATION_HEIGHT 270
+#define HEAR_WIDTH 40
+#define HEAR_HEIGHT 30
 
 class Character : public LiveObject
 {
@@ -19,6 +21,7 @@ private:
 	bool isAttack;
 	int typeOfWeapon;
 	HBITMAP hBitmap_GameOver, hbmMask_GameOver, hBitmap_YouWin, hbmMask_YouWin;
+	HBITMAP hBitmap_Hear, hbmMask_Hear;
 	int countGameOver;
 	int formXOver;
 	bool isWin;
@@ -56,7 +59,9 @@ public:
 	void Regeneration();
 	void IncreseLife(int a_life);
 	void Win();
-
+	void IncreseClock();
+	int GetClock();
+	void ResetClock();
 };
 
 
