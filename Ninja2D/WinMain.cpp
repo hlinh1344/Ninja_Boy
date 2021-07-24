@@ -183,16 +183,9 @@ void OnKeyUp(HWND hwnd, WPARAM wParam)
 
 void OnPaint(HWND hwnd)
 {
-	//Ninja.SetFormY(2);
 	PAINTSTRUCT ps;
 	HDC hdc = BeginPaint(hwnd, &ps);
 	gamePlay.Draw(hwnd, hdc);
-	//map.Draw(hwnd, hdc);
-	//Ninja.Draw(hwnd, hdc);
-	//e1.Draw(hwnd, hdc);
-	//e2.Draw(hwnd, hdc);
-	//e3.Draw(hwnd, hdc);
-	//e4.Draw(hwnd, hdc);
 	EndPaint(hwnd, &ps);
 
 }
