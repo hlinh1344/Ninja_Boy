@@ -7,8 +7,8 @@
 #define CHARACTER_WIDTH 125
 #define CHARACTER_HEIGHT 115
 #define PLAYER_SPEED 5
-#define GAMEOVER_WIDTH 500
-#define GAMEOVER_HEIGHT 270
+#define NOTIFICATION_WIDTH 500
+#define NOTIFICATION_HEIGHT 270
 
 class Character : public LiveObject
 {
@@ -18,7 +18,7 @@ private:
 	bool isSitting;
 	bool isAttack;
 	int typeOfWeapon;
-	HBITMAP hBitmap_GameOver, hbmMask_GameOver;
+	HBITMAP hBitmap_GameOver, hbmMask_GameOver, hBitmap_YouWin, hbmMask_YouWin;
 	int countGameOver;
 	int formXOver;
 public:
@@ -54,6 +54,7 @@ public:
 	void MakeAnimation() override;
 	void Regeneration();
 	void IncreseLife(int a_life);
+	
 };
 
 

@@ -5,7 +5,7 @@
 #define THUNDER_HEIGHT 58
 #define THUNDER_WIDTH 78
 #define THUNDER_AREA 500
-#define THUNDER_SPEED 13
+#define THUNDER_SPEED 15
 
 //L = 0, R = 1;
 

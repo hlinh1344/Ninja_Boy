@@ -6,16 +6,19 @@ Character::Character()
 	posY = 353;
 	formX = 10;
 	formY = 0;
-	life = 1;
+	life = 0;
 	jumpHeight = 0;
 	typeOfWeapon = 4;
 	isJumping = false;
 	isSitting = false;
 	isAttack = false;
+
 	hBitmap_GameOver = (HBITMAP)LoadImage(hInst, L"GameOver.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	hBitmap_YouWin = (HBITMAP)LoadImage(hInst, L"YouWin.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBitmap = (HBITMAP)LoadImage(hInst, L"NinjaBoy.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hbmMask = CreateBitmapMask(hBitmap, RGB(255, 0, 255));
 	hbmMask_GameOver = CreateBitmapMask(hBitmap_GameOver, RGB(255, 0, 255));
+	hbmMask_YouWin = CreateBitmapMask(hBitmap_YouWin, RGB(255, 0, 255));
 	countGameOver = MAP_HEIGHT;
 	formXOver = 0;
 }
@@ -85,46 +88,100 @@ void Character::Draw(HWND hwnd, HDC hdc)
 {
 	if (this->life >= 0)
 	{
-		if (CheckSitting() == true)
+		if ((posX >= END_OF_MAP-5) && ( jumpHeight == 0))
 		{
-			formY = 2;
+
+			if (countGameOver > 50)
+			{
+				countGameOver = countGameOver - 3;
+			}
+
+			if (formXOver >= 8)
+			{
+				formXOver = 0;
+			}
+			else
+			{
+				formXOver++;
+			}
+
+
+			hdcMem = CreateCompatibleDC(hdc);
+			oldBitmap = SelectObject(hdcMem, hbmMask_YouWin);
+			GetObject(hbmMask_YouWin, sizeof(bitmap), &bitmap);
+			BitBlt
+			(
+				hdc,
+				posX - mapSlider + 20,
+				countGameOver,
+				NOTIFICATION_WIDTH,
+				NOTIFICATION_HEIGHT,
+				hdcMem,
+				NOTIFICATION_WIDTH * formXOver,
+				0,
+				SRCAND
+			);
+			oldBitmap = SelectObject(hdcMem, hBitmap_YouWin);
+			GetObject(hBitmap_YouWin, sizeof(bitmap), &bitmap);
+			BitBlt
+			(
+				hdc,
+				posX - mapSlider + 15,
+				countGameOver,
+				NOTIFICATION_WIDTH,
+				NOTIFICATION_HEIGHT,
+				hdcMem,
+				NOTIFICATION_WIDTH * formXOver,
+				0,
+				SRCPAINT
+			);
+			SelectObject(hdcMem, oldBitmap);
+			DeleteDC(hdcMem);
 		}
-		else if (CheckJumping() == false)
+		else
 		{
-			formY = 0;
+			if (CheckSitting() == true)
+			{
+				formY = 2;
+			}
+			else if (CheckJumping() == false)
+			{
+				formY = 0;
+			}
+
+			hdcMem = CreateCompatibleDC(hdc);
+			oldBitmap = SelectObject(hdcMem, hbmMask);
+			GetObject(hbmMask, sizeof(bitmap), &bitmap);
+			BitBlt
+			(
+				hdc,
+				posX - mapSlider,
+				posY - jumpHeight,
+				CHARACTER_WIDTH,
+				CHARACTER_HEIGHT,
+				hdcMem,
+				CHARACTER_WIDTH * formX,
+				CHARACTER_HEIGHT * formY,
+				SRCAND
+			);
+			oldBitmap = SelectObject(hdcMem, hBitmap);
+			GetObject(hBitmap, sizeof(bitmap), &bitmap);
+			BitBlt
+			(
+				hdc,
+				posX - mapSlider,
+				posY - jumpHeight,
+				CHARACTER_WIDTH,
+				CHARACTER_HEIGHT,
+				hdcMem,
+				CHARACTER_WIDTH * formX,
+				CHARACTER_HEIGHT * formY,
+				SRCPAINT
+			);
+			SelectObject(hdcMem, oldBitmap);
+			DeleteDC(hdcMem);
 		}
 
-		hdcMem = CreateCompatibleDC(hdc);
-		oldBitmap = SelectObject(hdcMem, hbmMask);
-		GetObject(hbmMask, sizeof(bitmap), &bitmap);
-		BitBlt
-		(
-			hdc,
-			posX - mapSlider,
-			posY - jumpHeight,
-			CHARACTER_WIDTH,
-			CHARACTER_HEIGHT,
-			hdcMem,
-			CHARACTER_WIDTH * formX,
-			CHARACTER_HEIGHT * formY,
-			SRCAND
-		);
-		oldBitmap = SelectObject(hdcMem, hBitmap);
-		GetObject(hBitmap, sizeof(bitmap), &bitmap);
-		BitBlt
-		(
-			hdc,
-			posX - mapSlider,
-			posY - jumpHeight,
-			CHARACTER_WIDTH,
-			CHARACTER_HEIGHT,
-			hdcMem,
-			CHARACTER_WIDTH * formX,
-			CHARACTER_HEIGHT * formY,
-			SRCPAINT
-		);
-		SelectObject(hdcMem, oldBitmap);
-		DeleteDC(hdcMem);
 	}
 	else
 	{
@@ -151,10 +208,10 @@ void Character::Draw(HWND hwnd, HDC hdc)
 			hdc,
 			posX - mapSlider + 20,
 			countGameOver,
-			GAMEOVER_WIDTH,
-			GAMEOVER_HEIGHT,
+			NOTIFICATION_WIDTH,
+			NOTIFICATION_HEIGHT,
 			hdcMem,
-			GAMEOVER_WIDTH * formXOver,
+			NOTIFICATION_WIDTH * formXOver,
 			0,
 			SRCAND
 		);
@@ -165,10 +222,10 @@ void Character::Draw(HWND hwnd, HDC hdc)
 			hdc,
 			posX - mapSlider + 15,
 			countGameOver,
-			GAMEOVER_WIDTH,
-			GAMEOVER_HEIGHT,
+			NOTIFICATION_WIDTH,
+			NOTIFICATION_HEIGHT,
 			hdcMem,
-			GAMEOVER_WIDTH * formXOver,
+			NOTIFICATION_WIDTH * formXOver,
 			0,
 			SRCPAINT
 		);
