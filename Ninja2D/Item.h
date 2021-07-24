@@ -8,7 +8,9 @@ protected:
 public:
     Item();
     ~Item();
-    
+
     int GetTypeOfWeapn();
+    bool CheckDeath();
+   
 };
 

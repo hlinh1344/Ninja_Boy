@@ -77,7 +77,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	ShowWindow(hwnd, nCmdShow);
 	UpdateWindow(hwnd);
 	MSG msg = { };
-	float framePerSecond = 15.0;
+	float framePerSecond = 20.0;
 	float frameInterval = 1000.0 / framePerSecond;
 	while (globalRunning)
 	{

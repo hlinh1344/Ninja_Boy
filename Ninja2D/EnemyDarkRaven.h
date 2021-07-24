@@ -5,7 +5,7 @@
 #define DARK_RAVEN_HEIGHT 55
 #define DARK_RAVEN_WIDTH 45
 #define DARK_RAVEN_AREA 1000
-#define DARK_RAVEN_SPEED 14
+#define DARK_RAVEN_SPEED 20
 
 
 class EnemyDarkRaven : public Enemy

@@ -5,7 +5,7 @@
 #define DARK_GIRL_HEIGHT 65
 #define DARK_GIRL_WIDTH 70
 #define DARK_GIRL_AREA 350
-#define DARK_GIRL_SPEED 5
+#define DARK_GIRL_SPEED 7
 
 //chang name
 class EnemyDarkGirl : public Enemy

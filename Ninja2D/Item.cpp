@@ -14,3 +14,8 @@ int Item::GetTypeOfWeapn()
 {
 	return this->typeOfWeapn;
 }
+
+bool Item::CheckDeath()
+{
+	return this->isDead;
+}

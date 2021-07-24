@@ -60,7 +60,7 @@
     <ClInclude Include="LiveObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BlueSword.h">
+    <ClInclude Include="WeaponBlueSword.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BlueSwordItem.h">

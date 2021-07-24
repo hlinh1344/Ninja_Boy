@@ -21,7 +21,7 @@
 #include "EnemyDarkRaven.h"
 
 #include "Weapon.h"
-#include "BlueSword.h"
+#include "WeaponBlueSword.h"
 #include "WeaponKunai.h"
 #include "WeaponShuriken.h"
 #include "WeaponFire.h"

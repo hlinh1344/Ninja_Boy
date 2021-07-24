@@ -4,7 +4,7 @@
 
 #define FIRE_HEIGHT 28
 #define FIRE_WIDTH 70
-#define FIRE_AREA 200
+#define FIRE_AREA 450
 #define FIRE_SPEED 15
 
 //L = 0, R = 1;

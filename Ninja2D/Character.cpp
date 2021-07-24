@@ -6,7 +6,7 @@ Character::Character()
 	posY = 353;
 	formX = 10;
 	formY = 0;
-	life = 5;
+	life = 2;
 	jumpHeight = 0;
 	typeOfWeapon = -1;
 	isJumping = false;
@@ -404,14 +404,14 @@ void Character::MakeAnimation()
 		this->jumpHeight += 10;
 		if ((this->life >=0) && (this->jumpHeight >= 400))
 		{
-			this->posX = this->posX - 250;
+			this->posX = this->posX - 200;
 			Character::Regeneration();
 		}
 	}
 
 	if ((this->isDead == false) && (this->jumpHeight) > 0)
 	{
-		this->jumpHeight -= 10;
+		this->jumpHeight -= 5;
 	}
 }
 

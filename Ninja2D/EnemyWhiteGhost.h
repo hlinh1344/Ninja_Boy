@@ -4,8 +4,8 @@
 
 #define WHITE_GHOST_HEIGHT 100
 #define WHITE_GHOST_WIDTH 100
-#define WHITE_GHOST_AREA 450
-#define WHITE_GHOST_SPEED 5
+#define WHITE_GHOST_AREA 850
+#define WHITE_GHOST_SPEED 7
 
 
 class EnemyWhiteGhost : public Enemy

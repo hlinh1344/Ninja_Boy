@@ -5,7 +5,7 @@
 #define MONSTER_GIRL_HEIGHT 65
 #define MONSTER_GIRL_WIDTH 70
 #define MONSTER_GIRL_AREA 1200
-#define MONSTER_GIRL_SPEED 16
+#define MONSTER_GIRL_SPEED 20
 
 
 class EnemyMonsterGirl : public Enemy

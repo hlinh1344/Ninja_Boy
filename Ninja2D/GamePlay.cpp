@@ -225,7 +225,12 @@ void GamePlay::Draw(HWND hwnd, HDC hdc)
 	map.Draw(hwnd, hdc);
  	
 	for (auto item : items) {
-		item->Draw(hwnd, hdc);
+		if (item->CheckDeath() == true)
+		{
+			RemoveObject(item);
+		}
+		else
+			item->Draw(hwnd, hdc);
 	}
 
 	for (auto weapon : weapons)
@@ -241,7 +246,12 @@ void GamePlay::Draw(HWND hwnd, HDC hdc)
 
 	for (auto enemy : enemies)
 	{
-		enemy->Draw(hwnd, hdc);
+		if (enemy->CheckDeath() == true)
+		{
+			RemoveObject(enemy);
+		}
+		else
+			enemy->Draw(hwnd, hdc);
 	}
 
 
@@ -478,30 +488,30 @@ void  GamePlay::AddWeapon(int type, int dir_Moving, int stage)
 		{
 			if (stage == 0)
 			{
-				weapons.push_back(new BlueSword(ninja->GetPosX() - BLUE_SWORD_WIDTH + 40 , dir_Moving, ninja->GetPosY()  + 65));
+				weapons.push_back(new WeaponBlueSword(ninja->GetPosX() - BLUE_SWORD_WIDTH + 40 , dir_Moving, ninja->GetPosY()  + 65));
 			}
 			else if (stage == 1)
 			{
-				weapons.push_back(new BlueSword(ninja->GetPosX() - BLUE_SWORD_WIDTH + 45, dir_Moving, ninja->GetPosY() + 60));
+				weapons.push_back(new WeaponBlueSword(ninja->GetPosX() - BLUE_SWORD_WIDTH + 45, dir_Moving, ninja->GetPosY() + 60));
 			}
 			else if (stage == 2)
 			{
-				weapons.push_back(new BlueSword(ninja->GetPosX() - BLUE_SWORD_WIDTH + 45, dir_Moving, ninja->GetPosY() + 35));
+				weapons.push_back(new WeaponBlueSword(ninja->GetPosX() - BLUE_SWORD_WIDTH + 45, dir_Moving, ninja->GetPosY() + 35));
 			}
 		}
 		else if (dir_Moving == 1)
 		{
 			if (stage == 0)
 			{
-				weapons.push_back(new BlueSword(ninja->GetPosX()  + 80, dir_Moving, ninja->GetPosY()  + 65));
+				weapons.push_back(new WeaponBlueSword(ninja->GetPosX()  + 80, dir_Moving, ninja->GetPosY()  + 65));
 			}
 			else if (stage == 1)
 			{
-				weapons.push_back(new BlueSword(ninja->GetPosX()  + 85, dir_Moving, ninja->GetPosY() + 60));
+				weapons.push_back(new WeaponBlueSword(ninja->GetPosX()  + 85, dir_Moving, ninja->GetPosY() + 60));
 			}
 			else if (stage == 2)
 			{
-				weapons.push_back(new BlueSword(ninja->GetPosX() + 85, dir_Moving, ninja->GetPosY() + 35));
+				weapons.push_back(new WeaponBlueSword(ninja->GetPosX() + 85, dir_Moving, ninja->GetPosY() + 35));
 			}
 		}
 	}

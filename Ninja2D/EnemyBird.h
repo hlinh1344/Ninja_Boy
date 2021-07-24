@@ -4,8 +4,8 @@
 
 #define BIRD_HEIGHT 65
 #define BIRD_WIDTH 64
-#define BIRD_AREA 600
-#define BIRD_SPEED 10
+#define BIRD_AREA 1000
+#define BIRD_SPEED 8
 
 
 class EnemyBird : public Enemy

@@ -11,12 +11,12 @@
 //posx = 100;
 //posY = 421;
 
-class BlueSword : public Weapon
+class WeaponBlueSword : public Weapon
 {
 private:
 	int originalLocation;
 public:
-	BlueSword(int a_x, int a_dir, int	a_posY)
+	WeaponBlueSword(int a_x, int a_dir, int	a_posY)
 	{
 		posX = a_x;
 		posY = a_posY;
@@ -29,7 +29,7 @@ public:
 		hbmMask = CreateBitmapMask(hBitmap, RGB(255, 0, 255));
 	}
 
-	BlueSword()
+	WeaponBlueSword()
 	{
 		posX = 0;
 		posY = 421;
@@ -40,7 +40,7 @@ public:
 		hBitmap = (HBITMAP)LoadImage(hInst, L"BlueSword.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 		hbmMask = CreateBitmapMask(hBitmap, RGB(255, 255, 255));
 	}
-	~BlueSword()
+	~WeaponBlueSword()
 	{
 
 	}

@@ -140,7 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BaseObject.h" />
-    <ClInclude Include="BlueSword.h" />
+    <ClInclude Include="WeaponBlueSword.h" />
     <ClInclude Include="BlueSwordItem.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Enemy.h" />
