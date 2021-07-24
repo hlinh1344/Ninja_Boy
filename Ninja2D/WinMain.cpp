@@ -5,12 +5,6 @@
 #include <WindowsX.h>
 #include <vector>
 
-#include "Character.h"
-#include "BaseObject.h"
-#include "EnemyMushroom.h"
-#include "EnemyBuzzyBeetle.h"
-#include "EnemySpinyBeetle.h"
-#include "Map.h"
 #include "GamePlay.h"
 
 #define WINDOW_WIDTH 1000
@@ -69,9 +63,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	{
 		return 0;
 	}
-
-
-
 
 
 	ShowWindow(hwnd, nCmdShow);
