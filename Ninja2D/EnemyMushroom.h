@@ -10,7 +10,7 @@
 
 #define MUSHROOM_HEIGHT 43
 #define MUSHROOM_WIDTH 44
-#define MUSHROOM_AREA 120
+#define MUSHROOM_AREA 200
 #define MUSHROOM_SPEED 4
 class EnemyMushroom : public Enemy
 {
@@ -118,14 +118,20 @@ public:
 
 	void MakeAnimation() override
 	{
+		clock++;
 		if (!isDead)
 		{
 			if (isGoToRight)
 			{
-				if (formX == 0)
-					formX = 1;
-				else
-					formX = 0;
+				if (clock >= 10)
+				{
+					clock = 0;
+					if (formX == 0)
+						formX = 1;
+					else
+						formX = 0;
+				}
+			
 
 				EnemyMushroom::MoveRight();
 
@@ -136,10 +142,15 @@ public:
 			}
 			else if (!isGoToRight)
 			{
-				if (formX == 0)
-					formX = 1;
-				else
-					formX = 0;
+				if (clock >= 10)
+				{
+					clock = 0;
+					if (formX == 0)
+						formX = 1;
+					else
+						formX = 0;
+				}
+				
 
 				EnemyMushroom::MoveLeft();
 

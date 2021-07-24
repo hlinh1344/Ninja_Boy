@@ -4,7 +4,7 @@
 
 #define DARK_GIRL_HEIGHT 65
 #define DARK_GIRL_WIDTH 70
-#define DARK_GIRL_AREA 500
+#define DARK_GIRL_AREA 350
 #define DARK_GIRL_SPEED 5
 
 //chang name
@@ -82,13 +82,18 @@ public:
 		if (isFalling)
 		{
 			posY = posY + DARK_GIRL_SPEED;
-			formX--;
-			if (formX <= 0)
-				formX = 2;
-			else
-				formX--;
+			//formX--;
+			if (clock >= 3)
+			{
+				clock = 0;
+				if (formX <= 0)
+					formX = 2;
+				else
+					formX--;
+			}
+			
 
-			if (posY >= 300)
+			if (posY >= 20 + DARK_GIRL_AREA)
 			{
 				isFalling = false;
 			}
@@ -97,13 +102,18 @@ public:
 		{
 			posY = posY - DARK_GIRL_SPEED;
 
-			formX++;
-			if (formX >= 5)
-				formX = 3;
-			else
-				formX++;
+			//formX++;
+			if (clock >= 3)
+			{
+				clock = 0;
+				if (formX >= 5)
+					formX = 3;
+				else
+					formX++;
+			}
+			
 
-			if (posY <= 100)
+			if (posY <= 20)
 			{
 				isFalling = true;
 			}
@@ -145,6 +155,7 @@ public:
 
 	void MakeAnimation() override
 	{
+		clock++;
 		//
 	}
 

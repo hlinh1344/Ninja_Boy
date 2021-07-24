@@ -108,14 +108,20 @@ public:
 
 	void MakeAnimation() override
 	{
+		clock++;
 		if (!isDead)
 		{
 			if (EnemySpinyBeetle::IsGoRight())
 			{
-				if (formX >= 3)
-					formX = 2;
-				else
-					formX = formX + 1;
+				if (clock >= 3)
+				{
+					clock = 0;
+					if (formX >= 3)
+						formX = 2;
+					else
+						formX = formX + 1;
+				}
+				
 
 				EnemySpinyBeetle::MoveRight();
 
@@ -126,10 +132,15 @@ public:
 			}
 			else if (EnemySpinyBeetle::IsGoLeft())
 			{
-				if (formX <= 0)
-					formX = 1;
-				else
-					formX = formX - 1;
+				if (clock >= 3)
+				{
+					clock = 0;
+					if (formX <= 0)
+						formX = 1;
+					else
+						formX = formX - 1;
+				}
+				
 
 				EnemySpinyBeetle::MoveLeft();
 

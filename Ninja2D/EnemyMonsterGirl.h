@@ -4,8 +4,8 @@
 
 #define MONSTER_GIRL_HEIGHT 65
 #define MONSTER_GIRL_WIDTH 70
-#define MONSTER_GIRL_AREA 600
-#define MONSTER_GIRL_SPEED 18
+#define MONSTER_GIRL_AREA 1200
+#define MONSTER_GIRL_SPEED 16
 
 
 class EnemyMonsterGirl : public Enemy
@@ -81,7 +81,7 @@ public:
 
 		if (isFalling)
 		{
-			posY = posY + 1;
+			posY = posY + 5;
 			if (posY >= 300)
 			{
 				isFalling = false;
@@ -89,7 +89,7 @@ public:
 		}
 		else if (!isFalling)
 		{
-			posY = posY - 2;
+			posY = posY - 7;
 			if (posY <= 50)
 			{
 				isFalling = true;
@@ -132,14 +132,20 @@ public:
 
 	void MakeAnimation() override
 	{
+		clock++;
 		if (!isDead)
 		{
 			if (EnemyMonsterGirl::IsGoRight())
 			{
-				if (formX >= 5)
-					formX = 3;
-				else
-					formX = formX + 1;
+				if (clock >= 2)
+				{
+					clock = 0;
+					if (formX >= 5)
+						formX = 3;
+					else
+						formX = formX + 1;
+				}
+				
 
 				EnemyMonsterGirl::MoveRight();
 
@@ -151,10 +157,15 @@ public:
 
 			else if (EnemyMonsterGirl::IsGoLeft())
 			{
-				if (formX <= 0)
-					formX = 2;
-				else
-					formX = formX - 1;
+				if (clock >= 2)
+				{
+					clock = 0;
+					if (formX <= 0)
+						formX = 2;
+					else
+						formX = formX - 1;
+				}
+				
 
 				EnemyMonsterGirl::MoveLeft();
 

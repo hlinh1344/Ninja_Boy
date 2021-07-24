@@ -4,7 +4,7 @@
 
 #define DARK_DRAGON_HEIGHT 108
 #define DARK_DRAGON_WIDTH 120
-#define DARK_DRAGON_AREA 400
+#define DARK_DRAGON_AREA 1000
 #define DARK_DRAGON_SPEED 15
 
 class EnemyDarkDragon : public Enemy
@@ -107,14 +107,20 @@ public:
 
 	void MakeAnimation() override
 	{
+		clock++;
 		if (!isDead)
 		{
 			if (EnemyDarkDragon::IsGoRight())
 			{
-				if (formX >= 7)
-					formX = 4;
-				else
-					formX = formX + 1;
+				if (clock >= 4)
+				{
+					clock = 0;
+					if (formX >= 7)
+						formX = 4;
+					else
+						formX = formX + 1;
+				}
+				
 
 				EnemyDarkDragon::MoveRight();
 
@@ -126,10 +132,15 @@ public:
 
 			else if (EnemyDarkDragon::IsGoLeft())
 			{
-				if (formX <= 0)
-					formX = 3;
-				else
-					formX = formX - 1;
+				if (clock >= 4)
+				{
+					clock = 0;
+					if (formX <= 0)
+						formX = 3;
+					else
+						formX = formX - 1;
+				}
+			
 
 				EnemyDarkDragon::MoveLeft();
 

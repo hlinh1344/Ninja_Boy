@@ -6,13 +6,13 @@ Character::Character()
 	posY = 353;
 	formX = 10;
 	formY = 0;
-	life = 0;
+	life = 5;
 	jumpHeight = 0;
-	typeOfWeapon = 4;
+	typeOfWeapon = -1;
 	isJumping = false;
 	isSitting = false;
 	isAttack = false;
-
+	isWin = false;
 	hBitmap_GameOver = (HBITMAP)LoadImage(hInst, L"GameOver.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBitmap_YouWin = (HBITMAP)LoadImage(hInst, L"YouWin.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBitmap = (HBITMAP)LoadImage(hInst, L"NinjaBoy.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
@@ -61,6 +61,34 @@ void Character::MoveLeft()
 void Character::MoveRight()
 {
 	posX = posX + PLAYER_SPEED;
+	//change sprite
+	if (jumpHeight > 0)
+	{
+		if (Character::IsGoLeft())
+		{
+			formX= 10;
+		}
+		else
+		{
+			if (formX >= 13)
+				formX = 10;
+			else
+				this->formX = this->formX + 1;
+		}
+	}
+	else
+	{
+		if (Character::IsGoLeft())
+			formX = 10;
+		else
+		{
+			if (formX >= 18)
+				formX =11;
+			else
+				this->formX = this->formX + 1;
+		}
+	}
+
 }
 
 void Character::MoveUp()
@@ -88,7 +116,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 {
 	if (this->life >= 0)
 	{
-		if ((posX >= END_OF_MAP-5) && ( jumpHeight == 0))
+		if (this->isWin == true)
 		{
 
 			if (countGameOver > 50)
@@ -96,7 +124,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 				countGameOver = countGameOver - 3;
 			}
 
-			if (formXOver >= 8)
+			if (formXOver >= 7)
 			{
 				formXOver = 0;
 			}
@@ -190,7 +218,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 			countGameOver = countGameOver - 3;
 		}
 
-		if (formXOver >= 8)
+		if (formXOver >= 7)
 		{
 			formXOver = 0;
 		}
@@ -356,7 +384,7 @@ void Character::MakeAnimation()
 
 	if ((this->isDead == false) && (this->jumpHeight) > 0)
 	{
-		this->jumpHeight -= 5;
+		this->jumpHeight -= 7;
 	}
 }
 
@@ -378,4 +406,9 @@ void Character::Regeneration()
 void Character::IncreseLife(int a_life)
 {
 	this->life = this->life + a_life;
+}
+
+void Character::Win()
+{
+	this->isWin = true;
 }

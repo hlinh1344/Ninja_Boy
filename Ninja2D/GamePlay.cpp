@@ -240,23 +240,12 @@ void GamePlay::Draw(HWND hwnd, HDC hdc)
 	}
 
 
-	if (timer >= 3)
+	for (auto enemy : enemies)
 	{
+		enemy->Draw(hwnd, hdc);
+	}
 
-		for (auto enemy : enemies)
-		{
-				enemy->Draw(hwnd, hdc);
-		}
-		timer = 0;
-	}
-	else
-	{
-		for (auto enemy : enemies) 
-		{
-			enemy->Draw(hwnd, hdc);
-		}
-		
-	}
+
 	ninja->Draw(hwnd, hdc);
 }
 
@@ -319,6 +308,7 @@ void GamePlay::MoveNinjaLeft()
 
 void GamePlay::MoveNinjaRight()
 {
+	//move
 	if (!ninja->CheckDeath())
 	{
 		ninja->MoveRight();
@@ -331,36 +321,11 @@ void GamePlay::MoveNinjaRight()
 		if (ninja->GetPosX() >= END_OF_MAP)
 		{
 			map.increseMapSlider(-PLAYER_SPEED);
-			ninja->MoveLeft();
+			ninja->IncresePosX(-PLAYER_SPEED);
+			ninja->Win();
 		}
 
-		//change sprite
-		if (ninja->CheckJumping() == true)
-		{
-			if (ninja->IsGoLeft())
-			{
-				ninja->SetFormX(10);
-			}
-			else
-			{
-				if (ninja->GetFormX() >= 13)
-					ninja->SetFormX(10);
-				else
-					ninja->IncreseFormX(1);
-			}
-		}
-		else
-		{
-			if (ninja->IsGoLeft())
-				ninja->SetFormX(10);
-			else
-			{
-				if (ninja->GetFormX() >= 18)
-					ninja->SetFormX(11);
-				else
-					ninja->IncreseFormX(1);
-			}
-		}
+		
 	}
 }
 

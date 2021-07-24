@@ -4,10 +4,8 @@ class LiveObject :
     public BaseObject
 {
 protected:
-
-
     int life;
-
+    int clock;
 public:
     LiveObject();
     ~LiveObject();
@@ -21,5 +19,6 @@ public:
     virtual bool IsGoRight();
     virtual bool CheckDeath();
     virtual void MakeAnimation();
+
 };
 

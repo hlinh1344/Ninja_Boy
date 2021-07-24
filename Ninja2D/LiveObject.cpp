@@ -2,7 +2,7 @@
 
 LiveObject::LiveObject()
 {
-
+	clock = 0;
 }
 
 

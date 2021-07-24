@@ -4,7 +4,7 @@
 
 #define DARK_RAVEN_HEIGHT 55
 #define DARK_RAVEN_WIDTH 45
-#define DARK_RAVEN_AREA 800
+#define DARK_RAVEN_AREA 1000
 #define DARK_RAVEN_SPEED 14
 
 
@@ -132,14 +132,20 @@ public:
 
 	void MakeAnimation() override
 	{
+		clock++;
 		if (!isDead)
 		{
 			if (EnemyDarkRaven::IsGoRight())
 			{
-				if (formX >= 11)
-					formX = 6;
-				else
-					formX = formX + 1;
+				if (clock >= 2)
+				{
+					clock = 0;
+					if (formX >= 11)
+						formX = 6;
+					else
+						formX = formX + 1;
+				}
+				
 
 				EnemyDarkRaven::MoveRight();
 
@@ -151,10 +157,15 @@ public:
 
 			else if (EnemyDarkRaven::IsGoLeft())
 			{
-				if (formX <= 0)
-					formX = 5;
-				else
-					formX = formX - 1;
+				if (clock >= 2)
+				{
+					clock = 0;
+					if (formX <= 0)
+						formX = 5;
+					else
+						formX = formX - 1;
+				}
+				
 
 				EnemyDarkRaven::MoveLeft();
 

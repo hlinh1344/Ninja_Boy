@@ -21,6 +21,7 @@ private:
 	HBITMAP hBitmap_GameOver, hbmMask_GameOver, hBitmap_YouWin, hbmMask_YouWin;
 	int countGameOver;
 	int formXOver;
+	bool isWin;
 public:
 	Character();
 	~Character();
@@ -54,7 +55,7 @@ public:
 	void MakeAnimation() override;
 	void Regeneration();
 	void IncreseLife(int a_life);
-	
+	void Win();
 };
 
 

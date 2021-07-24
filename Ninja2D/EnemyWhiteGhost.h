@@ -5,7 +5,7 @@
 #define WHITE_GHOST_HEIGHT 100
 #define WHITE_GHOST_WIDTH 100
 #define WHITE_GHOST_AREA 450
-#define WHITE_GHOST_SPEED 7
+#define WHITE_GHOST_SPEED 5
 
 
 class EnemyWhiteGhost : public Enemy
@@ -79,7 +79,7 @@ public:
 
 		if (isFalling)
 		{
-			posY = posY + 2;
+			posY = posY + 7;
 			if (posY >= 400)
 			{
 				isFalling = false;
@@ -87,8 +87,8 @@ public:
 		}
 		else if (!isFalling)
 		{
-			posY = posY - 2;
-			if (posY <= 200)
+			posY = posY - 7;
+			if (posY <= 100)
 			{
 				isFalling = true;
 			}
@@ -130,14 +130,20 @@ public:
 
 	void MakeAnimation() override
 	{
+		clock++;
 		if (!isDead)
 		{
 			if (EnemyWhiteGhost::IsGoRight())
 			{
-				if (formX >= 11)
-					formX = 6;
-				else
-					formX = formX + 1;
+				if (clock >= 4)
+				{
+					clock = 0;
+					if (formX >= 11)
+						formX = 6;
+					else
+						formX = formX + 1;
+				}
+				
 
 				EnemyWhiteGhost::MoveRight();
 
@@ -149,10 +155,15 @@ public:
 
 			else if (EnemyWhiteGhost::IsGoLeft())
 			{
-				if (formX <= 0)
-					formX = 5;
-				else
-					formX = formX - 1;
+				if (clock >= 4)
+				{
+					clock = 0;
+					if (formX <= 0)
+						formX = 5;
+					else
+						formX = formX - 1;
+				}
+				
 
 				EnemyWhiteGhost::MoveLeft();
 
