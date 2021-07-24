@@ -6,9 +6,9 @@ Character::Character()
 	posY = 353;
 	formX = 10;
 	formY = 0;
-	life = 3;
+	life = 1;
 	jumpHeight = 0;
-	typeOfWeapon = -1;
+	typeOfWeapon = 4;
 	isJumping = false;
 	isSitting = false;
 	isAttack = false;
@@ -127,11 +127,10 @@ void Character::Draw(HWND hwnd, HDC hdc)
 		DeleteDC(hdcMem);
 	}
 	else
-
 	{
-		if (countGameOver > 0)
+		if (countGameOver > 50)
 		{
-			countGameOver--;
+			countGameOver = countGameOver - 3;
 		}
 
 		if (formXOver >= 8)
@@ -150,7 +149,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 		BitBlt
 		(
 			hdc,
-			mapSlider -400,
+			posX - mapSlider + 20,
 			countGameOver,
 			GAMEOVER_WIDTH,
 			GAMEOVER_HEIGHT,
@@ -164,7 +163,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 		BitBlt
 		(
 			hdc,
-			mapSlider -405,
+			posX - mapSlider + 15,
 			countGameOver,
 			GAMEOVER_WIDTH,
 			GAMEOVER_HEIGHT,
@@ -236,7 +235,6 @@ int Character::GetJumpingHeight()
 void Character::SetDeath(bool a_isDead)
 {
 	this->isDead = a_isDead;
-	this->typeOfWeapon = -1;
 }
 
 bool Character::CheckDeath()
@@ -292,21 +290,21 @@ void Character::MakeAnimation()
 	if (this->isDead == true)
 	{
 		this->jumpHeight += 10;
-		if ((this->life > 1) && (this->jumpHeight >= 400))
+		if ((this->life >=0) && (this->jumpHeight >= 400))
 		{
+			this->posX = this->posX - 250;
 			Character::Regeneration();
 		}
 	}
 
-	if ((this->isDead == true) && (this->jumpHeight) > 0)
+	if ((this->isDead == false) && (this->jumpHeight) > 0)
 	{
-		this->jumpHeight -= 7;
+		this->jumpHeight -= 5;
 	}
 }
 
 void Character::Regeneration()
 {
-	this->posX = this->posX - 250;
 	this->posY = 353;
 	this->formX = 10;
 	this->formY = 0;
@@ -316,7 +314,7 @@ void Character::Regeneration()
 	this->isAttack = false;
 	this->isDead = false;
 	//this->life--;
-	//this->typeOfWeapon = -1;
+	this->typeOfWeapon = -1;
 }
 
 

@@ -8,6 +8,7 @@ GamePlay::GamePlay()
 	countID = 0;
 	checkToAdd = false;
 	ninja = new Character();
+
 }
 
 GamePlay::~GamePlay()
@@ -153,29 +154,37 @@ void GamePlay::Run()
 
 
 	//check collision main vs monster
-	for (auto enemy : enemies)
+	if (ninja->CheckDeath() == false)
 	{
-		if (CheckCollision(ninja, enemy))
+		for (auto enemy : enemies)
 		{
-			ninja->SetDeath(true);
-			ninja->IncreseLife(-1);
+			if (CheckCollision(ninja, enemy))
+			{
+					enemy->SetDeath(true);
+					ninja->SetDeath(true);
+					ninja->IncreseLife(-1);
+			}
 		}
+
+
+		//////item
+
+		for (auto item : items)
+		{
+			if (CheckCollision(ninja, item))
+			{
+				ninja->SetTypeOfWeapon(item->GetTypeOfWeapn());
+				item->SetDeath(true);
+				items.erase(items.begin() + countID);
+			}
+			countID++;
+		}
+		countID = 0;
+
+
 	}
 
-	//////item
 	
-	for (auto item : items)
-	{
-		if (CheckCollision(ninja,item))
-		{
-			ninja->SetTypeOfWeapon(item->GetTypeOfWeapn());
-			item->SetDeath(true);
-			items.erase(items.begin() + countID);
-		}
-		countID++;
-	}
-	countID = 0;
-
 	//weapon
 	for (auto weapon : weapons) {
 		for (auto enemy : enemies)
@@ -215,7 +224,7 @@ void GamePlay::Draw(HWND hwnd, HDC hdc)
 {
 	timer++;
 	map.Draw(hwnd, hdc);
- 	ninja->Draw(hwnd, hdc);
+ 	
 	for (auto item : items) {
 		item->Draw(hwnd, hdc);
 	}
@@ -248,7 +257,7 @@ void GamePlay::Draw(HWND hwnd, HDC hdc)
 		}
 		
 	}
-
+	ninja->Draw(hwnd, hdc);
 }
 
 
