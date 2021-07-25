@@ -21,6 +21,7 @@ GamePlay gamePlay;
 
 int globalRunning = 1;
 
+
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 {
@@ -68,10 +69,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	ShowWindow(hwnd, nCmdShow);
 	UpdateWindow(hwnd);
 	MSG msg = { };
-	float framePerSecond = 20.0;
+	float framePerSecond = 25.0;
 	float frameInterval = 1000.0 / framePerSecond;
 	while (globalRunning)
 	{
+
 		while (PeekMessage(&msg, hwnd, 0, 0, PM_REMOVE))
 		{
 
@@ -80,7 +82,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 		}
 
 		gamePlay.Run();
-		InvalidateRect(hwnd, NULL, FALSE);
+
+		if (gamePlay.CheckClock() == true)
+		{
+			gamePlay.ResetClock();
+			InvalidateRect(hwnd, NULL, FALSE);
+		}
+		
 		Sleep(frameInterval);
 	}
 	return msg.wParam;
@@ -146,7 +154,7 @@ void OnKeyDown(HWND hwnd, WPARAM wParam)
 		gamePlay.Attack();
 
 	}
-	InvalidateRect(hwnd, NULL, FALSE);
+	//InvalidateRect(hwnd, NULL, FALSE);
 }
 
 void OnKeyUp(HWND hwnd, WPARAM wParam)
@@ -161,7 +169,7 @@ void OnKeyUp(HWND hwnd, WPARAM wParam)
 		break;
 	case VK_UP:
 		gamePlay.KeyUpUp();
-		InvalidateRect(hwnd, NULL, FALSE);
+		//InvalidateRect(hwnd, NULL, FALSE);
 		break;
 	case VK_DOWN:
 		gamePlay.KeyUpDown();
@@ -169,7 +177,7 @@ void OnKeyUp(HWND hwnd, WPARAM wParam)
 	case VK_SPACE:
 		gamePlay.KeyUpSpace();
 	}
-	InvalidateRect(hwnd, NULL, FALSE);
+	//InvalidateRect(hwnd, NULL, FALSE);
 }
 
 void OnPaint(HWND hwnd)

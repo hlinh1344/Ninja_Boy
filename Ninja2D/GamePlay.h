@@ -48,7 +48,7 @@ private:
 	int timer;
 	int countID;
 	bool checkToAdd;
-
+	int clock;
 
 public:
 	GamePlay();
@@ -69,6 +69,7 @@ public:
 	bool CheckCollision(BaseObject* object1, BaseObject* object2);
 	void RemoveObject(BaseObject* object);
 	void AddWeapon(int type, int dir_Moving, int stage);
-
+	void ResetClock();
+	bool CheckClock();
 };
 

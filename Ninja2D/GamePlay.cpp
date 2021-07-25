@@ -31,7 +31,8 @@ GamePlay::~GamePlay()
 
 void GamePlay::Run()
 {
-	map.increseClousDrifting(CLOUD_SPEED);
+	clock++;
+	//map.increseClousDrifting(CLOUD_SPEED);
 
 	map.checkToAddEnemy(BaseObject::mapSlider + MAP_WIDTH, enemyID, checkToAdd);
 
@@ -770,4 +771,16 @@ void GamePlay::Attack()
 		}
 	}
 
+}
+
+void GamePlay::ResetClock()
+{
+	this->clock = 0;
+}
+
+bool GamePlay::CheckClock()
+{
+	if (this->clock >= 2)
+		return true;
+	return false;
 }

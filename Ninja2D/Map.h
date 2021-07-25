@@ -2,10 +2,14 @@
 #include "BaseObject.h"
 
 #define MAP_WIDTH 985
-#define MAP_HEIGHT 290
-#define CLOUD_HEIGHT 246
+//#define MAP_HEIGHT 290
+#define MAP_HEIGHT 536
+//#define CLOUD_HEIGHT 246
 #define CLOUD_WIDTH 5218
+#define CASTLE_WIDTH 300
+
 #define CLOUD_SPEED 1
+
 #define NUMBER_OF_MONSTERS 20
 #define END_OF_MAP 3655
 #define NUMBER_OF_ITEMS 10
@@ -13,7 +17,7 @@
 class Map :public BaseObject
 {
 private:
-	HBITMAP hbmGround, hbmCloud;
+	HBITMAP hbmGround, hbmCloud, hbmMask;
 	
 	int enemiesPosition[NUMBER_OF_MONSTERS] = { 1000, 1230, 1345, 1460,
 		1575 ,1690 ,1805, 1920,
