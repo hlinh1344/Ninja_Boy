@@ -4,8 +4,8 @@ Map::Map()
 {
 	posX = 0;
 	posY = 0;
-	hbmGround = (HBITMAP)LoadImage(hInst, L"map.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	hbmCloud = (HBITMAP)LoadImage(hInst, L"cloud.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	hbmGround = (HBITMAP)LoadImage(hInst, L"Map.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	hbmCloud = (HBITMAP)LoadImage(hInst, L"Cloud.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 }
 Map::~Map()
 {
