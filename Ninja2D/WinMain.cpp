@@ -50,10 +50,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	HWND Name = CreateWindow
 	(
 		L"STATIC", 
-		L" LeHoangLinh_1720136",
+		L"LeHoangLinh	1720136",
 		//WS_VISIBLE | WS_CHILD | WS_BORDER| SS_LEFT,
 		WS_VISIBLE | WS_CHILD | SS_LEFT,
-		0, 0, 157, 17, 
+		0, 0, 90,30, 
 		hwnd, 
 		NULL,
 		hInstance,

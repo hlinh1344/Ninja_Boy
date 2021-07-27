@@ -13,16 +13,27 @@ Character::Character()
 	isSitting = false;
 	isAttack = false;
 	isWin = false;
+	score = 0;
 	hBitmap_Hear = (HBITMAP)LoadImage(hInst, L"Hear.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBitmap_GameOver = (HBITMAP)LoadImage(hInst, L"GameOver.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBitmap_YouWin = (HBITMAP)LoadImage(hInst, L"YouWin.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBitmap = (HBITMAP)LoadImage(hInst, L"NinjaBoy.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	hBitmap_Number = (HBITMAP)LoadImage(hInst, L"FirstNumber.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	//hBitmap_Last_Number = (HBITMAP)LoadImage(hInst, L"LastNumber.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+
 	hbmMask = CreateBitmapMask(hBitmap, RGB(255, 0, 255));
 	hbmMask_GameOver = CreateBitmapMask(hBitmap_GameOver, RGB(255, 0, 255));
 	hbmMask_YouWin = CreateBitmapMask(hBitmap_YouWin, RGB(255, 0, 255));
 	hbmMask_Hear = CreateBitmapMask(hBitmap_Hear, RGB(255, 0, 255));
+	hbmMask_Number = CreateBitmapMask(hBitmap_Number, RGB(255, 0, 255));
+	//hbmMask_Last_Number = CreateBitmapMask(hBitmap_Last_Number, RGB(255, 0, 255));
 	countGameOver = MAP_HEIGHT;
 	formXOver = 0;
+	formOfUnits = 0;
+	formOfTens = 0;
+	isTens = false;
+	formOfHundreds = 0;
+	isHundreds = false;
 }
 
 Character::~Character()
@@ -129,6 +140,58 @@ void Character::MoveUp()
 		jumpHeight += 60;
 	}
 
+	//-----------
+//if (this->formOfHundreds >= 9)
+//{
+//	if (this->isThousands == false)
+//	{
+//		this->isThousands = true;
+//	}
+
+//	this->formOfThousands = this->formOfThousands + 1;
+//	this->formOfHundreds = 0;
+//}
+//else
+//{
+//	this->formOfHundreds = this->formOfHundreds + 1;
+//}
+// 
+	//Tens up to hundreds
+	if (this->formOfUnits >= 9)
+	{
+		if (this->isTens == false)
+		{
+			this->isTens = true;
+		}
+		
+
+
+		//--------------
+			//Hundresds up to Thousands
+		if (this->formOfTens >= 9)
+		{
+			if (this->isHundreds == false)
+			{
+				this->isHundreds = true;
+			}
+
+			this->formOfHundreds = this->formOfHundreds + 1;
+			this->formOfTens = 0;
+			//numberOfZero++;
+		}
+		else
+		{
+			this->formOfTens = this->formOfTens + 1;
+		}
+		//-----------------------
+		this->formOfUnits = 0;;
+	}
+	else
+	{
+		this->formOfUnits = this->formOfUnits + 1;
+	}
+
+
 
 
 }
@@ -143,14 +206,15 @@ void Character::MoveDown()
 
 void Character::Draw(HWND hwnd, HDC hdc)
 {
+	//Show life
 	hdcMem = CreateCompatibleDC(hdc);
 	oldBitmap = SelectObject(hdcMem, hbmMask_Hear);
 	GetObject(hbmMask_Hear, sizeof(bitmap), &bitmap);
 	BitBlt
 	(
 		hdc,
+		90,
 		0,
-		20,
 		HEAR_WIDTH * this->life,
 		HEAR_HEIGHT,
 		hdcMem,
@@ -163,8 +227,8 @@ void Character::Draw(HWND hwnd, HDC hdc)
 	BitBlt
 	(
 		hdc,
+		90,
 		0,
-		20,
 		HEAR_WIDTH * this->life,
 		HEAR_HEIGHT,
 		hdcMem,
@@ -175,8 +239,147 @@ void Character::Draw(HWND hwnd, HDC hdc)
 	SelectObject(hdcMem, oldBitmap);
 	DeleteDC(hdcMem);
 
+	//Show score
+	//Last number
+	hdcMem = CreateCompatibleDC(hdc);
+	oldBitmap = SelectObject(hdcMem, hbmMask_Number);
+	GetObject(hbmMask_Number, sizeof(bitmap), &bitmap);
+	BitBlt
+	(
+		hdc,
+		MAP_WIDTH - NUMBER_WIDTH,
+		5,
+		NUMBER_WIDTH,
+		NUMBER_HEIGHT,
+		hdcMem,
+		0,
+		0,
+		SRCAND
+	);
+	oldBitmap = SelectObject(hdcMem, hBitmap_Number);
+	GetObject(hBitmap_Number, sizeof(bitmap), &bitmap);
+	BitBlt
+	(
+		hdc,
+		MAP_WIDTH - NUMBER_WIDTH,
+		5,
+		NUMBER_WIDTH,
+		NUMBER_HEIGHT,
+		hdcMem,
+		0,
+		0,
+		SRCPAINT
+	);
+	SelectObject(hdcMem, oldBitmap);
+	DeleteDC(hdcMem);
 
 
+	//Units
+	hdcMem = CreateCompatibleDC(hdc);
+	oldBitmap = SelectObject(hdcMem, hbmMask_Number);
+	GetObject(hbmMask_Number, sizeof(bitmap), &bitmap);
+	BitBlt
+	(
+		hdc,
+		MAP_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH,
+		5,
+		NUMBER_WIDTH,
+		NUMBER_HEIGHT,
+		hdcMem,
+		NUMBER_WIDTH * formOfUnits,
+		0,
+		SRCAND
+	);
+	oldBitmap = SelectObject(hdcMem, hBitmap_Number);
+	GetObject(hBitmap_Number, sizeof(bitmap), &bitmap);
+	BitBlt
+	(
+		hdc,
+		MAP_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH,
+		5,
+		NUMBER_WIDTH,
+		NUMBER_HEIGHT,
+		hdcMem,
+		NUMBER_WIDTH * formOfUnits,
+		0,
+		SRCPAINT
+	);
+	SelectObject(hdcMem, oldBitmap);
+	DeleteDC(hdcMem);
+
+	//Tens
+	if (this->isTens == true)
+	{
+		hdcMem = CreateCompatibleDC(hdc);
+		oldBitmap = SelectObject(hdcMem, hbmMask_Number);
+		GetObject(hbmMask_Number, sizeof(bitmap), &bitmap);
+		BitBlt
+		(
+			hdc,
+			MAP_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH,
+			5,
+			NUMBER_WIDTH,
+			NUMBER_HEIGHT,
+			hdcMem,
+			NUMBER_WIDTH * formOfTens,
+			0,
+			SRCAND
+		);
+		oldBitmap = SelectObject(hdcMem, hBitmap_Number);
+		GetObject(hBitmap_Number, sizeof(bitmap), &bitmap);
+		BitBlt
+		(
+			hdc,
+			MAP_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH,
+			5,
+			NUMBER_WIDTH,
+			NUMBER_HEIGHT,
+			hdcMem,
+			NUMBER_WIDTH * formOfTens,
+			0,
+			SRCPAINT
+		);
+		SelectObject(hdcMem, oldBitmap);
+		DeleteDC(hdcMem);
+	}
+
+	//Hundreds 
+	if (this->isHundreds == true)
+	{
+		hdcMem = CreateCompatibleDC(hdc);
+		oldBitmap = SelectObject(hdcMem, hbmMask_Number);
+		GetObject(hbmMask_Number, sizeof(bitmap), &bitmap);
+		BitBlt
+		(
+			hdc,
+			MAP_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH,
+			5,
+			NUMBER_WIDTH,
+			NUMBER_HEIGHT,
+			hdcMem,
+			NUMBER_WIDTH * formOfHundreds,
+			0,
+			SRCAND
+		);
+		oldBitmap = SelectObject(hdcMem, hBitmap_Number);
+		GetObject(hBitmap_Number, sizeof(bitmap), &bitmap);
+		BitBlt
+		(
+			hdc,
+			MAP_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH,
+			5,
+			NUMBER_WIDTH,
+			NUMBER_HEIGHT,
+			hdcMem,
+			NUMBER_WIDTH * formOfHundreds,
+			0,
+			SRCPAINT
+		);
+		SelectObject(hdcMem, oldBitmap);
+		DeleteDC(hdcMem);
+	}
+
+	//Win game
 	if (this->life >= 0)
 	{
 		if (this->isWin == true)
@@ -231,6 +434,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 		}
 		else
 		{
+			//Show Character
 			if (CheckSitting() == true)
 			{
 				formY = 2;
@@ -276,6 +480,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 	}
 	else
 	{
+		//Game Over
 		if (countGameOver > 50)
 		{
 			countGameOver = countGameOver - 3;
