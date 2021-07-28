@@ -23,12 +23,12 @@ void BaseObject::Draw(HWND hwnd, HDC hdc)
 
 void BaseObject::IncresePosX(int a)
 {
-	this->posX = this->posX + a;
+	posX = posX + a;
 }
 
 void BaseObject::IncresePosY(int a)
 {
-	this->posY = this->posY + a;
+	posY = posY + a;
 }
 
 int BaseObject::GetPosX()
@@ -43,12 +43,12 @@ int BaseObject::GetPosY()
 
 void BaseObject::SetPosX(int a_posX)
 {
-	this->posX = a_posX;
+	posX = a_posX;
 }
 
 void BaseObject::SetPosY(int a_posY)
 {
-	this->posY = a_posY;
+	posY = a_posY;
 }
 
 HBITMAP BaseObject::CreateBitmapMask(HBITMAP hbmColour, COLORREF crTransparent)
@@ -83,5 +83,5 @@ int  BaseObject::GetHeight()
 
 void BaseObject::SetDeath(bool a_isDead)
 {
-	this->isDead = a_isDead;
+	isDead = a_isDead;
 }

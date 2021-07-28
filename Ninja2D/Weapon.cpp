@@ -12,12 +12,12 @@ Weapon::~Weapon()
 
 void Weapon::SetIsMoving(bool a_isMoving)
 {
-	this->isMoving = a_isMoving;
+	isMoving = a_isMoving;
 }
 
 bool  Weapon::GetIsMoving()
 {
-	return this->isMoving;
+	return isMoving;
 }
 
 void  Weapon::CheckDistance()

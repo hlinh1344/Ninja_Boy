@@ -12,10 +12,10 @@ Item::~Item()
 
 int Item::GetTypeOfWeapn()
 {
-	return this->typeOfWeapn;
+	return typeOfWeapn;
 }
 
 bool Item::CheckDeath()
 {
-	return this->isDead;
+	return isDead;
 }

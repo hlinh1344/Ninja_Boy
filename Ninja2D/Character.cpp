@@ -53,17 +53,17 @@ int Character::GetFormY()
 
 void Character::SetFormX(int a_formX)
 {
-	this->formX = a_formX;
+	formX = a_formX;
 }
 
 void Character::SetFormY(int a_formY)
 {
-	this->formY = a_formY;
+	formY = a_formY;
 }
 
 void Character::IncreseFormX(int a)
 {
-	this->formX = this->formX + a;
+	formX = formX + a;
 }
 
 void Character::MoveLeft()
@@ -81,7 +81,7 @@ void Character::MoveLeft()
 			if (formX <= 6)
 				formX = 9;
 			else
-				this->formX = this->formX - 1;
+				formX = formX - 1;
 		}
 	}
 	else
@@ -93,7 +93,7 @@ void Character::MoveLeft()
 			if (formX <= 1)
 				formX = 8;
 			else
-				this->formX = this->formX - 1;
+				formX = formX - 1;
 		}
 	}
 }
@@ -113,7 +113,7 @@ void Character::MoveRight()
 			if (formX >= 13)
 				formX = 10;
 			else
-				this->formX = this->formX + 1;
+				formX = formX + 1;
 		}
 	}
 	else
@@ -125,7 +125,7 @@ void Character::MoveRight()
 			if (formX >= 18)
 				formX =11;
 			else
-				this->formX = this->formX + 1;
+				formX = formX + 1;
 		}
 	}
 
@@ -134,7 +134,7 @@ void Character::MoveRight()
 void Character::MoveUp()
 {
 
-	this->isJumping = true;
+	isJumping = true;
 	if (jumpHeight <= 270)
 	{
 		jumpHeight += 60;
@@ -142,7 +142,7 @@ void Character::MoveUp()
 
 	//-----------
 
-
+	Character::IncreaseScore(1);
 	
 
 
@@ -169,7 +169,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 		hdc,
 		90,
 		0,
-		HEAR_WIDTH * this->life,
+		HEAR_WIDTH * life,
 		HEAR_HEIGHT,
 		hdcMem,
 		HEAR_WIDTH * 0,
@@ -183,7 +183,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 		hdc,
 		90,
 		0,
-		HEAR_WIDTH * this->life,
+		HEAR_WIDTH * life,
 		HEAR_HEIGHT,
 		hdcMem,
 		HEAR_WIDTH * 0,
@@ -235,7 +235,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 	BitBlt
 	(
 		hdc,
-		MAP_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH,
+		MAP_WIDTH - (NUMBER_WIDTH) * 2,
 		5,
 		NUMBER_WIDTH,
 		NUMBER_HEIGHT,
@@ -249,7 +249,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 	BitBlt
 	(
 		hdc,
-		MAP_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH,
+		MAP_WIDTH - (NUMBER_WIDTH) * 2,
 		5,
 		NUMBER_WIDTH,
 		NUMBER_HEIGHT,
@@ -262,7 +262,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 	DeleteDC(hdcMem);
 
 	//Tens
-	if (this->isTens == true)
+	if (isTens == true)
 	{
 		hdcMem = CreateCompatibleDC(hdc);
 		oldBitmap = SelectObject(hdcMem, hbmMask_Number);
@@ -270,7 +270,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 		BitBlt
 		(
 			hdc,
-			MAP_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH,
+			MAP_WIDTH - (NUMBER_WIDTH) * 3,
 			5,
 			NUMBER_WIDTH,
 			NUMBER_HEIGHT,
@@ -284,7 +284,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 		BitBlt
 		(
 			hdc,
-			MAP_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH,
+			MAP_WIDTH - (NUMBER_WIDTH) * 3,
 			5,
 			NUMBER_WIDTH,
 			NUMBER_HEIGHT,
@@ -298,7 +298,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 	}
 
 	//Hundreds 
-	if (this->isHundreds == true)
+	if (isHundreds == true)
 	{
 		hdcMem = CreateCompatibleDC(hdc);
 		oldBitmap = SelectObject(hdcMem, hbmMask_Number);
@@ -306,7 +306,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 		BitBlt
 		(
 			hdc,
-			MAP_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH,
+			MAP_WIDTH - (NUMBER_WIDTH) * 4,
 			5,
 			NUMBER_WIDTH,
 			NUMBER_HEIGHT,
@@ -320,7 +320,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 		BitBlt
 		(
 			hdc,
-			MAP_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH,
+			MAP_WIDTH - (NUMBER_WIDTH) * 4,
 			5,
 			NUMBER_WIDTH,
 			NUMBER_HEIGHT,
@@ -335,7 +335,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 
 	//Thousands
 
-	if (this->isThousands == true)
+	if (isThousands == true)
 	{
 		hdcMem = CreateCompatibleDC(hdc);
 		oldBitmap = SelectObject(hdcMem, hbmMask_Number);
@@ -343,7 +343,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 		BitBlt
 		(
 			hdc,
-			MAP_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH,
+			MAP_WIDTH - (NUMBER_WIDTH) * 5,
 			5,
 			NUMBER_WIDTH,
 			NUMBER_HEIGHT,
@@ -357,7 +357,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 		BitBlt
 		(
 			hdc,
-			MAP_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH,
+			MAP_WIDTH - (NUMBER_WIDTH ) * 5,
 			5,
 			NUMBER_WIDTH,
 			NUMBER_HEIGHT,
@@ -371,9 +371,9 @@ void Character::Draw(HWND hwnd, HDC hdc)
 	}
 
 	//Win game
-	if (this->life >= 0)
+	if (life >= 0)
 	{
-		if (this->isWin == true)
+		if (isWin == true)
 		{
 
 			if (countGameOver > 50)
@@ -538,52 +538,52 @@ bool  Character::IsGoRight()
 }
 void Character::SetJump(bool trueOrFalse)
 {
-	this->isJumping = trueOrFalse;
+	isJumping = trueOrFalse;
 }
 
 void Character::SetSit(bool trueOrFalse)
 {
-	this->isSitting = trueOrFalse;
+	isSitting = trueOrFalse;
 }
 
 bool Character::CheckJumping()
 {
 	if (jumpHeight > 0)
-		this->isJumping = true;
+		isJumping = true;
 	else
-		this->isJumping = false;
+		isJumping = false;
 
-	return this->isJumping;
+	return isJumping;
 }
 
 bool Character::CheckSitting()
 {
-	return this->isSitting;
+	return isSitting;
 }
 
 void Character::SetJumpHeight(int a_jumpHeight)
 {
-	this->jumpHeight = a_jumpHeight;
+	jumpHeight = a_jumpHeight;
 }
 
 void Character::IncreseJumpingHeight(int a)
 {
-	this->jumpHeight += a;
+	jumpHeight += a;
 }
 
 int Character::GetJumpingHeight()
 {
-	return this->jumpHeight;
+	return jumpHeight;
 }
 
 void Character::SetDeath(bool a_isDead)
 {
-	this->isDead = a_isDead;
+	isDead = a_isDead;
 }
 
 bool Character::CheckDeath()
 {
-	if (this->isDead == true)
+	if (isDead == true)
 	{
 		if (IsGoLeft() == true)
 		{
@@ -596,7 +596,7 @@ bool Character::CheckDeath()
 			formY = 3;
 		}
 	}
-	return this->isDead;
+	return isDead;
 }
 
 int Character::GetWidth()
@@ -611,140 +611,109 @@ int Character::GetHeight()
 
 void Character::UpgradeWeapon()
 {
-	this->typeOfWeapon++;
+	typeOfWeapon++;
 }
 
 int Character::GetTypeOfWeapon()
 {
-	return this->typeOfWeapon;
+	return typeOfWeapon;
 }
 
 void Character::SetTypeOfWeapon(int a_typeOfWeapon)
 {
-	this->typeOfWeapon = a_typeOfWeapon;
+	typeOfWeapon = a_typeOfWeapon;
 }
 
 int Character::GetPosY()
 {
-	return (this->posY - this->jumpHeight);
+	return (posY - jumpHeight);
 }
 
 void Character::MakeAnimation()
 {
-	if (this->isDead == true)
+	if (isDead == true)
 	{
-		this->jumpHeight += 10;
-		if ((this->life >=0) && (this->jumpHeight >= 400))
+		jumpHeight += 10;
+		if ((life >=0) && (jumpHeight >= 400))
 		{
-			this->posX = this->posX - 200;
+			posX = posX - 200;
 			Character::Regeneration();
 		}
 	}
 
-	if ((this->isDead == false) && (this->jumpHeight) > 0)
+	if ((isDead == false) && (jumpHeight) > 0)
 	{
-		this->jumpHeight -= 5;
+		jumpHeight -= 5;
 	}
 }
 
 void Character::Regeneration()
 {
-	this->posY = 353;
-	this->formX = 10;
-	this->formY = 0;
-	this->jumpHeight = 0;
-	this->isJumping = false;
-	this->isSitting = false;
-	this->isAttack = false;
-	this->isDead = false;
-	//this->life--;
-	this->typeOfWeapon = -1;
+	posY = 353;
+	formX = 10;
+	formY = 0;
+	jumpHeight = 0;
+	isJumping = false;
+	isSitting = false;
+	isAttack = false;
+	isDead = false;
+	//life--;
+	typeOfWeapon = -1;
 }
 
 
 void Character::IncreseLife(int a_life)
 {
-	this->life = this->life + a_life;
+	life = life + a_life;
 }
 
 void Character::Win()
 {
-	this->isWin = true;
+	isWin = true;
 }
 
 void Character::IncreseClock()
 {
-	this->clock = this->clock + 1;
+	clock = clock + 1;
 }
 
 int Character::GetClock()
 {
-	return this->clock;
+	return clock;
 }
 
 void Character::ResetClock()
 {
-	this->clock = 0;
+	clock = 0;
 }
 
-void Character::IncreaseScore()
+
+void Character::IncreaseScore(int n)
 {
-	if (this->formOfUnits >= 9)
+	score = score + n;
+	//formOfThousands
+	if (score > 999)
 	{
-		if (this->isTens == false)
-		{
-			this->isTens = true;
-		}
-
-
-
-		//--------------
-
-		if (this->formOfTens >= 9)
-		{
-			if (this->isHundreds == false)
-			{
-				this->isHundreds = true;
-			}
-			//-------------
-			// 
-			if (this->formOfHundreds >= 9)
-			{
-				if (this->isThousands == false)
-				{
-					this->isThousands = true;
-				}
-				//
-				if (this->formOfThousands >= 9)
-				{
-					this->formOfThousands = 0;
-
-				}
-				else
-				{
-					this->formOfThousands = this->formOfThousands + 1;
-				}
-
-				this->formOfHundreds = 0;
-			}
-			else
-			{
-				this->formOfHundreds = this->formOfHundreds + 1;
-			}
-
-
-			this->formOfTens = 0;
-
-		}
-		else
-		{
-			this->formOfTens = this->formOfTens + 1;
-		}
-
-		this->formOfUnits = 0;;
+		isThousands = true;
+		formOfThousands = score / 1000;
+		formOfHundreds = (score % 1000) / 100;
+		formOfTens = (score % 100) / 10;
+		formOfUnits = score % 10;
+	}
+	else if (score > 99)
+	{
+		isHundreds = true;
+		formOfHundreds = score / 100;
+		formOfTens = (score % 100) / 10;
+		formOfUnits = score % 10;
+	}
+	else if (score > 9)
+	{
+		isTens = true;
+		formOfTens = score / 10;
+		formOfUnits = score % 10;
 	}
 	else
-	{
-		this->formOfUnits = this->formOfUnits + 1;
-	}
+		formOfUnits = score;
+		
 }

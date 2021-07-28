@@ -126,7 +126,7 @@ public:
 
 	void SetDeath(bool a_isDead) override
 	{
-		this->isDead = a_isDead;
+		isDead = a_isDead;
 		//formX = 2;
 	}
 
@@ -135,7 +135,7 @@ public:
 		int distance = abs(originalLocation - posX);
 		if (distance >= SHURIKEN_AREA)
 		{
-			this->isDead = true;
+			isDead = true;
 		}
 	}
 

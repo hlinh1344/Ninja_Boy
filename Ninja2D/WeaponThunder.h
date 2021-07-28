@@ -142,7 +142,7 @@ public:
 
 	void SetDeath(bool a_isDead) override
 	{
-		this->isDead = a_isDead;
+		isDead = a_isDead;
 
 	}
 
@@ -151,7 +151,7 @@ public:
 		int distance = abs(originalLocation - posX);
 		if (distance >= THUNDER_AREA)
 		{
-			this->isDead = true;
+			isDead = true;
 		}
 	}
 

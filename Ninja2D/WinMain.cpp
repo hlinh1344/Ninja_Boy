@@ -154,7 +154,7 @@ void OnKeyDown(HWND hwnd, WPARAM wParam)
 		gamePlay.Attack();
 
 	}
-	//InvalidateRect(hwnd, NULL, FALSE);
+
 }
 
 void OnKeyUp(HWND hwnd, WPARAM wParam)
@@ -169,7 +169,6 @@ void OnKeyUp(HWND hwnd, WPARAM wParam)
 		break;
 	case VK_UP:
 		gamePlay.KeyUpUp();
-		//InvalidateRect(hwnd, NULL, FALSE);
 		break;
 	case VK_DOWN:
 		gamePlay.KeyUpDown();
@@ -177,7 +176,7 @@ void OnKeyUp(HWND hwnd, WPARAM wParam)
 	case VK_SPACE:
 		gamePlay.KeyUpSpace();
 	}
-	//InvalidateRect(hwnd, NULL, FALSE);
+
 }
 
 void OnPaint(HWND hwnd)
@@ -186,7 +185,6 @@ void OnPaint(HWND hwnd)
 	HDC hdc = BeginPaint(hwnd, &ps);
 	gamePlay.Draw(hwnd, hdc);
 	EndPaint(hwnd, &ps);
-
 }
 
 void OnClose(HWND hwnd)

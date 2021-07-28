@@ -232,8 +232,8 @@ void GamePlay::Run()
 			if (CheckCollision(ninja, enemy))
 			{
 					//enemy->SetDeath(true);
-					ninja->SetDeath(true);
-					ninja->IncreseLife(-1);
+					//ninja->SetDeath(true);
+					//ninja->IncreseLife(-1);
 			}
 		}
 
@@ -265,7 +265,8 @@ void GamePlay::Run()
 			{
 				enemy->SetDeath(true);
 				weapon->SetDeath(true);
-				ninja->IncreaseScore();
+				//ninja->IncreaseScore();
+
 			}
 		}
 
@@ -296,7 +297,7 @@ void GamePlay::Draw(HWND hwnd, HDC hdc)
 {
 	timer++;
 	map.Draw(hwnd, hdc);
- 	
+
 	for (auto item : items) {
 		if (item->CheckDeath() == true)
 		{
@@ -329,6 +330,7 @@ void GamePlay::Draw(HWND hwnd, HDC hdc)
 
 
 	ninja->Draw(hwnd, hdc);
+
 }
 
 
@@ -776,12 +778,12 @@ void GamePlay::Attack()
 
 void GamePlay::ResetClock()
 {
-	this->clock = 0;
+	clock = 0;
 }
 
 bool GamePlay::CheckClock()
 {
-	if (this->clock >= 2)
+	if (clock >= 5)
 		return true;
 	return false;
 }
