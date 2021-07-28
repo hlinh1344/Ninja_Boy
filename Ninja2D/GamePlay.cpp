@@ -231,7 +231,7 @@ void GamePlay::Run()
 		{
 			if (CheckCollision(ninja, enemy))
 			{
-					enemy->SetDeath(true);
+					//enemy->SetDeath(true);
 					ninja->SetDeath(true);
 					ninja->IncreseLife(-1);
 			}
@@ -265,6 +265,7 @@ void GamePlay::Run()
 			{
 				enemy->SetDeath(true);
 				weapon->SetDeath(true);
+				ninja->IncreaseScore();
 			}
 		}
 

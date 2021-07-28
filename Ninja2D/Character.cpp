@@ -8,7 +8,7 @@ Character::Character()
 	formY = 0;
 	life = 3;
 	jumpHeight = 0;
-	typeOfWeapon = -1;
+	typeOfWeapon = 4;
 	isJumping = false;
 	isSitting = false;
 	isAttack = false;
@@ -141,55 +141,9 @@ void Character::MoveUp()
 	}
 
 	//-----------
-//if (this->formOfHundreds >= 9)
-//{
-//	if (this->isThousands == false)
-//	{
-//		this->isThousands = true;
-//	}
-
-//	this->formOfThousands = this->formOfThousands + 1;
-//	this->formOfHundreds = 0;
-//}
-//else
-//{
-//	this->formOfHundreds = this->formOfHundreds + 1;
-//}
-// 
-	//Tens up to hundreds
-	if (this->formOfUnits >= 9)
-	{
-		if (this->isTens == false)
-		{
-			this->isTens = true;
-		}
-		
 
 
-		//--------------
-			//Hundresds up to Thousands
-		if (this->formOfTens >= 9)
-		{
-			if (this->isHundreds == false)
-			{
-				this->isHundreds = true;
-			}
-
-			this->formOfHundreds = this->formOfHundreds + 1;
-			this->formOfTens = 0;
-			//numberOfZero++;
-		}
-		else
-		{
-			this->formOfTens = this->formOfTens + 1;
-		}
-		//-----------------------
-		this->formOfUnits = 0;;
-	}
-	else
-	{
-		this->formOfUnits = this->formOfUnits + 1;
-	}
+	
 
 
 
@@ -372,6 +326,43 @@ void Character::Draw(HWND hwnd, HDC hdc)
 			NUMBER_HEIGHT,
 			hdcMem,
 			NUMBER_WIDTH * formOfHundreds,
+			0,
+			SRCPAINT
+		);
+		SelectObject(hdcMem, oldBitmap);
+		DeleteDC(hdcMem);
+	}
+
+	//Thousands
+
+	if (this->isThousands == true)
+	{
+		hdcMem = CreateCompatibleDC(hdc);
+		oldBitmap = SelectObject(hdcMem, hbmMask_Number);
+		GetObject(hbmMask_Number, sizeof(bitmap), &bitmap);
+		BitBlt
+		(
+			hdc,
+			MAP_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH,
+			5,
+			NUMBER_WIDTH,
+			NUMBER_HEIGHT,
+			hdcMem,
+			NUMBER_WIDTH * formOfThousands,
+			0,
+			SRCAND
+		);
+		oldBitmap = SelectObject(hdcMem, hBitmap_Number);
+		GetObject(hBitmap_Number, sizeof(bitmap), &bitmap);
+		BitBlt
+		(
+			hdc,
+			MAP_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH - NUMBER_WIDTH,
+			5,
+			NUMBER_WIDTH,
+			NUMBER_HEIGHT,
+			hdcMem,
+			NUMBER_WIDTH * formOfThousands,
 			0,
 			SRCPAINT
 		);
@@ -694,4 +685,66 @@ int Character::GetClock()
 void Character::ResetClock()
 {
 	this->clock = 0;
+}
+
+void Character::IncreaseScore()
+{
+	if (this->formOfUnits >= 9)
+	{
+		if (this->isTens == false)
+		{
+			this->isTens = true;
+		}
+
+
+
+		//--------------
+
+		if (this->formOfTens >= 9)
+		{
+			if (this->isHundreds == false)
+			{
+				this->isHundreds = true;
+			}
+			//-------------
+			// 
+			if (this->formOfHundreds >= 9)
+			{
+				if (this->isThousands == false)
+				{
+					this->isThousands = true;
+				}
+				//
+				if (this->formOfThousands >= 9)
+				{
+					this->formOfThousands = 0;
+
+				}
+				else
+				{
+					this->formOfThousands = this->formOfThousands + 1;
+				}
+
+				this->formOfHundreds = 0;
+			}
+			else
+			{
+				this->formOfHundreds = this->formOfHundreds + 1;
+			}
+
+
+			this->formOfTens = 0;
+
+		}
+		else
+		{
+			this->formOfTens = this->formOfTens + 1;
+		}
+
+		this->formOfUnits = 0;;
+	}
+	else
+	{
+		this->formOfUnits = this->formOfUnits + 1;
+	}
 }

@@ -26,10 +26,12 @@ private:
 	int formOfUnits;
 	int formOfTens;
 	int formOfHundreds;
+	int formOfThousands;
 	int score;
 	//int numberOfZero;
 	bool isTens;
 	bool isHundreds;
+	bool isThousands;
 
 	HBITMAP hBitmap_GameOver, hbmMask_GameOver, hBitmap_YouWin, hbmMask_YouWin;
 	HBITMAP hBitmap_Hear, hbmMask_Hear;
@@ -75,6 +77,7 @@ public:
 	void IncreseClock();
 	int GetClock();
 	void ResetClock();
+	void IncreaseScore();
 };
 
 
