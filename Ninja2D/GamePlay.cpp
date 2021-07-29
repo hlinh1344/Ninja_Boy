@@ -8,7 +8,7 @@ GamePlay::GamePlay()
 	countID = 0;
 	checkToAdd = false;
 	ninja = new Character();
-
+	boss = new Boss();
 }
 
 GamePlay::~GamePlay()
@@ -198,12 +198,6 @@ void GamePlay::Run()
 			}
 		}
 
-		//if (weapon->CheckDeath() == true)
-		//{
-		//	RemoveObject(weapon);
-		//	weapons.erase(weapons.begin());
-		//	
-		//}
 	}
 		
 	//enemy
@@ -256,7 +250,7 @@ void GamePlay::Draw(HWND hwnd, HDC hdc)
 			enemy->Draw(hwnd, hdc);
 	}
 
-
+	boss->Draw(hwnd, hdc);
 	ninja->Draw(hwnd, hdc);
 
 }

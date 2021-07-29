@@ -19,6 +19,7 @@
 #include "EnemyMonsterGirl.h"
 #include "EnemyDarkGirl.h"
 #include "EnemyDarkRaven.h"
+#include "Boss.h"
 
 #include "Weapon.h"
 #include "WeaponBlueSword.h"
@@ -26,6 +27,7 @@
 #include "WeaponShuriken.h"
 #include "WeaponFire.h"
 #include "WeaponThunder.h"
+#include "Moon.h"
 
 #include "Item.h"
 #include "BlueSwordItem.h"
@@ -40,7 +42,9 @@ private:
 	std::vector <Enemy*> enemies;
 	std::vector <Weapon*> weapons;
 	std::vector <Item*> items;
+	std::vector <Moon*> moons;
 
+	Boss* boss;
 	Map map;
 	Character * ninja;
 	int enemyID;
