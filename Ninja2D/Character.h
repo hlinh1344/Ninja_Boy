@@ -36,7 +36,7 @@ private:
 	HBITMAP hBitmap_GameOver, hbmMask_GameOver, hBitmap_YouWin, hbmMask_YouWin;
 	HBITMAP hBitmap_Hear, hbmMask_Hear;
 	HBITMAP hBitmap_Number, hbmMask_Number;
-	//HBITMAP hBitmap_Last_Number, hbmMask_Last_Number;
+
 	int countGameOver;
 	int formXOver;
 	bool isWin;

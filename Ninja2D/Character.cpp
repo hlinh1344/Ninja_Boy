@@ -19,14 +19,14 @@ Character::Character()
 	hBitmap_YouWin = (HBITMAP)LoadImage(hInst, L"YouWin.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBitmap = (HBITMAP)LoadImage(hInst, L"NinjaBoy.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hBitmap_Number = (HBITMAP)LoadImage(hInst, L"FirstNumber.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	//hBitmap_Last_Number = (HBITMAP)LoadImage(hInst, L"LastNumber.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+
 
 	hbmMask = CreateBitmapMask(hBitmap, RGB(255, 0, 255));
 	hbmMask_GameOver = CreateBitmapMask(hBitmap_GameOver, RGB(255, 0, 255));
 	hbmMask_YouWin = CreateBitmapMask(hBitmap_YouWin, RGB(255, 0, 255));
 	hbmMask_Hear = CreateBitmapMask(hBitmap_Hear, RGB(255, 0, 255));
 	hbmMask_Number = CreateBitmapMask(hBitmap_Number, RGB(255, 0, 255));
-	//hbmMask_Last_Number = CreateBitmapMask(hBitmap_Last_Number, RGB(255, 0, 255));
+
 	countGameOver = MAP_HEIGHT;
 	formXOver = 0;
 	formOfUnits = 0;

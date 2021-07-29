@@ -5,7 +5,6 @@ Map::Map()
 	posX = 0;
 	posY = 0;
 	hbmGround = (HBITMAP)LoadImage(hInst, L"Map2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	hbmCloud = (HBITMAP)LoadImage(hInst, L"Castle.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	hbmMask = CreateBitmapMask(hbmCloud, RGB(255, 255, 255));
 }
 Map::~Map()
@@ -18,10 +17,6 @@ void Map::increseMapSlider(int a)
 	BaseObject::mapSlider = BaseObject::mapSlider + a;
 }
 
-void Map::increseClousDrifting(int a)
-{
-	BaseObject::clousDrifting = BaseObject::clousDrifting + a;
-}
 
 int Map::getMapSlider()
 {
@@ -30,10 +25,7 @@ int Map::getMapSlider()
 
 void Map::Draw(HWND hwnd, HDC hdc)
 {
-	if (BaseObject::clousDrifting >= CLOUD_WIDTH - MAP_WIDTH - 2)
-	{
-		BaseObject::clousDrifting = 0;
-	}
+
 	hdcMem = CreateCompatibleDC(hdc);
 	oldBitmap = SelectObject(hdcMem, hbmGround);
 	GetObject(hbmGround, sizeof(bitmap), &bitmap);
@@ -49,40 +41,6 @@ void Map::Draw(HWND hwnd, HDC hdc)
 		0,
 		SRCCOPY
 	);
-	SelectObject(hdcMem, oldBitmap);
-	DeleteDC(hdcMem);
-
-	hdcMem = CreateCompatibleDC(hdc);
-	oldBitmap = SelectObject(hdcMem, hbmMask);
-	GetObject(hbmMask, sizeof(bitmap), &bitmap);
-	BitBlt
-	(
-		hdc,
-		3689 - mapSlider,
-		0,
-		CASTLE_WIDTH,
-		MAP_HEIGHT,
-		hdcMem,
-		0,
-		0,
-		SRCAND
-	);
-
-	oldBitmap = SelectObject(hdcMem, hbmCloud);
-	GetObject(hbmCloud, sizeof(bitmap), &bitmap);
-	BitBlt
-	(
-		hdc,
-		3689 - mapSlider,
-		0,
-		CASTLE_WIDTH,
-		MAP_HEIGHT,
-		hdcMem,
-		0,
-		0,
-		SRCPAINT
-	);
-
 	SelectObject(hdcMem, oldBitmap);
 	DeleteDC(hdcMem);
 }
