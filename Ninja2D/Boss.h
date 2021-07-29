@@ -5,13 +5,14 @@
 #define BOSS_HEIGHT 125
 #define BOSS_WIDTH 115
 #define BOSS_AREA 350
-#define BOSS_SPEED 10
+#define BOSS_SPEED 8
 
 //chang name
 class Boss : public Enemy
 {
 private:
 	bool isFalling;
+	int count;
 public:
 	Boss(int a_x)
 	{
@@ -21,11 +22,11 @@ public:
 		formX = 3;
 		formY = 0;
 		originalLocation = a_x;
-		life = 10;
+		life = 20;
 		isFalling = true;
 		hBitmap = (HBITMAP)LoadImage(hInst, L"Boss.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 		hbmMask = CreateBitmapMask(hBitmap, RGB(255, 0, 255));
-
+		count = 0;
 	}
 
 	Boss()
@@ -41,6 +42,7 @@ public:
 		isFalling = true;
 		hBitmap = (HBITMAP)LoadImage(hInst, L"Boss.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 		hbmMask = CreateBitmapMask(hBitmap, RGB(255, 0, 255));
+		count = 0;
 	}
 
 	~Boss()
@@ -50,84 +52,87 @@ public:
 
 	void Draw(HWND hwnd, HDC hdc) override
 	{
-		clock++;
-		hdcMem = CreateCompatibleDC(hdc);
-		oldBitmap = SelectObject(hdcMem, hbmMask);
-		GetObject(hbmMask, sizeof(bitmap), &bitmap);
-		BitBlt
-		(
-			hdc,
-			posX - BaseObject::mapSlider,
-			posY,
-			BOSS_WIDTH,
-			BOSS_HEIGHT,
-			hdcMem,
-			BOSS_WIDTH * formX,
-			BOSS_HEIGHT * formY,
-			SRCAND
-		);
-		oldBitmap = SelectObject(hdcMem, hBitmap);
-		GetObject(hBitmap, sizeof(bitmap), &bitmap);
-		BitBlt
-		(
-			hdc,
-			posX - BaseObject::mapSlider,
-			posY,
-			BOSS_WIDTH,
-			BOSS_HEIGHT,
-			hdcMem,
-			BOSS_WIDTH * formX,
-			BOSS_HEIGHT * formY,
-			SRCPAINT
-		);
-
-	
-
-		
-		if (isFalling)
+		if (!isDead)
 		{
-			posY = posY + BOSS_SPEED;
-			//formX--;
-			if (clock >= 3)
+			clock++;
+			hdcMem = CreateCompatibleDC(hdc);
+			oldBitmap = SelectObject(hdcMem, hbmMask);
+			GetObject(hbmMask, sizeof(bitmap), &bitmap);
+			BitBlt
+			(
+				hdc,
+				posX - BaseObject::mapSlider,
+				posY,
+				BOSS_WIDTH,
+				BOSS_HEIGHT,
+				hdcMem,
+				BOSS_WIDTH * formX,
+				BOSS_HEIGHT * formY,
+				SRCAND
+			);
+			oldBitmap = SelectObject(hdcMem, hBitmap);
+			GetObject(hBitmap, sizeof(bitmap), &bitmap);
+			BitBlt
+			(
+				hdc,
+				posX - BaseObject::mapSlider,
+				posY,
+				BOSS_WIDTH,
+				BOSS_HEIGHT,
+				hdcMem,
+				BOSS_WIDTH * formX,
+				BOSS_HEIGHT * formY,
+				SRCPAINT
+			);
+
+			if (isFalling)
 			{
-				clock = 0;
-				if (formX <= 0)
-					formX = 3;
-				else
-					formX--;
+				posY = posY + BOSS_SPEED + BOSS_SPEED;
+
+				if (clock >= 2)
+				{
+					clock = 0;
+					if (formX <= 0)
+						formX = 3;
+					else
+						formX--;
+				}
+
+
+				if (posY >= 470 - BOSS_HEIGHT)
+				{
+					isFalling = false;
+
+					formY = 1;
+				}
+			}
+			else if (!isFalling)
+			{
+
+				posY = posY - BOSS_SPEED;
+				if (clock >= 2)
+				{
+					clock = 0;
+					if (formX <= 0)
+						formX = 3;
+					else
+						formX--;
+				}
+
+				if (posY <= 50)
+				{
+					isFalling = true;
+					formY = 0;
+				}
+
 			}
 
 
-			if (posY >= 470 - BOSS_HEIGHT)
-			{
-				isFalling = false;
-				formY = 1;
-			}
-		}
-		else if (!isFalling) 
-		{
-			posY = posY - BOSS_SPEED;
-			if (clock >= 1)
-			{
-				clock = 0;
-				if (formX <= 0)
-					formX = 3;
-				else
-					formX--;
-			}
 
-			if (posY <= 50)
-			{
-				isFalling = true;
-				formY = 0;
-			}
-
+			SelectObject(hdcMem, oldBitmap);
+			DeleteDC(hdcMem);
 		}
 		
-		
-
-		SelectObject(hdcMem, oldBitmap);
-		DeleteDC(hdcMem);
 	}
 
 	void MoveLeft() override
@@ -174,9 +179,23 @@ public:
 	void SetDeath(bool a_isDead) override
 	{
 		life--;
-		if (life <= 0)
+		if (life < 0)
 		{
 			isDead = true;
 		}
 	}
+
+	bool CheckToAttack()
+	{
+		count++;
+		if ((formX == 0) && (formY == 1) && count >= 3)
+		{
+			count = 0;
+			return true;
+		}
+			
+		return false;
+	}
+
+
 };

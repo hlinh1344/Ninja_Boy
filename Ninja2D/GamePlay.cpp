@@ -8,13 +8,13 @@ GamePlay::GamePlay()
 	countID = 0;
 	checkToAdd = false;
 	ninja = new Character();
-	boss = new Boss();
+	boss = new Boss(3600);
 }
 
 GamePlay::~GamePlay()
 {
 	RemoveObject(ninja);
-
+	RemoveObject(boss);
 	for (auto enemy : enemies) {
 		RemoveObject(enemy);
 	}
@@ -32,7 +32,6 @@ GamePlay::~GamePlay()
 void GamePlay::Run()
 {
 	clock++;
-	//map.increseClousDrifting(CLOUD_SPEED);
 
 	map.checkToAddEnemy(BaseObject::mapSlider + MAP_WIDTH, enemyID, checkToAdd);
 
@@ -146,7 +145,12 @@ void GamePlay::Run()
 		}
 	}
 
-	
+	if (boss->CheckToAttack() == true)
+	{
+		moons.push_back(new Moon(boss->GetPosX() , boss->GetPosY() - 20));
+	}
+
+
 
 	//main character
 	ninja->MakeAnimation();
@@ -160,10 +164,12 @@ void GamePlay::Run()
 			if (CheckCollision(ninja, enemy))
 			{
 					//enemy->SetDeath(true);
-					//ninja->SetDeath(true);
-					//ninja->IncreseLife(-1);
+					ninja->SetDeath(true);
+					ninja->IncreseLife(-1);
 			}
 		}
+
+
 
 
 		//////item
@@ -180,24 +186,55 @@ void GamePlay::Run()
 		}
 		countID = 0;
 
+		//moon
+		for (auto moon : moons)
+		{
 
+			if (CheckCollision(ninja, moon) == true)
+			{
+				moon->SetDeath(true);
+				ninja->SetDeath(true);
+				ninja->IncreseLife(-1);
+			}
+		}
 	}
+	
+
+	
 
 	
 	//weapon
 	for (auto weapon : weapons) {
 		for (auto enemy : enemies)
 		{
-			bool checkCollision = CheckCollision(weapon, enemy);
-			if (checkCollision)
+
+			if (CheckCollision(weapon, enemy) == true)
 			{
 				enemy->SetDeath(true);
 				weapon->SetDeath(true);
-				//ninja->IncreaseScore();
+				ninja->IncreaseScore(1);
 
 			}
 		}
 
+		for (auto moon : moons)
+		{
+
+			if (CheckCollision(weapon, moon) == true)
+			{
+				moon->SetDeath(true);
+				weapon->SetDeath(true);
+
+
+			}
+		}
+
+		//boss
+		if(CheckCollision(weapon, boss))
+		{
+			boss->SetDeath(true);
+			ninja->IncreaseScore(2);
+		}
 	}
 		
 	//enemy
@@ -239,6 +276,16 @@ void GamePlay::Draw(HWND hwnd, HDC hdc)
 			weapon->Draw(hwnd, hdc);
 	}
 
+	for (auto moon : moons)
+	{
+		if (moon->CheckDeath() == true)
+		{
+			moons.erase(moons.begin());
+		}
+		else
+			moon->Draw(hwnd, hdc);
+	}
+
 
 	for (auto enemy : enemies)
 	{
@@ -250,7 +297,10 @@ void GamePlay::Draw(HWND hwnd, HDC hdc)
 			enemy->Draw(hwnd, hdc);
 	}
 
+
+
 	boss->Draw(hwnd, hdc);
+
 	ninja->Draw(hwnd, hdc);
 
 }

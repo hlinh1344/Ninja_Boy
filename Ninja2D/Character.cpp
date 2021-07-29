@@ -8,7 +8,7 @@ Character::Character()
 	formY = 0;
 	life = 3;
 	jumpHeight = 0;
-	typeOfWeapon = 4;
+	typeOfWeapon = -1;
 	isJumping = false;
 	isSitting = false;
 	isAttack = false;
@@ -139,14 +139,6 @@ void Character::MoveUp()
 	{
 		jumpHeight += 60;
 	}
-
-	//-----------
-
-	Character::IncreaseScore(1);
-	
-
-
-
 
 }
 
@@ -378,7 +370,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 
 			if (countGameOver > 50)
 			{
-				countGameOver = countGameOver - 3;
+				countGameOver = countGameOver - 20;
 			}
 
 			if (formXOver >= 7)
@@ -474,7 +466,7 @@ void Character::Draw(HWND hwnd, HDC hdc)
 		//Game Over
 		if (countGameOver > 50)
 		{
-			countGameOver = countGameOver - 3;
+			countGameOver = countGameOver - 20;
 		}
 
 		if (formXOver >= 7)
@@ -579,6 +571,7 @@ int Character::GetJumpingHeight()
 void Character::SetDeath(bool a_isDead)
 {
 	isDead = a_isDead;
+	life--;
 }
 
 bool Character::CheckDeath()

@@ -4,8 +4,8 @@
 
 #define MOON_HEIGHT 81
 #define MOON_WIDTH 82
-#define MOON_AREA 800
-#define MOON_SPEED 15
+#define MOON_AREA 500
+#define MOON_SPEED 10
 
 //L = 0, R = 1;
 
@@ -23,7 +23,7 @@ public:
 		formX = 7;
 		dir = 0;
 		formY = 0;
-		originalLocation = 3500;
+		originalLocation = posX;
 		isFalling = true;
 		originalposY = a_posY;
 		life = 1;
@@ -31,6 +31,20 @@ public:
 		hbmMask = CreateBitmapMask(hBitmap, RGB(255, 0, 255));
 	}
 
+	Moon(int a_posX, int a_posY)
+	{
+		posX = a_posX;
+		posY = a_posY;
+		formX = 7;
+		dir = 0;
+		formY = 0;
+		originalLocation = posX;
+		isFalling = true;
+		originalposY = a_posY;
+		life = 1;
+		hBitmap = (HBITMAP)LoadImage(hInst, L"Moon.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+		hbmMask = CreateBitmapMask(hBitmap, RGB(255, 0, 255));
+	}
 	Moon()
 	{
 		posX = 3600;
@@ -97,7 +111,7 @@ public:
 
 			if (isFalling)
 			{
-				posY = posY + 5;
+				posY = posY + 20;
 				if (posY >= originalposY + 70)
 				{
 					isFalling = false;
@@ -105,8 +119,8 @@ public:
 			}
 			else if (!isFalling)
 			{
-				posY = posY - 5;
-				if (posY <= originalposY - 70)
+				posY = posY - 20;
+				if (posY <= originalposY -70)
 				{
 					isFalling = true;
 				}
