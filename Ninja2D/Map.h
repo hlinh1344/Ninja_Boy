@@ -26,7 +26,7 @@ public:
 
 	Map();
 	~Map();
-	void Draw(HWND hwnd, HDC hdc) override;
+	void Draw(HWND hwnd, HDC hdc, HDC hdcMem) override;
 	void increseMapSlider(int a);
 	int getMapSlider();
 	void checkToAddEnemy(int a_posX, int &enemyID, bool &checkToAdd);

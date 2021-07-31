@@ -48,7 +48,7 @@ public:
 	void SetFormX(int a_formX);
 	void SetFormY(int a_formY);
 	void IncreseFormX(int a);
-	void Draw(HWND hwnd, HDC hdc) override;
+	void Draw(HWND hwnd, HDC hdc, HDC hdcMem) override;
 	void MoveLeft() override;
 	void MoveRight() override;
 	void MoveUp() override;

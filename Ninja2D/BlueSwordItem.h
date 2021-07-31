@@ -41,11 +41,11 @@ public:
 	{
 
 	}
-	void Draw(HWND hwnd, HDC hdc) override
+	void Draw(HWND hwnd, HDC hdc, HDC hdcMem) override
 	{
 		if (!isDead)
 		{
-			hdcMem = CreateCompatibleDC(hdc);
+			//hdcMem = CreateCompatibleDC(hdc);
 			oldBitmap = SelectObject(hdcMem, hbmMask);
 			GetObject(hbmMask, sizeof(bitmap), &bitmap);
 			BitBlt
@@ -74,8 +74,8 @@ public:
 				BLUE_SWORD_ITEM_HEIGHT * formY,
 				SRCPAINT
 			);
-			SelectObject(hdcMem, oldBitmap);
-			DeleteDC(hdcMem);
+			//SelectObject(hdcMem, oldBitmap);
+			//DeleteDC(hdcMem);
 			if (formX == 0)
 			{
 				posY++;

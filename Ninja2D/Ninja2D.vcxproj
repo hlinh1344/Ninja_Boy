@@ -142,6 +142,7 @@
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Moon.h" />
+    <ClInclude Include="EnemySlime.h" />
     <ClInclude Include="WeaponBlueSword.h" />
     <ClInclude Include="BlueSwordItem.h" />
     <ClInclude Include="Character.h" />

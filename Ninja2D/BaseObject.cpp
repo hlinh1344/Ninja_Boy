@@ -5,7 +5,7 @@ int BaseObject::mapSlider = 0;
 
 BaseObject::BaseObject()
 {
-	hdcMem = NULL;
+	
 	oldBitmap = NULL;
 	hInst = NULL;
 	isDead = false;
@@ -16,7 +16,7 @@ BaseObject::~BaseObject()
 
 }
 
-void BaseObject::Draw(HWND hwnd, HDC hdc)
+void BaseObject::Draw(HWND hwnd, HDC hdc, HDC hdcMem)
 {
 
 }

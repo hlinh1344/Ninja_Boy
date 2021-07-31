@@ -20,6 +20,7 @@
 #include "EnemyDarkGirl.h"
 #include "EnemyDarkRaven.h"
 #include "Boss.h"
+#include "EnemySlime.h"
 
 #include "Weapon.h"
 #include "WeaponBlueSword.h"
@@ -53,6 +54,7 @@ private:
 	int countID;
 	bool checkToAdd;
 	int clock;
+	HDC hdcMem;
 
 public:
 	GamePlay();
