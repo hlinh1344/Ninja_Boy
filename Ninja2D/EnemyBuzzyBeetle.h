@@ -4,8 +4,8 @@
 
 #define BUZZY_HEIGHT 45
 #define BUZZY_WIDTH 44
-#define BUZZY_AREA 100
-#define BUZZY_SPEED 14
+#define BUZZY_AREA 300
+#define BUZZY_SPEED 2
 
 class EnemyBuzzyBeetle : public Enemy
 {
@@ -113,7 +113,7 @@ public:
 		{
 			if (EnemyBuzzyBeetle::IsGoRight())
 			{
-				if (clock >= 3)
+				if (clock >= 20)
 				{
 					clock = 0;
 					if (formX >= 4)
@@ -133,7 +133,7 @@ public:
 
 			else if (EnemyBuzzyBeetle::IsGoLeft())
 			{
-				if (clock >= 3)
+				if (clock >= 20)
 				{
 					clock = 0;
 					if (formX <= 0)

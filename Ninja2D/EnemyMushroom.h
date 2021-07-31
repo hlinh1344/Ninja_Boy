@@ -10,8 +10,8 @@
 
 #define MUSHROOM_HEIGHT 43
 #define MUSHROOM_WIDTH 44
-#define MUSHROOM_AREA 100
-#define MUSHROOM_SPEED 10
+#define MUSHROOM_AREA 200
+#define MUSHROOM_SPEED 1
 class EnemyMushroom : public Enemy
 {
 private:

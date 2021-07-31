@@ -69,7 +69,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	ShowWindow(hwnd, nCmdShow);
 	UpdateWindow(hwnd);
 	MSG msg = { };
-	float framePerSecond = 120.0;
+	float framePerSecond = 80.0;
 	float frameInterval = 1000.0 / framePerSecond;
 	while (globalRunning)
 	{
@@ -132,28 +132,60 @@ void OnCreate(HWND hwnd)
 
 void OnKeyDown(HWND hwnd, WPARAM wParam)
 {
-
-	switch (wParam)
+	if (gamePlay.InMenu() == false)
 	{
-	case VK_ESCAPE:
-		OnClose(hwnd);
-		break;
-	case VK_LEFT:
-		gamePlay.MoveNinjaLeft();
-		break;
-	case VK_RIGHT:
-		gamePlay.MoveNinjaRight();
-		break;
-	case VK_UP:
-		gamePlay.MoveNinjaUp();
-		break;
-	case VK_DOWN:
-		gamePlay.MoveNinjaDown();
-		break;
-	case VK_SPACE:
-		gamePlay.Attack();
-
+		switch (wParam)
+		{
+		case VK_ESCAPE:
+			OnClose(hwnd);
+			break;
+		case VK_LEFT:
+			gamePlay.MoveNinjaLeft();
+			break;
+		case VK_RIGHT:
+			gamePlay.MoveNinjaRight();
+			break;
+		case VK_UP:
+			gamePlay.MoveNinjaUp();
+			break;
+		case VK_DOWN:
+			gamePlay.MoveNinjaDown();
+			break;
+		case VK_SPACE:
+			gamePlay.Attack();
+			break;
+		default:
+			break;
+		}
 	}
+	else if (gamePlay.InMenu() == true)
+	{
+		switch (wParam)
+		{
+		case VK_ESCAPE:
+			OnClose(hwnd);
+			break;
+		case VK_UP:
+			gamePlay.ChangeMenuSelection();
+			break;
+		case VK_DOWN:
+			gamePlay.ChangeMenuSelection();
+			break;
+		case VK_SPACE:
+			if (gamePlay.Exit() == true)
+			{
+				OnClose(hwnd);
+			}
+			else if (gamePlay.Exit() == false)
+			{
+				gamePlay.Play();
+			}
+			break;
+		default:
+			break;
+		}
+	}
+
 
 }
 
@@ -175,6 +207,9 @@ void OnKeyUp(HWND hwnd, WPARAM wParam)
 		break;
 	case VK_SPACE:
 		gamePlay.KeyUpSpace();
+		break;
+	default:
+		break;
 	}
 
 }

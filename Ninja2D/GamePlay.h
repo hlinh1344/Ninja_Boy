@@ -8,6 +8,7 @@
 #include "LiveObject.h"
 #include "Point2D.h"
 #include "Character.h"
+#include "Menu.h"
 
 #include "Enemy.h"
 #include "EnemyMushroom.h"
@@ -37,6 +38,7 @@
 #include "FlameItem.h"
 #include "ThunderDragonItem.h"
 
+
 class GamePlay
 {
 private:
@@ -47,6 +49,7 @@ private:
 
 	Boss* boss;
 	Map map;
+	Menu menu;
 	Character * ninja;
 	int enemyID;
 	int itemID;
@@ -55,6 +58,7 @@ private:
 	bool checkToAdd;
 	int clock;
 	HDC hdcMem;
+	bool inMenu;
 
 public:
 	GamePlay();
@@ -77,5 +81,9 @@ public:
 	void AddWeapon(int type, int dir_Moving, int stage);
 	void ResetClock();
 	bool CheckClock();
+	bool InMenu();
+	bool Exit();
+	void ChangeMenuSelection();
+	void Play();
 };
 

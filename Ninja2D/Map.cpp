@@ -5,7 +5,6 @@ Map::Map()
 	posX = 0;
 	posY = 0;
 	hbmGround = (HBITMAP)LoadImage(hInst, L"Map2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-	hbmMask = CreateBitmapMask(hbmCloud, RGB(255, 255, 255));
 }
 Map::~Map()
 {

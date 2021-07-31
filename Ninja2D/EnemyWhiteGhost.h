@@ -5,7 +5,7 @@
 #define WHITE_GHOST_HEIGHT 100
 #define WHITE_GHOST_WIDTH 100
 #define WHITE_GHOST_AREA 850
-#define WHITE_GHOST_SPEED 7
+#define WHITE_GHOST_SPEED 4
 
 
 class EnemyWhiteGhost : public Enemy
@@ -135,7 +135,7 @@ public:
 		{
 			if (EnemyWhiteGhost::IsGoRight())
 			{
-				if (clock >= 4)
+				if (clock >= 10)
 				{
 					clock = 0;
 					if (formX >= 11)
@@ -155,7 +155,7 @@ public:
 
 			else if (EnemyWhiteGhost::IsGoLeft())
 			{
-				if (clock >= 4)
+				if (clock >= 10)
 				{
 					clock = 0;
 					if (formX <= 0)

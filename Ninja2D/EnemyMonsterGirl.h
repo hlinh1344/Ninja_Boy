@@ -5,7 +5,7 @@
 #define MONSTER_GIRL_HEIGHT 65
 #define MONSTER_GIRL_WIDTH 70
 #define MONSTER_GIRL_AREA 1200
-#define MONSTER_GIRL_SPEED 20
+#define MONSTER_GIRL_SPEED 8
 
 
 class EnemyMonsterGirl : public Enemy
@@ -137,7 +137,7 @@ public:
 		{
 			if (EnemyMonsterGirl::IsGoRight())
 			{
-				if (clock >= 2)
+				if (clock >= 16)
 				{
 					clock = 0;
 					if (formX >= 5)
@@ -157,7 +157,7 @@ public:
 
 			else if (EnemyMonsterGirl::IsGoLeft())
 			{
-				if (clock >= 2)
+				if (clock >= 16)
 				{
 					clock = 0;
 					if (formX <= 0)

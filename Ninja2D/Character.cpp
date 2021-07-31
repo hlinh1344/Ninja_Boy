@@ -137,7 +137,7 @@ void Character::MoveUp()
 	isJumping = true;
 	if (jumpHeight <= 270)
 	{
-		jumpHeight += 60;
+		jumpHeight += 80;
 	}
 
 }
@@ -637,7 +637,7 @@ void Character::MakeAnimation()
 
 	if ((isDead == false) && (jumpHeight) > 0)
 	{
-		jumpHeight -= 5;
+		jumpHeight -= 2;
 	}
 }
 

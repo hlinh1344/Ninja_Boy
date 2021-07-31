@@ -5,7 +5,7 @@
 #define BIRD_HEIGHT 65
 #define BIRD_WIDTH 64
 #define BIRD_AREA 1000
-#define BIRD_SPEED 8
+#define BIRD_SPEED 3
 
 
 class EnemyBird : public Enemy
@@ -128,14 +128,20 @@ public:
 
 	void MakeAnimation() override
 	{
+		clock++;
 		if (!isDead)
 		{
 			if (EnemyBird::IsGoRight())
 			{
-				if (formX >= 7)
-					formX = 4;
-				else
-					formX = formX + 1;
+				if (clock >= 13)
+				{
+					clock = 0;
+					if (formX >= 7)
+						formX = 4;
+					else
+						formX = formX + 1;
+				}
+				
 
 				EnemyBird::MoveRight();
 
@@ -147,11 +153,15 @@ public:
 
 			else if (EnemyBird::IsGoLeft())
 			{
-				if (formX <= 0)
-					formX = 3;
-				else
-					formX = formX - 1;
-
+				if (clock >= 13)
+				{
+					clock = 0;
+					if (formX <= 0)
+						formX = 3;
+					else
+						formX = formX - 1;
+				}
+				
 				EnemyBird::MoveLeft();
 
 				if (posX <= originalLocation)

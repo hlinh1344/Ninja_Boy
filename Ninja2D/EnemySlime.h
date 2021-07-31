@@ -5,7 +5,7 @@
 #define SLIME_HEIGHT 120
 #define SLIME_WIDTH 115
 #define SLIME_AREA 1200
-#define SLIME_SPEED 10
+#define SLIME_SPEED 3
 
 class EnemySlime : public Enemy
 {
@@ -112,7 +112,7 @@ public:
 		{
 			if (EnemySlime::IsGoRight())
 			{
-				if (clock >= 0)
+				if (clock >= 10)
 				{
 					clock = 0;
 					if (formX >= 17)
@@ -132,7 +132,7 @@ public:
 
 			else if (EnemySlime::IsGoLeft())
 			{
-				if (clock >= 0)
+				if (clock >= 10)
 				{
 					clock = 0;
 					if (formX <= 0)

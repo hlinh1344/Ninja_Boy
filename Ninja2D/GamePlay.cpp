@@ -10,6 +10,7 @@ GamePlay::GamePlay()
 	ninja = new Character();
 	boss = new Boss(3600);
 	hdcMem = NULL;
+	inMenu = true;
 }
 
 GamePlay::~GamePlay()
@@ -256,54 +257,62 @@ void GamePlay::Run()
 void GamePlay::Draw(HWND hwnd, HDC hdc)
 {
 	hdcMem = CreateCompatibleDC(hdc);
-	timer++;
-	map.Draw(hwnd, hdc, hdcMem);
-
-	for (auto item : items) {
-		if (item->CheckDeath() == true)
-		{
-			RemoveObject(item);
-		}
-		else
-			item->Draw(hwnd, hdc, hdcMem);
-	}
-
-	for (auto weapon : weapons)
+	if (inMenu == false)
 	{
-		if (weapon->CheckDeath() == true)
-		{
-			weapons.erase(weapons.begin());
+		timer++;
+		map.Draw(hwnd, hdc, hdcMem);
+
+		for (auto item : items) {
+			if (item->CheckDeath() == true)
+			{
+				RemoveObject(item);
+			}
+			else
+				item->Draw(hwnd, hdc, hdcMem);
 		}
-		else
-			weapon->Draw(hwnd, hdc, hdcMem);
-	}
 
-	for (auto moon : moons)
-	{
-		if (moon->CheckDeath() == true)
+		for (auto weapon : weapons)
 		{
-			moons.erase(moons.begin());
+			if (weapon->CheckDeath() == true)
+			{
+				weapons.erase(weapons.begin());
+			}
+			else
+				weapon->Draw(hwnd, hdc, hdcMem);
 		}
-		else
-			moon->Draw(hwnd, hdc, hdcMem);
-	}
 
-
-	for (auto enemy : enemies)
-	{
-		if (enemy->CheckDeath() == true)
+		for (auto moon : moons)
 		{
-			RemoveObject(enemy);
+			if (moon->CheckDeath() == true)
+			{
+				moons.erase(moons.begin());
+			}
+			else
+				moon->Draw(hwnd, hdc, hdcMem);
 		}
-		else
-			enemy->Draw(hwnd, hdc, hdcMem);
+
+
+		for (auto enemy : enemies)
+		{
+			if (enemy->CheckDeath() == true)
+			{
+				RemoveObject(enemy);
+			}
+			else
+				enemy->Draw(hwnd, hdc, hdcMem);
+		}
+
+
+
+		boss->Draw(hwnd, hdc, hdcMem);
+
+		ninja->Draw(hwnd, hdc, hdcMem);
 	}
+	else if(inMenu == true)
+		//-----------------------
+		//Menu
+		menu.Draw(hwnd, hdc, hdcMem);
 
-
-
-	boss->Draw(hwnd, hdc, hdcMem);
-
-	ninja->Draw(hwnd, hdc, hdcMem);
 	DeleteDC(hdcMem);
 }
 
@@ -762,4 +771,26 @@ bool GamePlay::CheckClock()
 	if (clock >= 6)
 		return true;
 	return false;
+}
+
+bool GamePlay::InMenu()
+{
+	return inMenu;
+}
+
+bool GamePlay::Exit()
+{
+	if (menu.CheckExit() == true)
+		return true;
+	return false;
+}
+
+void  GamePlay::ChangeMenuSelection()
+{
+	menu.ChangeSelection();
+}
+
+void GamePlay::Play()
+{
+	inMenu = false;
 }
